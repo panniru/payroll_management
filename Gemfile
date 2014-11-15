@@ -45,6 +45,12 @@ gem 'pg'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.1.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
+gem 'jquery-ui-rails', '~> 5.0.2'
+gem 'rails3-jquery-autocomplete', '~> 1.0.14'
+gem 'roo', '~> 1.13.2'
+gem 'will_paginate', '~> 3.0.7'
+gem 'bootstrap-will_paginate'
+
 group :development, :test do
   gem 'rspec-rails'
 end

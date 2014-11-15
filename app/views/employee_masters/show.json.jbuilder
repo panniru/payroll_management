@@ -1,0 +1,1 @@
+json.extract! @employee_master, :id, :code, :name, :designation_id, :department_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :created_at, :updated_at
