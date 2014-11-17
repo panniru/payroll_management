@@ -1,4 +1,5 @@
 PayrollManagement::Application.routes.draw do
+
   resources :employee_masters do
     collection do
       get :autocomplete_department_master_name
@@ -10,5 +11,6 @@ PayrollManagement::Application.routes.draw do
     end
   end
 
+  devise_for :users
   root to: "home#index"
 end

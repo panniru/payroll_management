@@ -1,0 +1,16 @@
+= link_to "change password?" ,  edit_user_password_path()
+- if current_user.manager?   
+  .row
+    .col-sm-3
+      %table#tblData.target.table.table-striped.table-condensed.table-bordered
+        %thead 
+          %th User 
+          %th Role
+          %th
+        %tbody
+          - User.all.each do |user|
+            %tr
+              %td= user.email
+              %td= user.user_id
+              %td
+                = link_to "Edit", edit_user_registration_path(user), :class => "btn-sm btn-warning btn-sm", :title => "Edit"
