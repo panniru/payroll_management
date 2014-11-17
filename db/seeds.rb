@@ -9,30 +9,30 @@
 
 def seed_roles
 
-  @manager = Roles.find_by_code("manager")
-  @director = Roles.find_by_code("director")
-  @accountant = Roles.find_by_code("accountant")
+  @manager = Role.find_by_code("manager")
+  @director = Role.find_by_code("director")
+  @accountant = Role.find_by_code("accountant")
 
 
   unless @manager.present?
-    Roles.create(:role => "manager", :code => "manager", :description => "manager")
+    Role.create(:role => "manager", :code => "manager", :description => "manager")
   end
 
   unless @director.present?
-    Roles.create(:role => "director", :code => "director", :description => "director")
+    Role.create(:role => "director", :code => "director", :description => "director")
   end
   
   unless @accountant.present?
-    Roles.create(:role => "accountant", :code => "accountant", :description => "accountant")
+    Role.create(:role => "accountant", :code => "accountant", :description => "accountant")
   end
   
   
 end
 
 def seed_user
-  manager_role = Roles.find_by_code("manager")
-  director_role = Roles.find_by_code("director")
-  accountant_role = Roles.find_by_code("accountant")
+  manager_role = Role.find_by_code("manager")
+  director_role = Role.find_by_code("director")
+  accountant_role = Role.find_by_code("accountant")
   
   @user_manager = User.find_by_role_id(manager_role)
   @user_director = User.find_by_role_id(director_role)
@@ -40,15 +40,15 @@ def seed_user
   
 
   unless @user_manager.present?
-    User.create(:email => "manager@gmail.com" , :password => "welcome" , :user_id => "manager" , :roles_id => manager_role.id)
+    User.create(:email => "manager@gmail.com" , :password => "welcome" , :user_id => "manager" , :role_id => manager_role.id)
   end
 
   unless @user_director.present?
-    User.create(:email => "director@gmail.com" , :password => "welcome" , :user_id => "director" , :roles_id => director_role.id)
+    User.create(:email => "director@gmail.com" , :password => "welcome" , :user_id => "director" , :role_id => director_role.id)
   end
 
   unless @user_accountant.present?
-    User.create(:email => "accountant@gmail.com", :password => "welcome", :user_id => "accountant", :roles_id => accountant_role.id)
+    User.create(:email => "accountant@gmail.com", :password => "welcome", :user_id => "accountant", :role_id => accountant_role.id)
   end
 
 end

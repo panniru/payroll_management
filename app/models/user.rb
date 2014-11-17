@@ -4,14 +4,12 @@ class User < ActiveRecord::Base
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
-  belongs_to :roles
+  belongs_to :role
 
-  def timeout_in
-    10.minutes
-  end
+ 
   
   def role_code
-    self.roles.code
+    self.role.code
   end
 
   def manager?
