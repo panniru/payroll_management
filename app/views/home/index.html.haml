@@ -1,4 +1,4 @@
-= link_to "change password?" ,  edit_user_password_path()
+//= link_to 'Change my password', edit_user_password_path(@resource, reset_password_token: @token)
 - if current_user.manager?   
   .row
     .col-sm-3
