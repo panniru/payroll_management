@@ -13,7 +13,7 @@ class EmployeeMastersController < ApplicationController
   # GET /employee_masters.json
   def index
     page = params[:page].present? ? params[:page] : 1
-    @employee_masters = EmployeeMaster.all.order("name").paginate(:page => page, :per_page => "5")
+    @employee_masters = EmployeeMaster.all.order("code").paginate(:page => page, :per_page => "5")
   end
 
   def search
@@ -38,6 +38,8 @@ class EmployeeMastersController < ApplicationController
 
   # GET /employee_masters/1/edit
   def edit
+    @employee_master.designation_name = @employee_master.designation_master.name
+    @employee_master.department_name = @employee_master.department_master.name
   end
 
   # POST /employee_masters
@@ -108,6 +110,6 @@ class EmployeeMastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_master_params
-      params.require(:employee_master).permit(:code, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name)
+      params.require(:employee_master).permit(:code, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name, :ctc)
     end
 end

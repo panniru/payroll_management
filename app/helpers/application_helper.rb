@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def edit_button(path, params={})
-    link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), "#", :class => "btn btn-primary"
+    link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), path, :class => "btn btn-primary"
   end
 
   def delete_button(path, params={})

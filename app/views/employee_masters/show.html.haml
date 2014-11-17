@@ -15,7 +15,7 @@
         = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"
         %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
           %span.fa.fa-caret-down
-        %ul.dropdown-menu
+        %ul.dropdown-menu.dropdown-menu-right
           %li
             = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), "#"
           %li
@@ -25,7 +25,7 @@
 .col-md-12
   .col-md-6
     %label Code:
-    %label.label.label-info= @employee_master.code
+    %label.label.label-info.employee_code= @employee_master.code
     %br
     %label Gender: 
     %label= @employee_master.gender
@@ -68,3 +68,6 @@
       %tr
         %th Account number
         %td= @employee_master.account_number
+      %tr
+        %th CTC
+        %td= @employee_master.ctc

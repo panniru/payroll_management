@@ -1,7 +1,5 @@
-%h1 Editing employee_master
+%h2 
+  = raw "Editing #{link_to @employee_master.name, @employee_master}"
 
 = render 'form'
 
-= link_to 'Show', @employee_master
-\|
-= link_to 'Back', employee_masters_path

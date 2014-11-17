@@ -3,7 +3,7 @@ class EmployeeMasterUploader
   include ActiveModel::Conversion
   include ActiveModel::Validations
   include Uploader
-  HEADERS = ["code", "name", "designation_name", "department_name", "gender", "initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "p_f_no", "bank_name", "account_number", "pan"]
+  HEADERS = ["code", "name", "designation_name", "department_name", "gender", "initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "p_f_no", "bank_name", "account_number", "pan", "ctc"]
   
   def persisted?
     false
@@ -29,8 +29,6 @@ class EmployeeMasterUploader
   end
 
   def map_row_data(row_hash)
-    p "=========== #{row_hash}"
-    p HEADERS.map{|key| [key, row_hash[key.titleize]]}.to_h
     HEADERS.map{|key| [key, row_hash[key.titleize]]}.to_h
   end
 
