@@ -9,7 +9,7 @@
   .col-md-6
     .pull-right
       = edit_button(edit_employee_master_path(@employee_master))
-      = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), "#", :class => "btn btn-primary"
+      = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), employee_master_employee_advance_payments_path(@employee_master), :class => "btn btn-primary"
       = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), "#", :class => "btn btn-primary"
       .btn-group
         = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"

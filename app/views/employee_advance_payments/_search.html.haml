@@ -1,0 +1,7 @@
+= form_tag search_by_month_employee_master_employee_advance_payments_path(@employee_master), :method => 'get' , :class => "form-inline" do
+  .form-group
+    = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month"
+  .form-group
+    = select_tag "year", options_for_select(((Date.today.year-10..Date.today.year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year"
+  = submit_search
+  = link_to_new(new_employee_master_employee_advance_payment_path(@employee_master))

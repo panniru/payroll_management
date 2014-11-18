@@ -1,0 +1,6 @@
+= title("#{@employee_master.name}- Edit New-Pay")
+%h2 
+  = raw "New #{link_to 'Advance Payments', employee_master_employee_advance_payments_path(@employee_master)} :"
+  = link_to @employee_master.name, @employee_master
+  %hr
+= render 'form'

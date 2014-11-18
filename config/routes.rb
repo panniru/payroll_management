@@ -9,6 +9,11 @@ PayrollManagement::Application.routes.draw do
       post :upload
       get :search
     end
+    resources :employee_advance_payments do
+      collection do
+        get "search_by_month"
+      end
+    end
   end
 
   devise_for :users

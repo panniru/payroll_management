@@ -22,14 +22,15 @@ module ApplicationHelper
 
 
   def submit_link
-    link_to raw("<i class='fa fa-save fa-lg'></i> Save"), "#", :class => "btn btn-primary", :rel => "submitLink"
+    link_to raw("<i class='fa fa-save fa-lg'></i> Save"), "#", :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :rel => "submitLink"
   end
 
   def edit_button(path, params={})
-    link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), path, :class => "btn btn-primary"
+    link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}"
   end
 
   def delete_button(path, params={})
+    link_to raw("<i class='fa fa-trash fa-lg'></i> Delete"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :method => "delete", :data => {:confirm => "Are you sure?"}
   end
   
   def title(*parts)
