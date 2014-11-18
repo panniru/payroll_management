@@ -50,6 +50,7 @@ gem 'rails3-jquery-autocomplete', '~> 1.0.14'
 gem 'roo', '~> 1.13.2'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
+gem 'angularjs-rails', '~> 1.3.2'
 
 group :development, :test do
   gem 'rspec-rails'
