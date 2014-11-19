@@ -1,5 +1,11 @@
 PayrollManagement::Application.routes.draw do
 
+  resources :salary_break_ups do
+    collection do
+      put :update_all
+    end
+  end
+
   resources :employee_masters do
     collection do
       get :autocomplete_department_master_name
