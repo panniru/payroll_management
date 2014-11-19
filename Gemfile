@@ -52,6 +52,8 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 gem 'angularjs-rails', '~> 1.3.2'
 gem 'angular-rails-templates', '~> 0.1.3'
+
+gem 'rails_12factor', group: :production
 group :development, :test do
   gem 'rspec-rails'
 end
