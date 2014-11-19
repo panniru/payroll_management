@@ -1,19 +1,24 @@
 .navbar.navbar-inverse
   .navbar-inner.container
-    .col-sm-6
+    .col-sm-12
       .navbar-header
         .navbar-brand= link_to "Payroll", "#", :class => "navbar-brand"
-      %ul.nav.navbar-nav
-        %li.navbar-brand
-          = link_to "Employees", employee_masters_path
-    .pull-right
       - if current_user.present?
         %ul.nav.navbar-nav
-          %li.dropdown.navbar-brand
-            = link_to raw("#{current_user.user_id} <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
-            %ul.dropdown-menu.dropdown-menu-right
-              %li
-                = link_to "Sign Out", destroy_user_session_path, :data => {:method => :delete}
-                = link_to "Change Password", edit_user_password_path(current_user)
-          
+          %li.navbar-brand
+            = link_to "Employees", employee_masters_path
+        %ul.nav.navbar-nav
+          %li.navbar-brand
+            = link_to "Leaves" , employee_leaves_path
+        .pull-right
+          %ul.nav.navbar-nav
+            %li.dropdown.navbar-brand
+              = link_to raw("#{current_user.user_id} <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
+              %ul.dropdown-menu.dropdown-menu-right
+                %li
+                  = link_to "Sign Out", destroy_user_session_path, :data => {:method => :delete}
+                  = link_to "Change Password", edit_user_password_path(current_user)
+                  - if current_user.manager?
+                    = link_to "Edit User", edit_user_home_index_path
+
                     

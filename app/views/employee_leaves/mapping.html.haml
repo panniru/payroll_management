@@ -1,0 +1,20 @@
+%h1 
+  = link_to "Admin Mapping"
+%form{:action => "/employee_leaves", :method => "PUT" }
+  .col-md-10
+    %table.table.table-condensed
+      %thead
+        %th Designation
+        %th Mapping
+      %tbody
+        - DesignationMaster.all.each do |emp|
+          %tr
+            %td= emp.name
+            %td
+              = label_tag 'Senior Accountant'
+              = radio_button_tag 'managed_by' , 'accountant' 
+            %td
+
+              = label_tag 'Commercial Manager'
+              = radio_button_tag 'managed_by' , 'manager'
+

@@ -53,9 +53,12 @@ def seed_user
 
 end
 
+
+
 def seed_all
   seed_roles
   seed_user  
+
 end
 
 

@@ -1,20 +1,23 @@
+%center
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .row
-    .col-sm-1
+    .col-md-4
+    .col-md-1
       = f.label :email, class: 'form-label'
-    .col-sm-2
+    .col-md-3
       = f.email_field :email, class: 'form-control'
     %br
     %br
   .row
-    .col-sm-1
+    .col-md-4
+    .col-md-1
       = f.label :password
-    .col-sm-2
+    .col-sm-3
       = f.password_field :password, autocomplete: "off", class: 'form-control'
     %br
     %br
   .row
-    .col-sm-2
-    .col-sm-2
+    .col-sm-6
+    .col-sm-6
       = f.submit "Log in" , class: 'btn btn-primary'
       = render "devise/shared/links"

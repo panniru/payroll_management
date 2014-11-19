@@ -1,0 +1,19 @@
+%center
+  .pull-center
+    - if current_user.manager? 
+      %h4
+        .row
+          .col-md-4
+          .col-md-3
+            %table#tblData.target.table.table-striped.table-condensed.table-bordered
+              %thead 
+                %th User 
+                %th Role
+                %th
+              %tbody
+                - User.all.each do |user|
+                  %tr
+                    %td= user.email
+                    %td= user.user_id
+                    %td
+                      = link_to "Edit", edit_user_registration_path(user), :class => "btn-sm btn-warning btn-sm", :title => "Edit"

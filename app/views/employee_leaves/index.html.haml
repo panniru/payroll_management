@@ -1,0 +1,23 @@
+.page-header
+  %h1
+    
+    = link_to "Leaves" , '#'
+    = link_to_upload(upload_employee_leaves_path)
+%table.table.table-condensed
+  %thead
+    %th Code
+    %th Date
+    %th Total Days
+    %th Working Days
+    %th lop
+    %th
+  %tbody
+    - @employee_leaves.each do |employee|
+      %tr
+        %td= employee.code
+        %td= employee.entered_date
+        %td= employee.total_days
+        %td= employee.working_days
+        %td= employee.lop
+        %td
+          = edit_button(edit_employee_leafe_path(employee))

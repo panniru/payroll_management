@@ -9,13 +9,23 @@ PayrollManagement::Application.routes.draw do
       post :upload
       get :search
     end
-    resources :employee_advance_payments do
-      collection do
-        get "search_by_month"
-      end
+  end
+  
+  
+  resources :employee_leaves do
+    collection do
+      post "upload"
+      get "new_upload"
+      get "mapping"
     end
   end
 
+
+  resources :home do
+    collection do
+      get "edit_user"
+    end
+  end
   devise_for :users
   root to: "home#index"
 end

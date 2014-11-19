@@ -10,6 +10,8 @@ class EmployeeMaster < ActiveRecord::Base
   belongs_to :department_master
   belongs_to :designation_master
   has_many :employee_advance_payments
+  has_many :employee_leaves
+
 
   def save_employee
     ActiveRecord::Base.transaction do
