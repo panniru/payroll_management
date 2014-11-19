@@ -51,7 +51,7 @@ gem 'roo', '~> 1.13.2'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 gem 'angularjs-rails', '~> 1.3.2'
-
+gem 'angular-rails-templates', '~> 0.1.3'
 group :development, :test do
   gem 'rspec-rails'
 end

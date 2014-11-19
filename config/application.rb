@@ -24,5 +24,9 @@ module PayrollManagement
 
     config.autoload_paths += %W(#{Rails.root}/lib/)    
     config.autoload_paths += %W(#{Rails.root}/app/models/uploaders)
+    config.angular_templates.module_name    = 'templates'
+    config.angular_templates.ignore_prefix  = 'templates/'
+    config.angular_templates.markups        = %w(erb haml)
+    config.angular_templates.htmlcompressor = false
   end
 end

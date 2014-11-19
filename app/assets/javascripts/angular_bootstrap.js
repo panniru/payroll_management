@@ -1,1 +1,1 @@
-var payRollApp = angular.module("payRollApp", []);
+var payRollApp = angular.module("payRollApp", ['templates']);

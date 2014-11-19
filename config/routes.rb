@@ -3,6 +3,7 @@ PayrollManagement::Application.routes.draw do
   resources :salary_break_ups do
     collection do
       put :update_all
+      get :break_up_report
     end
   end
 

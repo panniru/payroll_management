@@ -20,4 +20,14 @@
         
         
     }]);
+
+    app.controller("SalaryBreakUpInitializeController",["$scope", "$compile", "$element", function($scope, $compile, $element) {
+        $scope.isClicked = false
+        $scope.generate_salary_break_up = function(ctc){
+            $scope.isClicked = true
+            var directive_to_add = $compile("<salary-break-up ctc='"+ctc+"'></salary-break-up>")($scope);
+            angular.element(document.getElementById('salaryBreakUpShowDiv')).html(directive_to_add);
+        }
+
+    }]);
 })(angular, payRollApp);

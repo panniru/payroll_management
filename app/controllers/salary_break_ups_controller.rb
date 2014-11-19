@@ -81,6 +81,14 @@ class SalaryBreakUpsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def break_up_report
+    respond_to do |format|
+      format.json do
+        render :json => SalaryBreakUpCreator.new(params[:ctc].to_f).to_h
+      end
+    end
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.
