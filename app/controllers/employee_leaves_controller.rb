@@ -60,6 +60,6 @@ class EmployeeLeavesController < ApplicationController
  
   private
   def employee_leave_params
-    params.require(:employee_leave).permit(:employee_master_id , :lop , :month , :total_days, :working_days , :code)
+    params.require(:employee_leave).permit(:employee_master_id , :lop , :month , :days_worked, :working_days , :code , :sl , :pl , :cl)
   end
 end

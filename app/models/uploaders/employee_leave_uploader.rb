@@ -3,7 +3,7 @@ class EmployeeLeaveUploader
   include ActiveModel::Conversion
   include ActiveModel::Validations
   include Uploader
-  HEADERS = ["code"  , "total_days" , "working_days" , "lop" ]
+  HEADERS = ["code"  , "days_worked" , "working_days" , "lop" , "sl" , "pl" , "cl" ]
 
   def persisted?
     false
