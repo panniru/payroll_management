@@ -1,0 +1,22 @@
+.col-md-12
+  .col-md-4.col-right-border  
+    = render "shared/org_details"
+  .col-md-5.col-right-border  
+    .container
+      %label Name: 
+      %label.org-name= @employee_master.name
+      %br
+      %br
+      %label Designation: 
+      %label.org-name= @employee_master.designation_master.name
+      %br
+  .col-md-3
+    .col-md-offset-2
+      %br
+      %br
+      %span.org-name FORM - T - WAGE SLIP
+  %hr
+.col-md-12
+  .col-md-offset-2
+    %h3= "PAY SLIP FOR THE MONTH OF #{Date.today.strftime("%b").upcase} #{Date.today.strftime("%Y")}"
+  %hr

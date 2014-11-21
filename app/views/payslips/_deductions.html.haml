@@ -1,0 +1,35 @@
+.col-md-6
+  .col-md-6
+    %label Provident Fund
+  .col-md-6
+    %label= payslip.pf
+  - if  payslip.club_contribution.present?
+    .col-md-6
+      %label Club Contribution
+    .col-md-6
+      %label= payslip.club_contribution
+  - if  payslip.proffesional_tax.present?
+    .col-md-6
+      %label Proffesional Tax
+    .col-md-6
+      %label= payslip.proffesional_tax
+  - if  payslip.tds_pm.present?
+    .col-md-6
+      %label TDS
+    .col-md-6
+      %label= payslip.tds_pm
+  - if  payslip.additional_deduction_1.present?
+    .col-md-6
+      %label Additional Deduction 1
+    .col-md-6
+      %label= payslip.additional_deduction_1
+  - if  payslip.additional_deduction_2.present?
+    .col-md-6
+      %label Additional Deduction 2
+    .col-md-6
+      %label= payslip.additional_deduction_2
+  - if  payslip.additional_deduction_3.present?
+    .col-md-6
+      %label Additional Deduction 3
+    .col-md-6
+      %label= payslip.additional_deduction_3

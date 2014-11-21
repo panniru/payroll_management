@@ -41,8 +41,8 @@ class SalaryBreakUpCreator
     {
       component: component.titleize,
       criteria: "#{component_criterias[component.to_sym]} #{BREAK_UP_FORUMULA_DESC[component.to_sym]}",
-      amount_per_month: (send(component.to_sym)/12).round,
-      amount_per_year: send(component.to_sym).round
+      amount_per_month: (send(component.to_sym)).round,
+      amount_per_year: (send(component.to_sym)*12).round
     }
   end
 

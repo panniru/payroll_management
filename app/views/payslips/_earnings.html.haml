@@ -1,0 +1,81 @@
+.col-md-6
+  .col-md-6
+    %label Basic
+  .col-md-6
+    %label= payslip.basic
+  - if  payslip.hra.present?
+    .col-md-6
+      %label HRA
+    .col-md-6
+      %label= payslip.hra
+  - if  payslip.conveyance_allowance.present?
+    .col-md-6
+      %label Conveyance Allowance
+    .col-md-6
+      %label= payslip.conveyance_allowance
+  - if  payslip.city_compensatory_allowance.present?
+    .col-md-6
+      %label City Compensatory Allowance
+    .col-md-6
+      %label= payslip.city_compensatory_allowance
+  - if  payslip.special_allowance.present?
+    .col-md-6
+      %label Special Allowance
+    .col-md-6
+      %label= payslip.special_allowance
+  - if  payslip.loyalty_allowance.present?
+    .col-md-6
+      %label Loyalty Allowance
+    .col-md-6
+      %label= payslip.loyalty_allowance
+  - if  payslip.medical_allowance.present?
+    .col-md-6
+      %label Medical Allowance
+    .col-md-6
+      %label= payslip.medical_allowance
+  - if  payslip.incentive_payment.present?
+    .col-md-6
+      %label Incentive
+    .col-md-6
+      %label= payslip.incentive_payment
+.col-md-6
+  - if  payslip.loyalty_deposit.present?
+    .col-md-6
+      %label Loyalty Deposit
+    .col-md-6
+      %label= payslip.loyalty_deposit
+  - if  payslip.arrears_of_salary.present?
+    .col-md-6
+      %label Arrears Of Salary
+    .col-md-6
+      %label= payslip.arrears_of_salary
+  - if  payslip.grade_allowance.present?
+    .col-md-6
+      %label Grade Allowance
+    .col-md-6
+      %label= payslip.grade_allowance
+  - if  payslip.leave_settlement.present?
+    .col-md-6
+      %label Leave Settlement
+    .col-md-6
+      %label= payslip.leave_settlement
+  - if  payslip.performance_bonus.present?
+    .col-md-6
+      %label Performance Bonus
+    .col-md-6
+      %label= payslip.performance_bonus
+  - if payslip.additional_allowance_1.present? 
+    .col-md-6
+      %label Additional Allowance 1
+    .col-md-6
+      %label= payslip.additional_allowance_1
+  - if payslip.additional_allowance_2.present?
+    .col-md-6
+      %label Additional Allowance 2
+    .col-md-6
+      %label= payslip.additional_allowance_2
+  - if payslip.additional_allowance_3.present? 
+    .col-md-6
+      %label Additional Allowance 3
+    .col-md-6
+      %label= payslip.additional_allowance_3

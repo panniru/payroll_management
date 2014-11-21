@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
 
-  def submit_link
+  def submit_link(params={})
     link_to raw("<i class='fa fa-save fa-lg'></i> Save"), "#", :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :rel => "submitLink"
   end
 

@@ -6,7 +6,7 @@ PayrollManagement::Application.routes.draw do
       get :break_up_report
     end
   end
-
+  
   resources :employee_masters do
     collection do
       get :autocomplete_department_master_name
@@ -21,9 +21,12 @@ PayrollManagement::Application.routes.draw do
         get :search_by_month
       end
     end
+    resources :payslips
   end
   
-  
+  get "/payslips/new_payslips"
+  post "/payslips/create_payslips"
+
   resources :employee_leaves do
     collection do
       post "upload"

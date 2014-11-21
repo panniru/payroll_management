@@ -1,0 +1,32 @@
+.form-group
+  = f.label "Provident Fund", :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :pf, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :club_contribution, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :club_contribution, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :proffesional_tax, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :proffesional_tax, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :tds, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :tds_pm, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :additional_deduction_1, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :additional_deduction_1, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :additional_deduction_2, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :additional_deduction_2, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :additional_deduction_3, :class => 'col-md-5 control-label'
+  .col-md-7
+    = f.text_field :additional_deduction_3, :class => "form-control", :rel => "deductionInputField"
+.form-group
+  = f.label :Total, :class => 'col-md-5 control-label'
+  .col-md-7
+    = text_field_tag "Total","", :id => "totalDeductionField",:class => "form-control", :readonly => true

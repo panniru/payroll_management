@@ -1,0 +1,15 @@
+.row{:ng_controller => "PayslipsController"}
+  .col-md-offset-6
+    %form{:class => "form-inline", :ng_submit => "newPayslips(1)"}
+      .form-group.col-md-8
+        = select_tag "designation_name", options_from_collection_for_select(DesignationMaster.all, "id", "name"), :class => "form-control", :ng_model => "designationId"
+      .col-md-3
+        = submit_search
+
+  .row{:ng_show => "payslips"}
+    .pull-right
+      %my-pagination{:from => "from_index", :to => "to_index", :current_page => "current_page", :total=> "total_entries", :action => "newPayslips(page)", :need_confirmation => "needConfirmation"}
+      = link_to raw("<i class='fa fa-save fa-lg'></i> Save"), "#", :class => "btn btn-primary", :ng_click => "savePayslips()"
+    %br
+    .row
+      = render "new_payslips_grid_view"

@@ -3,6 +3,7 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require angular
+//= require angular-resource
 //= require angular-rails-templates
 //= require bootstrap
 //= require_tree ./templates

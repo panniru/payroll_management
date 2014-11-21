@@ -13,7 +13,7 @@ class EmployeeMastersController < ApplicationController
   # GET /employee_masters.json
   def index
     page = params[:page].present? ? params[:page] : 1
-    @employee_masters = EmployeeMaster.all.order("code").paginate(:page => page, :per_page => "5")
+    @employee_masters = EmployeeMaster.all.order("code").paginate(:page => page)
   end
 
   def search
@@ -99,9 +99,6 @@ class EmployeeMastersController < ApplicationController
       render "new_upload"
     end
   end
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_master

@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+  organization:
+    code: "HOCHTIEF"
+    name: "HOCHTIEF (INDIA) PRIVATE LIMITED"
+    address_line1: "Polyhose Towers,(SPIC Annex) 4th Floor"
+    address_line2: "Mount Road Guindy"
+    city: "Chennai"
+    state: "Tamil Nadu"
+    pin: "600032"

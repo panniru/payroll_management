@@ -1,3 +1,4 @@
+WillPaginate.per_page = 5
 class EmployeeMaster < ActiveRecord::Base
   validates :name, :presence => true
   validates :gender, :presence => true
@@ -10,8 +11,9 @@ class EmployeeMaster < ActiveRecord::Base
   belongs_to :department_master
   belongs_to :designation_master
   has_many :employee_advance_payments
-  has_many :employee_leaves
+  has_many :employee_leaves, :class_name => "EmployeeLeave"
 
+  scope :having_designation, lambda{|design_id| where(:designation_master_id => design_id)}
 
   def save_employee
     ActiveRecord::Base.transaction do

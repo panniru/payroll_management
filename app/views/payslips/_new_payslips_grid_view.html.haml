@@ -1,0 +1,79 @@
+%table.table.table-bordered
+  %tr
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Code
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Name
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Basic
+    %th{:colspan => 9, :align => "center", :ng_show => "isEarningsEdit"}
+      %h4
+        %span.center-header-content Earnings (in Rupees) 
+        = render "toggle_component"
+    %th{:colspan => 6, :align => "center", :ng_hide => "isEarningsEdit"} 
+      %h4 
+        %span.center-header-content Deduction (in Rupees) 
+        = render "toggle_component"
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Earnings Total
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Deductions Total
+    %th.align-center-from-top{:rowspan => 2} 
+      %h4 Net Total
+  %tr
+    %th{:ng_show => "isEarningsEdit"}  Incentive
+    %th{:ng_show => "isEarningsEdit"} Loyalty Deposit
+    %th{:ng_show => "isEarningsEdit"} Arrears Of Salary
+    %th{:ng_show => "isEarningsEdit"} Grade Allowance
+    %th{:ng_show => "isEarningsEdit"} Leave Settlement
+    %th{:ng_show => "isEarningsEdit"} Performance Bonus
+    %th{:ng_show => "isEarningsEdit"} Additional Allowance 1
+    %th{:ng_show => "isEarningsEdit"} Additional Allowance 2
+    %th{:ng_show => "isEarningsEdit"} Additional Allowance 3
+
+    %th{:ng_hide => "isEarningsEdit"}  Club Contribution
+    %th{:ng_hide => "isEarningsEdit"} Proffesional Tax
+    %th{:ng_hide => "isEarningsEdit"} TDS
+    %th{:ng_hide => "isEarningsEdit"} Additional Deduction 1
+    %th{:ng_hide => "isEarningsEdit"} Additional Deduction 2
+    %th{:ng_hide => "isEarningsEdit"} Additional Deduction 3
+  %tbody
+    %tr{:ng_repeat => "payslip in payslips"}
+      %td
+        = link_to "{{payslip.employee_master_code}}", "/employee_masters/{{payslip.employee_master_id}}/payslips/new"
+      %td {{payslip.employee_master_name}}
+      %td {{payslip.basic}}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.incentive_payment"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.loyalty_deposit"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.arrears_of_salary"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.grade_allowance"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.leave_settlement"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.performance_bonus"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_allowance_1"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_allowance_2"}
+      %td{:ng_show => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_allowance_3"}
+
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.club_contribution"}
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.proffesional_tax"}
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.tds_pm"}
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_deduction_1"}
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_deduction_2"}
+      %td{:ng_hide => "isEarningsEdit"} 
+        %input{:type => "text", :class => "form-control", :ng_model => "payslip.additional_deduction_3"}
+      %td
+      %td
+      %td

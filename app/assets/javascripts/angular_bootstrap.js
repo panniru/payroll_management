@@ -1,1 +1,1 @@
-var payRollApp = angular.module("payRollApp", ['templates']);
+var payRollApp = angular.module("payRollApp", ['ngResource', 'templates']);
