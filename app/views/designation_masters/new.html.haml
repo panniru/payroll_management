@@ -1,2 +1,24 @@
-%h1 DesignationMasters#new
-%p Find me in app/views/designation_masters/new.html.haml
+%h1 
+  = link_to "Admin Mapping"
+ 
+%h4
+  %form{:ng_controller => "DesignationMasterController" , :ng_init => "getDesignation(page)", :ng_submit => "saveDesignation()"  }
+    .col-md-3.col-md-offset-6
+      %my-pagination{:from => "from_index", :to => "to_index", :total=> "total_entries", :action => "getDesignation(page)"}
+    .col-md-10
+      %table.table.table-condensed
+        %thead
+          %th Designation
+          %th Managed By
+        %tbody
+          %tr{"ng-repeat" => "designation in designations.designations"}
+            %td {{designation.name}}
+            %td
+              %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("accountant").id}
+              Senior Accountant
+              %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("manager").id}
+              Commercial Manager
+
+
+        .pull-right
+          = save_button

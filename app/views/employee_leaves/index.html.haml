@@ -6,6 +6,7 @@
 %table.table.table-condensed
   %thead
     %th Code
+    %th Name
     %th Date
     %th Days Worked
     %th Working Days
@@ -18,6 +19,7 @@
     - @employee_leaves.each do |employee|
       %tr
         %td= employee.code
+        %td= employee.employee_master.name
         %td= employee.entered_date
         %td= employee.days_worked
         %td= employee.working_days

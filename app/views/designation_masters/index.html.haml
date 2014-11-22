@@ -1,21 +1,22 @@
 %h1 
   = link_to "Admin Mapping"
-%form{:action => "/designation_masters", :method => "PUT" }
-  .col-md-10
-    %table.table.table-condensed
-      %thead
-        %th Designation
-        %th Mapping
-      %tbody
-        - DesignationMaster.has_no_admin.all.each do |emp|
-          %tr
-            %td= emp.name
-            %td
-              %input{:name => emp.id ,  :type => "radio", :value => "Accountant"}
-              Senior Accountant
-              %input{:name => emp.id,  :type => "radio", :value => "Manager"}
-              Commercial Manager
+.pull-right
+  = edit_button(new_designation_master_path)
+%h4
+  %form{:ng_controller => "DesignationMasterController" , :ng_init => "getDesignation(page)" }
+    .col-md-3.col-md-offset-6
+      %my-pagination{:from => "from_index", :to => "to_index", :total=> "total_entries", :action => "getDesignation(page)"}
+    .col-md-10
+      %table.table.table-condensed
+        %thead
+          %th Designation
+          %th Managed By
+        %tbody
+          %tr{"ng-repeat" => "designation in designations.designations"}
+            %td {{designation.name}}
+            %td {{designation.managed_by}}
+            
               
-  
+   
       
-        %button{:type=>"submit", :class=> "btn btn-primary" }= "Save"
+        

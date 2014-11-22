@@ -1,5 +1,15 @@
 PayrollManagement::Application.routes.draw do
 
+  resources :designation_masters do
+    collection do
+      get "map"
+      get "ind"
+      post 'save_designation'
+    end
+  end
+  # get "/designation_masters/map"
+  # get "/designation_masters/index"
+  # post "/designation_masters/save_designation"
   resources :salary_break_ups do
     collection do
       put :update_all
