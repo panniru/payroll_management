@@ -53,21 +53,11 @@ def seed_user
 
 end
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 def seed_salary_break_ups
   SalaryBreakUpCreator::BREAK_UPS.each do |break_up|
     SalaryBreakUp.find_or_create_by(:component_code => break_up, :component => break_up.titleize, :criteria => 0)
   end
 end
-
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 
 def seed_all
   seed_roles
