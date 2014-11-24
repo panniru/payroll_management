@@ -3,6 +3,7 @@
     
     = link_to "Leaves" , '#'
     = link_to_upload(upload_employee_leaves_path)
+    = link_to "Print", "/employee_leaves/get_leaves.pdf", :target => "blank", :class => "btn btn-primary"
 %table.table.table-condensed
   %thead
     %th Code
@@ -29,3 +30,4 @@
         %td= employee.lop
         %td
           = edit_button(edit_employee_leafe_path(employee))
+= will_paginate @employee_leaves, param_name: 'page', previous_label: h("<"), next_label: h(">")

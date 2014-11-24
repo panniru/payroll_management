@@ -2,8 +2,9 @@ class EmployeeLeaveUploader
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
+ 
   include Uploader
-  HEADERS = ["code"  , "days_worked" , "working_days" , "lop" , "sl" , "pl" , "cl" ]
+  HEADERS = ["code"  , "days_worked" , "working_days" , "lop" , "sl" , "pl" , "cl"]
 
   def persisted?
     false

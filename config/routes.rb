@@ -4,6 +4,7 @@ PayrollManagement::Application.routes.draw do
     collection do
       get "map"
       get "ind"
+      
       post 'save_designation'
     end
   end
@@ -44,6 +45,8 @@ PayrollManagement::Application.routes.draw do
       post "upload"
       get "new_upload"
       get "mapping"
+      get "get_leaves"
+      get "export"
     end
   end
 

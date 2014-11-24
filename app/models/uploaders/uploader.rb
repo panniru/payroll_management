@@ -1,3 +1,5 @@
+require 'rubygems'       
+require 'spreadsheet'
 require 'roo'
 module Uploader
   attr_accessor :file
@@ -53,6 +55,9 @@ module Uploader
       end
     end
   end
+  
+  
+  
 
   def save_questions(name , models)
     if models.map(&:valid?).all?

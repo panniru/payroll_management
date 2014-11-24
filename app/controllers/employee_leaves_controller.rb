@@ -1,7 +1,8 @@
 class EmployeeLeavesController < ApplicationController
 
   def index
-    @employee_leaves = EmployeeLeave.all
+    page = params[:page].present? ? params[:page] : 1
+    @employee_leaves = EmployeeLeave.all.order("code").paginate(:page => page)
   end
 
   def create
@@ -33,6 +34,25 @@ class EmployeeLeavesController < ApplicationController
       format.xlsx { send_data @employee_leave_uploader.xls_template, :filename=>"payroll_employee_sample.xlsx"}
     end
   end
+
+  def export
+    require 'spreadsheet'
+    Spreadsheet.client_encoding = 'UTF-8'
+    employee_leave = Spreadsheet::Workbook.new
+    sheet1 = employee_leave.create_worksheet :name => 'Sheet1'
+    sheet2 = employee_leave.create_worksheet :name => 'Sheet2'
+    
+    sheet1.row(0).push "employee_id"
+    sheet1.row(0).push "no_of_leaves_to_be_encashed" 
+    sheet1.row(0).push "year  " 
+    sheet2.row(0).push "employee_leaves"
+    
+    spreadsheet = StringIO.new
+    employee_leave.write spreadsheet
+    file = "payroll_employee_sample.xlsx"
+    send_data spreadsheet.string, :filename => "#{file}", :type =>  "application/vnd.ms-excel"
+  end
+
   
   def show
     @employee_leave_uploader = EmployeeLeaveUploader.new
@@ -56,7 +76,28 @@ class EmployeeLeavesController < ApplicationController
       render "edit"
     end
   end
-
+  
+  def get_leaves
+    respond_to do |format|
+      @employee_leaves = EmployeeLeave.all
+      format.json do
+        leaves= @employee_leaves.map do |field|
+          { employee_master_id: field.employee_master_id, lop: field.lop, month: field.month, days_worked: field.days_worked, working_days: field.working_days, code: field.code , sl: field.sl , cl: field.cl , pl: field.pl}
+        end
+        render :json => leaves
+      end
+      format.pdf do
+        render :pdf => "EmployeeLeaves",
+        :formats => [:pdf, :haml],
+        :page_size => 'A4',
+        :margin => {:top => '8mm',
+          :bottom => '8mm',
+          :left => '10mm',
+          :right => '10mm'}
+      end
+    end
+  end
+  
  
   private
   def employee_leave_params

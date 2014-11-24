@@ -2,7 +2,7 @@ class DesignationMastersController < ApplicationController
   
   def map
     page = params[:page].present? ? params[:page] : 1
-    @designations = DesignationMaster.updated_at.paginate(:page => page , :per_page => 4)
+    @designations = DesignationMaster.updated_at.paginate(:page => page , :per_page => 12)
     respond_to do |format|
       data = {}
       format.json do

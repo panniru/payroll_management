@@ -19,4 +19,5 @@
         = f.file_field :file
       .col-md-3
         = f.submit "Upload", :class => "btn btn-primary"
-        = link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
+        //= link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
+        = link_to "Download Sample",  export_employee_leaves_path
