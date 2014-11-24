@@ -11,10 +11,18 @@ class PayslipCreationService
       payslips = params.map do |param|
         Payslip.new(payslip_params(param))
       end
-      if payslips.map(&:valid?).all?
-        payslips.map(&:save)
-      else
-        
+      ActiveRecord::Base.transaction do
+        begin
+          if payslips.map(&:valid?).all?
+            payslips.map(&:save)
+            return true
+          else
+            return false
+          end
+        rescue Exception => e
+          raise ActiveRecord::Rollback
+          return false
+        end
       end
     end
 

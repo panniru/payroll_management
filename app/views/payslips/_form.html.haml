@@ -1,6 +1,7 @@
 = form_for @payslip, :url => employee_master_payslips_path(@employee_master), :html => {:class => "form-horizontal", :role=>"form"} do |f|
   - if f.object.errors.present?
     = render "shared/error_messages", :object => f.object
+
   .col-md-8.col-right-border  
     .col-md-offset-3 
       %h4 EARNINGS (in Rupees)
@@ -12,5 +13,6 @@
     .row
       = render :partial => "deductions_form", :locals => {:f => f}
     .row
+      = f.hidden_field :employee_master_id
       .col-md-offset-5
         = save_button

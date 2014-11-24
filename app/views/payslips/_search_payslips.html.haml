@@ -1,0 +1,22 @@
+%form.form-inline{:ng_submit => "getPayslips(1)"}
+  - unless @employee_master.present?
+    .form-group
+      = autocomplete_field_tag :search_term,
+      params[:search_term],
+      autocomplete_employee_employee_masters_path,
+      :placeholder => "Employee code/name", :class => 'form-control',
+      :id_element => "#employee_master_id"
+      = hidden_field_tag :employee_master_id, :id => "employee_master_id", :ng_model => "employee_master_id"
+
+  .form-group
+    = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
+  .form-group
+    = select_tag "year", options_for_select(((Date.today.year-10..Date.today.year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
+  .form-group
+    = select_tag "year", options_for_select([['Pending', 'pending'], ['Approved', 'approved'], ['Rejected', 'rejected']], params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "status", :paceholder => "Status"
+  = submit_search
+  - unless @employee_master.present?
+    = link_to_new("/payslips/new_payslips", {'label' => 'Payslips'})
+  - else
+    = link_to_new( new_employee_master_payslip_path(@employee_master), {'label' => 'Payslip'})
+  -#= link_to_new(new_employee_master_employee_advance_payment_path(@employee_master))

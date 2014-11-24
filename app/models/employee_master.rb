@@ -14,7 +14,8 @@ class EmployeeMaster < ActiveRecord::Base
   has_many :employee_leaves, :class_name => "EmployeeLeave"
 
   scope :having_designation, lambda{|design_id| where(:designation_master_id => design_id)}
-
+  scope :has_no_pay_slips_in_the_month, lambda{|date| where("id not in (?)", Payslip.select(:employee_master_id).in_the_current_month(date.strftime("%b"), date.strftime("%Y")))}
+  
   def save_employee
     ActiveRecord::Base.transaction do
       begin

@@ -7,9 +7,8 @@
         = submit_search
 
   .row{:ng_show => "payslips"}
-    .pull-right
-      %my-pagination{:from => "from_index", :to => "to_index", :current_page => "current_page", :total=> "total_entries", :action => "newPayslips(page)", :need_confirmation => "needConfirmation"}
-      = link_to raw("<i class='fa fa-save fa-lg'></i> Save"), "#", :class => "btn btn-primary", :ng_click => "savePayslips()"
-    %br
-    .row
+    %form{:name=>"payslipsForm", :ng_submit => "savePayslips()", :novalidate => ""}
+      .pull-right
+        %my-pagination{:from => "from_index", :to => "to_index", :current_page => "current_page", :total=> "total_entries", :action => "newPayslips(page)", :need_confirmation => "needConfirmation"}
+        = save_button
       = render "new_payslips_grid_view"

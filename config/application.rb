@@ -23,6 +23,8 @@ module PayrollManagement
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{Rails.root}/lib/)    
+    config.autoload_paths += %W(#{Rails.root}/lib/pdf)    
+    config.autoload_paths += %W(#{Rails.root}/lib/jobs)    
     config.autoload_paths += %W(#{Rails.root}/app/models/uploaders)
     config.angular_templates.module_name    = 'templates'
     config.angular_templates.ignore_prefix  = 'templates/'

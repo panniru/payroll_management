@@ -14,6 +14,9 @@ module SalaryBreakUpInitializer
     def attr_on_basic(*params)
       params.each do |param|
         define_method param.to_sym do
+          p (eligibility_fraction)
+          p "========="
+          p component_criterias
           (((component_criterias[param.to_sym]/100)*basic) * eligibility_fraction)
         end
       end
@@ -48,7 +51,7 @@ module SalaryBreakUpInitializer
   end
   
   def component_criterias
-    @component_criterias ||= SalaryBreakUp.all.map{|break_up| [ break_up.component_code.to_sym, break_up.criteria] }.to_h
+    @component_criterias ||= SalaryBreakUp.all.map{|break_up| [break_up.component_code.to_sym, break_up.criteria] }.to_h
   end
 
   def eligibility_fraction

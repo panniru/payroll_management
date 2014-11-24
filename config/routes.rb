@@ -35,8 +35,10 @@ PayrollManagement::Application.routes.draw do
   end
   
   get "/payslips/new_payslips"
+  get "/payslips" => "payslips#index"
   post "/payslips/create_payslips"
-
+  post "/payslips/approve_payslips"
+  
   resources :employee_leaves do
     collection do
       post "upload"

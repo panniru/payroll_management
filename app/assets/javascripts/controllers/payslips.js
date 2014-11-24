@@ -1,5 +1,36 @@
 (function(angular, app) {
     "use strict";
+
+    app.controller("PayslipsIndexController", ["$scope", "payslipService", function($scope, payslipService) {
+        $scope.getPayslips = function(page){
+            payslipService.Payslip.payslips({employee_master_id: $scope.employee_master_id, month: $scope.month, year: $scope.year, page: page, status: $scope.status}, function(data){
+                $scope.payslips = []
+                $scope.payslips = data.payslips
+                $scope.total_entries = data.total_entries;
+                $scope.current_page = parseInt(data.current_page)
+                $scope.to_index = data.to_index 
+                $scope.from_index = data.from_index
+                $.each($scope.payslips, function(index, val){
+                    val["isChecked"] = false
+                });
+
+            })
+        }
+
+        $scope.checkAll = function(){
+            $.each($scope.payslips, function(index, val){
+                val.isChecked = $scope.allChecked
+            });
+        };
+
+        $scope.approve = function(status){
+            payslipService.Payslip.approvePayslips({payslips: $scope.payslips, status: status}, function(response){
+                $scope.getPayslips(1)
+            })
+        }
+
+    }]);
+
     app.controller("PayslipsController", ["$scope", "payslipService", function($scope, payslipService) {
         $scope.isEarningsEdit = true
         $scope.newPayslips = function(page){
@@ -20,10 +51,31 @@
         }
         
         $scope.savePayslips = function(){
-            payslipService.Payslip.savePayslips({payslips: $scope.payslips}, function(response){
-            })
+            if($scope.payslipsForm.$valid){
+                payslipService.Payslip.savePayslips({payslips: $scope.payslips}, function(response){
+                    $scope.newPayslips(1)
+                })
+            }else{
+                alert("Form data is invalid please verify.")
+            }
         }
 
+        $scope.totalEarnings = function(payslip){
+            return (payslip.basic + payslip.hra + payslip.city_compensatory_allowance + payslip.conveyance_allowance + 
+             payslip.special_allowance + payslip.loyalty_allowance + payslip.medical_allowance + 
+             payslip.incentive_payment + payslip.loyalty_deposit + payslip.arrears_of_salary +
+             + payslip.grade_allowance + payslip.leave_settlement  + payslip.performance_bonus +
+             payslip.additional_allowance_1 + payslip.additional_allowance_2 + payslip.additional_allowance_3)
+        }
+
+        $scope.totalDeductions = function(payslip){
+            return (payslip.pf + payslip.club_contribution + payslip.proffesional_tax + payslip.tds_pm +
+                    payslip.additional_deduction_1 + payslip.additional_deduction_2 + payslip.additional_deduction_3)
+        }
+
+        $scope.netTotal = function(payslip){
+            return ($scope.totalEarnings(payslip) - $scope.totalDeductions(payslip))
+        }
         
     }]);
 
