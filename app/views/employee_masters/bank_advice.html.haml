@@ -1,0 +1,17 @@
+.page-header
+  %h1 
+    = 'Bank Advice'
+%table.table.table-bordered
+  %thead
+    %th Emp ID
+    %th Name
+    %th Account No
+    %th Amount
+    %th Remarks
+  %tbody
+    - EmployeeMaster.all.each do |employee|
+      %tr
+        %td= employee.code
+        %td= employee.name
+        %td= employee.account_number
+        %td= employee.income

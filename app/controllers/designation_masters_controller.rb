@@ -1,8 +1,8 @@
 class DesignationMastersController < ApplicationController
-  
+
   def map
     page = params[:page].present? ? params[:page] : 1
-    @designations = DesignationMaster.updated_at.paginate(:page => page , :per_page => 12)
+    @designations = DesignationMaster.updated_at.paginate(:page => page )
     respond_to do |format|
       data = {}
       format.json do
@@ -21,8 +21,9 @@ class DesignationMastersController < ApplicationController
   def save_designation
     respond_to do |format|
       format.json do 
-      
         a =  params[:designation_details]
+        p "11111111111111"
+        p a
         a.each do |i|
           @temp = DesignationMaster.find(i["id"])
           @temp.name = i["name"]

@@ -14,7 +14,7 @@ class EmployeeMasterUploader
   end
 
   def save
-    super do |row|
+    super do |row, params={}|
       employee_master = EmployeeMaster.new
       row_hash = row.to_hash.slice(*headers_to_show)
       employee_master.attributes = map_row_data(row_hash)

@@ -14,10 +14,11 @@
       .col-md-3
         = f.text_field :entered_date , :value => Date.today.to_s , :disabled=>true
       
-        //= Date.today.to_s  
       .col-md-4
         = f.file_field :file
       .col-md-3
         = f.submit "Upload", :class => "btn btn-primary"
-        //= link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
-        = link_to "Download Sample",  export_employee_leaves_path
+        - if Date.today.strftime("%m") == '12'
+          = link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
+        - else 
+          = link_to "Download Sample",  export_employee_leaves_path

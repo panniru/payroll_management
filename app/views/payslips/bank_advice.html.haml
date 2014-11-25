@@ -1,0 +1,17 @@
+.page-header{:ng_controller => "PayslipsIndexController"}
+  %h1 
+    = 'Bank Advice'
+%table.table.table-bordered
+  %thead
+    %th Emp ID
+    %th Name
+    %th Account No
+    %th Amount
+    %th Remarks
+  %tbody
+    %tr{:ng_repeat => "employee in payslips"}
+        %td {{employee.employee_code}}
+        %td {{employee.employee_name}}
+        %td {{employee.employee_account_number}}
+        %td {{employee.net_total}}
+        %td= Date.today.to_s

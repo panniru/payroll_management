@@ -11,8 +11,8 @@
 		action: '&'
 	    },
 	    controller: ["$scope", function($scope){
-		$scope.currentPage = 1;
 		$scope.previousPage = function(){
+		    
                     if(typeof $scope.$parent.payslipsForm != 'undefined' && $scope.$parent.payslipsForm.$dirty && window.confirm("Entries are not Saved.! \nStill you would like to continue?")){
                         $scope.currentPage -= 1
 		        $scope.action({page: $scope.currentPage})
@@ -22,6 +22,7 @@
                     }
 		}
 		$scope.nextPage = function(){
+		    console.log($scope.currentPage)
                     if(typeof $scope.$parent.payslipsForm != 'undefined' && $scope.$parent.payslipsForm.$dirty && window.confirm("Entries are not Saved.!\nStill You would like to discard?")){
 		        $scope.currentPage += 1
 		        $scope.action({page: $scope.currentPage})

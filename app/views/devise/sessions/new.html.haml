@@ -1,23 +1,28 @@
-%center
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .row
-    .col-md-4
-    .col-md-1
-      = f.label :email, class: 'form-label'
-    .col-md-3
-      = f.text_field :user_id  , class: 'form-control'
-    %br
-    %br
-  .row
-    .col-md-4
-    .col-md-1
-      = f.label :password
-    .col-sm-3
-      = f.password_field :password, autocomplete: "off", class: 'form-control'
-    %br
-    %br
-  .row
-    .col-sm-6
-    .col-sm-6
-      = f.submit "Log in" , class: 'btn btn-primary'
-      = render "devise/shared/links"
+.container
+  //= image_tag "logo.jpg"
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .row
+     
+      .col-md-4
+      .col-md-1
+        = f.label "User_Name_or_Email", class: 'form-label'
+      .col-md-3
+        = f.text_field :login  , class: 'form-control'
+      %br
+      %br
+      %br
+    .row
+      .col-md-4
+      .col-md-1
+        = f.label :password
+      .col-sm-3
+        = f.password_field :password, autocomplete: "off", class: 'form-control'
+      %br
+      %br
+      %br
+    .row
+      .col-sm-6
+      .col-sm-6
+        = f.submit "Log in" , class: 'btn btn-primary'
+        = render "devise/shared/links"
+        

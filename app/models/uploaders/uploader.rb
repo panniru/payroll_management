@@ -41,7 +41,7 @@ module Uploader
         header = sheet.row(1) #.map(&:downcase)
         models = (2..sheet.last_row).map do |i|
           row = Hash[[header, sheet.row(i)].transpose]
-          yield row
+          yield row, :sheet_name => name
         end
         puts "Loaded Sheet ######## #{name} Count: #{sheet.count}"
         if save_questions(name, models)
@@ -60,6 +60,9 @@ module Uploader
   
 
   def save_questions(name , models)
+    p name
+    p models
+    
     if models.map(&:valid?).all?
       models.each(&:save!)
       true

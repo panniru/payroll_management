@@ -7,6 +7,7 @@
 	};
 	
 	var saveDesignation = function(designation_details){
+	    alert(JSON.stringify(designation_details))
 	    var url = "/designation_masters/save_designation.json"
 	    return $http.post(url,{designation_details: designation_details});
 	};

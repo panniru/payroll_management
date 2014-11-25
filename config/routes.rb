@@ -4,10 +4,10 @@ PayrollManagement::Application.routes.draw do
     collection do
       get "map"
       get "ind"
-      
       post 'save_designation'
     end
   end
+  # get "/designation_masters/new"
   # get "/designation_masters/map"
   # get "/designation_masters/index"
   # post "/designation_masters/save_designation"
@@ -44,7 +44,9 @@ PayrollManagement::Application.routes.draw do
   post "/payslips/create_payslips"
   post "/payslips/approve_payslips"
   post "/payslips/email_payslips"
-  
+
+
+
   resources :employee_leaves do
     collection do
       post "upload"

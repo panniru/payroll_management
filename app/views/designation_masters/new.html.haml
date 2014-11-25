@@ -2,9 +2,9 @@
   = link_to "Admin Mapping"
  
 %h4
-  %form{:ng_controller => "DesignationMasterController" , :ng_init => "getDesignation(page)", :ng_submit => "saveDesignation()"  }
+  %form{:ng_controller => "DesignationMasterController" , :ng_init => "getDesignation(1)", :ng_submit => "saveDesignation()"  }
     .col-md-3.col-md-offset-6
-      %my-pagination{:from => "from_index", :to => "to_index", :total=> "total_entries", :action => "getDesignation(page)"}
+      %my-pagination{:from => "from_index", :to => "to_index", :total=> "total_entries", :current_page => "current_page",:action => "getDesignation(page)"}
     .col-md-10
       %table.table.table-condensed
         %thead
@@ -18,7 +18,7 @@
               Senior Accountant
               %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("manager").id}
               Commercial Manager
-
+              = hidden_field_tag :managed_by , :value => "{{designation['managed_by']}}"
 
         .pull-right
           = save_button

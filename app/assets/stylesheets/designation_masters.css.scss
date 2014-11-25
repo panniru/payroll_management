@@ -1,8 +1,19 @@
 // Place all the styles related to the designation_masters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+container{
+   position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+
+
 $sw-height: 30px;
 $sw-width: 150px;
+
 
 input{
     &.sw{

@@ -65,5 +65,4 @@ def seed_all
   seed_salary_break_ups
 end
 
-
 seed_all

@@ -42,10 +42,16 @@ class EmployeeLeavesController < ApplicationController
     sheet1 = employee_leave.create_worksheet :name => 'Sheet1'
     sheet2 = employee_leave.create_worksheet :name => 'Sheet2'
     
-    sheet1.row(0).push "employee_id"
-    sheet1.row(0).push "no_of_leaves_to_be_encashed" 
-    sheet1.row(0).push "year  " 
-    sheet2.row(0).push "employee_leaves"
+    sheet2.row(0).push "Employee Id"
+    sheet2.row(0).push "No of leaves to be encashed" 
+    sheet2.row(0).push "Year " 
+    sheet1.row(0).push "Code"
+    sheet1.row(0).push "Days Worked"
+    sheet1.row(0).push "Working Days"
+    sheet1.row(0).push "Sl"
+    sheet1.row(0).push "Cl"
+    sheet1.row(0).push "Pl"
+    sheet1.row(0).push "Lop"
     
     spreadsheet = StringIO.new
     employee_leave.write spreadsheet

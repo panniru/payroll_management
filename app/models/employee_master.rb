@@ -54,4 +54,6 @@ class EmployeeMaster < ActiveRecord::Base
     end
     designation
   end
+ 
+
 end
