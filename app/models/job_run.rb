@@ -1,7 +1,7 @@
 class JobRun < ActiveRecord::Base
   PAYSLIP_MAILING = "payslip _mailing"
-  scope :matching_code, lambda => {|code| where(:job_code => code)}
-  scope :on_date, lambda => {|date| where(:job_date => date)}
+  scope :matching_code, lambda {|code| where(:job_code => code)}
+  scope :on_date, lambda{|date| where(:job_date => date)}
   scope :in_the_current_month, lambda{|date| in_the_month(date.strfitime("%b").in_the_year(date.strftime("%Y")))}
   scope :in_the_year, lambda{|year| where("to_char(job_date, 'YYYY') = ?", year)}
   scope :in_the_month, lambda{|month| where("to_char(job_date, 'Mon') = ?", month[0..2])}
