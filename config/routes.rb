@@ -32,13 +32,18 @@ PayrollManagement::Application.routes.draw do
         get :search_by_month
       end
     end
-    resources :payslips
+    resources :payslips do
+      member do
+        get "mail"
+      end
+    end
   end
   
   get "/payslips/new_payslips"
   get "/payslips" => "payslips#index"
   post "/payslips/create_payslips"
   post "/payslips/approve_payslips"
+  post "/payslips/email_payslips"
   
   resources :employee_leaves do
     collection do

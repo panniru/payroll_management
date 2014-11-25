@@ -32,7 +32,29 @@ module ApplicationHelper
   def delete_button(path, params={})
     link_to raw("<i class='fa fa-trash fa-lg'></i> Delete"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :method => "delete", :data => {:confirm => "Are you sure?"}
   end
-  
+
+  def print_button(path, params={})
+    link_to raw("<i class='fa fa-print fa-lg'></i> Print"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :target => "_blank"
+  end
+
+  def email_button(path, params={})
+    link_to raw("<i class='fa fa-at fa-lg'></i> Email"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}"
+  end
+
+  def flash_alert_class(key)
+    key = 'danger' if key == :error or key == :alert
+    alert_class = ["alert"]
+    if key.to_s == "fail"
+      alert_class << "alert-danger"
+    elsif key == :notice
+      alert_class << "alert-info"
+    else
+      alert_class << "alert-#{key}"
+    end
+    alert_class.join(" ")
+  end
+
+
   def title(*parts)
     unless parts.empty?
       content_for :title do

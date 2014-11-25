@@ -1,4 +1,10 @@
 class JobRun < ActiveRecord::Base
+  PAYSLIP_MAILING = "payslip _mailing"
+  scope :matching_code, lambda => {|code| where(:job_code => code)}
+  scope :on_date, lambda => {|date| where(:job_date => date)}
+  scope :in_the_current_month, lambda{|date| in_the_month(date.strfitime("%b").in_the_year(date.strftime("%Y")))}
+  scope :in_the_year, lambda{|year| where("to_char(job_date, 'YYYY') = ?", year)}
+  scope :in_the_month, lambda{|month| where("to_char(job_date, 'Mon') = ?", month[0..2])}
 
   def self.schedule(job_code, scrolled_by, job_date)
     run = JobRun.new(job_code: job_code, scrolled_by: scrolled_by, started_on: DateTime.now, status: "scheduled", job_date: job_date)
@@ -26,5 +32,13 @@ class JobRun < ActiveRecord::Base
   
   def finish_run_as(status)
     update_attributes(status: status, finished_on: DateTime.now)
+  end
+
+  def scheduled?
+    status == "scheduled"
+  end
+
+  def finished?
+    status == "success"
   end
 end

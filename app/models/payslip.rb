@@ -1,7 +1,7 @@
 class Payslip < ActiveRecord::Base
   belongs_to :employee_master
 
-  scope :in_the_current_month, lambda{|month, year| where("to_char(generated_date, 'Mon') = ? and to_char(generated_date, 'YYYY') = ?", month[0..2], year)}
+  scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y"))}
   scope :in_the_year, lambda{|year| where("to_char(generated_date, 'YYYY') = ?", year)}
   scope :in_the_month, lambda{|month| where("to_char(generated_date, 'Mon') = ?", month[0..2])}
   scope :belongs_to_employee, lambda{|employee_id| where(:employee_master_id =>  employee_id)}
@@ -44,6 +44,12 @@ class Payslip < ActiveRecord::Base
   
   def net_total
     (total_earnings - total_deductions)
+  end
+
+  def pdf
+    @pdf ||= PayslipPdf.new(self)
+    @pdf.payslip
+    @pdf
   end
 
 end

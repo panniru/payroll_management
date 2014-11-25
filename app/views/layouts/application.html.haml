@@ -12,4 +12,12 @@
   %body
     = render "shared/banner"
     .container
+      %div
+        %section
+          - flash.each do |key, value|
+            #div{:class => flash_alert_class(key) }
+              %button{ :type => "button", :class => "close", :data => { :dismiss => "alert" }, "aria-hidden".to_sym => "true" }
+                &times;
+              = value
+
       = yield

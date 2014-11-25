@@ -29,6 +29,12 @@
             })
         }
 
+        // $scope.emailPayslips = function(){
+        //     payslipService.Payslip.emailPayslips({employee_master_id: $scope.employee_master_id, month: $scope.month, year: $scope.year}, function(response){
+        //         $scope.alertSuccess = true
+        //         $scope.successMsg = "Mailing job has been scheduled"
+        //     })
+        // }
     }]);
 
     app.controller("PayslipsController", ["$scope", "payslipService", function($scope, payslipService) {

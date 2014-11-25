@@ -1,8 +1,18 @@
 class PayslipsController < ApplicationController
   before_action :load_employee_master, :except => [:new_payslips, :create_payslips, :approve_payslips, :index]
-  load_resource :only => [:show, :update, :edit]
+  load_resource :only => [:show, :update, :edit, :mail]
   authorize_resource
 
+  def show
+    respond_to do |format|
+      format.html {}
+      format.pdf do 
+        #PayslipMailer.payslip(@payslip).deliver
+        send_data @payslip.pdf.render, type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+  
   def new
     @payslip = EmployeeNewPayslip.new(@employee_master, Date.today).payslip
   end
@@ -59,8 +69,6 @@ class PayslipsController < ApplicationController
       format.json do
         status = params[:payslips].map do |param|
           payslip = Payslip.find(param[:id])
-          p "=========="
-          p param[:isChecked]
           payslip.change_status(params[:status]) if param[:isChecked].present? and param[:isChecked]
         end
         if status.all?
@@ -70,6 +78,34 @@ class PayslipsController < ApplicationController
         end
       end
     end
+  end
+
+  def email_payslips
+    respond_to do |format|
+      format.json do
+        job_run = JobRun.matching_code(JobRun::PAYSLIP_MAILING).in_the_month(params[:month]).in_the_year(params[:year]).first
+        unless job_run.present? and (job_run.scheduled? or job_run.finished?)
+          mail_job = PayslipMailingJob.new(current_user_branch, params[:month], params[:year])
+          Delayed::Job.enqueue mail_job
+          result_link = "<a href=\"/job_runs/#{mail_job.job_run_id}\">here</a>"
+                                     @msg = I18n.t :success, :scope => [:job, :schedule], job: JobRun::PAYSLIP_MAILING.titleize, result_link: @result_link
+        else
+          result_link = "<a href=\"/job_runs/#{job_run.id}\">here</a>"
+          if job_run.scheduled?
+            @msg = I18n.t :already_scheduled, :scope => [:job, :schedule], job: JobRun::PAYSLIP_MAILING.titleize, result_link: @result_link
+          elsif job_run.finished?
+            @msg = I18n.t :already_finished, :scope => [:job, :schedule], job: JobRun::PAYSLIP_MAILING.titleize, result_link: @result_link
+          end
+        end
+        render :json => {:msg => @msg}
+      end
+    end
+  end
+
+  def mail
+    PayslipMailer.payslip(@payslip).deliver
+    flash.now[:success] = "Mail Sent Successfully"
+    render "show"
   end
 
   private

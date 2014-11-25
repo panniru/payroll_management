@@ -1,9 +1,13 @@
 .row{:ng_controller => "PayslipsController"}
-  .col-md-offset-6
+  .col-md-offset-3
     %form{:class => "form-inline", :ng_submit => "newPayslips(1)"}
-      .form-group.col-md-8
+      .form-group
+        %input.form-control{:type => "text", :readonly => true, :value => "#{Date.today.strftime('%b')}"} 
+      .form-group
+        %input.form-control{:type => "text", :readonly => true, :value => "#{Date.today.strftime('%Y')}"} 
+      .form-group
         = select_tag "designation_name", options_from_collection_for_select(DesignationMaster.all, "id", "name"), :class => "form-control", :ng_model => "designationId"
-      .col-md-3
+      .form-group
         = submit_search
 
   .row{:ng_show => "payslips"}
