@@ -49,15 +49,24 @@ class PayslipPdf  #< Prawn::Document
     earnings_table_data = []
     Payslip::EARNINGS.map do |component|
       if @payslip.send(component).present?
-        earnings_table_data << [component.to_s.titleize, @payslip.send(component)]
+        key = component.to_s.titleize
+        if key == "Hra"
+          key = "HRA"
+        end
+        earnings_table_data << [key, @payslip.send(component)]
       end
     end
     earnings_table_data << ["TOTAL", @payslip.total_earnings]
     
     deductions_table_data = []
     Payslip::DEDUCTIONS.map do |component|
+      key = component.to_s.titleize
+      if key == "Pf" or key == "Tds Pm"
+        key = key.upcase.gsub("PM", "")
+      end
+
       if @payslip.send(component).present?
-        deductions_table_data << [component.to_s.titleize, @payslip.send(component)]
+        deductions_table_data << [key, @payslip.send(component)]
       end
     end
     deductions_table_data << ["TOTAL", @payslip.total_deductions]
