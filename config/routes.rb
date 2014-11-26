@@ -44,7 +44,7 @@ PayrollManagement::Application.routes.draw do
   post "/payslips/create_payslips"
   post "/payslips/approve_payslips"
   post "/payslips/email_payslips"
-
+  get "/payslips/bank_advice"
 
 
   resources :employee_leaves do

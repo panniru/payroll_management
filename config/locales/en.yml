@@ -35,3 +35,10 @@ en:
       fail: "%{job} has not been scheduled."
       already_scheduled: "%{job} has already been scheduled. You can view the job details %{job_link}."
       already_finished: "%{job} has already been run. You can view the job details %{job_link}."
+  employee_leave:
+    create:
+      success: "Employee leave has been created"
+      fail: "Employees not been saved"
+    update:
+      success: "Employee leave has been updated"
+      fail: "Employee leave not been updated"

@@ -2,7 +2,7 @@ class DesignationMastersController < ApplicationController
 
   def map
     page = params[:page].present? ? params[:page] : 1
-    @designations = DesignationMaster.updated_at.paginate(:page => page )
+    @designations = DesignationMaster.updated_at.all.paginate(:page => page )
     respond_to do |format|
       data = {}
       format.json do
@@ -13,7 +13,7 @@ class DesignationMastersController < ApplicationController
         render :json => JsonPagination.inject_pagination_entries(@designations , data)
       end
       format.html do
-        render "map"
+        redirect_to designation_masters_path
       end
     end
   end
@@ -22,16 +22,13 @@ class DesignationMastersController < ApplicationController
     respond_to do |format|
       format.json do 
         a =  params[:designation_details]
-        p "11111111111111"
-        p a
         a.each do |i|
           @temp = DesignationMaster.find(i["id"])
           @temp.name = i["name"]
           @temp.managed_by = i["managed_by"]
           @temp.save
         end
-        render :json => true
-        #redirect_to designation_masters_path
+        redirect_to designation_masters_path
       end
     end
   end

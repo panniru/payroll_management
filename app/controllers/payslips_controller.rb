@@ -107,7 +107,8 @@ class PayslipsController < ApplicationController
     flash.now[:success] = "Mail Sent Successfully"
     render "show"
   end
-
+  def bank_advice
+  end
   private
   
   def load_employee_master

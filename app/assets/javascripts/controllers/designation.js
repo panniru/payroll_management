@@ -26,14 +26,13 @@
 	    
 	    
 	    for(var i=0; i<$scope.designation_details.length; i++){
-		$scope.designation_details['id'] = $scope.designations['id'];
-		$scope.designation_details['name'] = $scope.designations['name'];
-		$scope.designation_details['managed_by'] = $scope.designations['managed_by'];
+		$scope.designation_details[i]['id'] = $scope.designations.designations[i]['id'];
+		$scope.designation_details[i]['name'] = $scope.designations.designations[i]['name'];
+		$scope.designation_details[i]['managed_by'] = $scope.designations.designations[i]['managed_by'];
 	    }
-	   alert(JSON.stringify($scope.designation_details))
 	    designationService.saveDesignation($scope.designation_details)
 		.then(function(result) {
-		    alert('')
+		    
 		});
 	}
 	
