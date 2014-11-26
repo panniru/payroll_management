@@ -8,6 +8,7 @@ $(function() {
             }
         });
         $("#totalEarningsField").val(totalEarning)
+        $("#netAmountField").val(totalEarning-$("#totalDeductionField").val())
     })
 
     $("input[rel='deductionInputField']").on("blur", function(event){
@@ -18,5 +19,6 @@ $(function() {
             }
         });
         $("#totalDeductionField").val(totalDeduction)
+        $("#netAmountField").val($("#totalEarningsField").val() - totalDeduction)
     })
 });

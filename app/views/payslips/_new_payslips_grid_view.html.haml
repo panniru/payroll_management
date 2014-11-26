@@ -7,7 +7,7 @@
         %h4 Name
       %th.align-center-from-top{:rowspan => 2} 
         %h4 Basic
-      %th{:colspan => 9, :align => "center", :ng_show => "isEarningsEdit"}
+      %th{:colspan => 8, :align => "center", :ng_show => "isEarningsEdit"}
         %h4
           %span.center-header-content Earnings (in Rupees) 
           = render "toggle_component"
@@ -26,7 +26,7 @@
       %th{:ng_show => "isEarningsEdit"} Loyalty Deposit
       %th{:ng_show => "isEarningsEdit"} Arrears Of Salary
       %th{:ng_show => "isEarningsEdit"} Grade Allowance
-      %th{:ng_show => "isEarningsEdit"} Leave Settlement
+      -#%th{:ng_show => "isEarningsEdit"} Leave Settlement
       %th{:ng_show => "isEarningsEdit"} Performance Bonus
       %th{:ng_show => "isEarningsEdit"} Additional Allowance 1
       %th{:ng_show => "isEarningsEdit"} Additional Allowance 2
@@ -56,9 +56,9 @@
         %td{:ng_show => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.grade_allowance", :name => "grade_allowance{{$index}}"}
           %span.error{:ng_show => "payslipsForm.grade_allowance{{$index}}.$error.number"} Invalid
-        %td{:ng_show => "isEarningsEdit"} 
-          %input{:type => "number", :class => "form-control", :ng_model => "payslip.leave_settlement", :name => "leave_settlement{{$index}}"}
-          %span.error{:ng_show => "payslipsForm.leave_settlement{{$index}}.$error.number"} Invalid
+        -# %td{:ng_show => "isEarningsEdit"} 
+        -#   %input{:type => "number", :class => "form-control", :ng_model => "payslip.leave_settlement", :name => "leave_settlement{{$index}}"}
+        -#   %span.error{:ng_show => "payslipsForm.leave_settlement{{$index}}.$error.number"} Invalid
         %td{:ng_show => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.performance_bonus", :name => "performance_bonus{{$index}}"}
           %span.error{:ng_show => "payslipsForm.performance_bonus{{$index}}.$error.number"} Invalid
@@ -76,8 +76,8 @@
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.club_contribution", :name => "club_contribution{{$index}}"}
           %span.error{:ng_show => "payslipsForm.club_contribution{{$index}}.$error.number"} Invalid
         %td{:ng_hide => "isEarningsEdit"} 
-          %input{:type => "number", :class => "form-control", :ng_model => "payslip.proffesional_tax", :name => "proffesional_tax{{$index}}"}
-          %span.error{:ng_show => "payslipsForm.proffesional_tax{{$index}}.$error.number"} Invalid
+          %input{:type => "number", :class => "form-control", :ng_model => "payslip.professional_tax", :name => "professional_tax{{$index}}"}
+          %span.error{:ng_show => "payslipsForm.professional_tax{{$index}}.$error.number"} Invalid
         %td{:ng_hide => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.tds_pm", :name => "tds_pm{{$index}}"}
           %span.error{:ng_show => "payslipsForm.tds_pm{{$index}}.$error.number"} Invalid

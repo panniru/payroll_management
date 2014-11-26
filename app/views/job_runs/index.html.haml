@@ -1,0 +1,16 @@
+%h3
+  = link_to "Mailing Jobs", job_runs_path
+  %hr
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Job Run Id
+      %th Job
+      %th Started On
+      %th Finished On
+      %th Status
+
+  %tbody
+    = render @job_runs
+
+= will_paginate @job_runs, previous_label: h("<"), next_label: h(">")

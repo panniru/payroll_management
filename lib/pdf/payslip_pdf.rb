@@ -9,16 +9,16 @@ class PayslipPdf  #< Prawn::Document
 
   def payslip
     heading = "<font size = '15'> <b>PAYSLIP FOR THE MONTH OF #{Date.today.strftime('%b').upcase} #{Date.today.strftime('%Y')}</b></font>"
-    body_rows = [[payslip_header], [part_1 ], [{:content => heading, :padding_left => 130}], [part_2], [part_3]] #
+    body_rows = [[logo],[payslip_header], [part_1], [{:content => heading, :padding_left => 130}], [part_2], [part_2_totals], [part_3]] #
     table(body_rows, :cell_style => { :inline_format => true })
-    #encrypt_document(:user_password => 'foo', :owner_password => 'bar')
+    #encrypt_document(:user_password => 'welcome', :owner_password => 'welcome')
   end
   
   private
 
   def logo
-    image_path = "/images/logo.jpg"
-    table([["Image"]])
+    logo = "#{Rails.root}/app/assets/images/logo.jpg"
+    make_table([[{:image => logo, :image_height => 20,:image_width => 100, :position => :right}]], :cell_style =>{:border_width => 0}, :position => :right)
   end
 
   def payslip_header
@@ -37,12 +37,12 @@ class PayslipPdf  #< Prawn::Document
     header_data = [
                    [{:content => "PF Details", :colspan => 2}, {:content => "Bank Details", :colspan => 2}, {:content => "Leave Balance details (days)", :colspan => 2}],
 
-                   ["Date Of Joining", @payslip.employee_master.date_of_joining, "Pay Mode", "Transfer to Bank", "Sick Leave", employee_leave_obj.try(:sl)],
-                   ["PF Number", @payslip.employee_master.p_f_no, "Bank Name", @payslip.employee_master.bank_name, "Casual Leave", employee_leave_obj.try(:cl)],
-                   ["Employee code no.", @payslip.employee_master.code, "SB A/c. No", @payslip.employee_master.account_number.to_s, "Total Leave", (employee_leave_obj.try(:sl).to_i + employee_leave_obj.try(:cl).to_i)]
-                   
+                   ["Date Of Joining", @payslip.employee_master.date_of_joining, "Pay Mode", "Transfer to Bank", "Sick Leave", employee_leave_obj.try(:sl).to_i],
+                   ["PF Number", @payslip.employee_master.p_f_no, "Bank Name", @payslip.employee_master.bank_name, "Casual Leave", employee_leave_obj.try(:cl).to_i],
+                   ["Employee code no.", @payslip.employee_master.code, "SB A/c. No", @payslip.employee_master.account_number.to_s, "Total Leave", (employee_leave_obj.try(:sl).to_i + employee_leave_obj.try(:cl).to_i)],
+                   ["PAN", @payslip.employee_master.pan, "Days Worked", employee_leave_obj.try(:days_worked).to_i, "LOP", employee_leave_obj.try(:lop).to_i]
                   ]
-    make_table(header_data)
+    make_table(header_data, :cell_style => {:height => 25})
   end
 
   def part_2
@@ -56,7 +56,7 @@ class PayslipPdf  #< Prawn::Document
         earnings_table_data << [key, @payslip.send(component)]
       end
     end
-    earnings_table_data << ["TOTAL", @payslip.total_earnings]
+    #earnings_table_data << ["TOTAL", @payslip.total_earnings]
     
     deductions_table_data = []
     Payslip::DEDUCTIONS.map do |component|
@@ -69,10 +69,15 @@ class PayslipPdf  #< Prawn::Document
         deductions_table_data << [key, @payslip.send(component)]
       end
     end
-    deductions_table_data << ["TOTAL", @payslip.total_deductions]
-    outer_table_data = [[{:content  => "EARNINGS (in Rupees)", :width => 270}, {:content => "DEDUCTION (in Rupees)", :width => 270}], [{:content => make_table(earnings_table_data, :column_widths => [135, 135]), :width => 270}, {:content => make_table(deductions_table_data, :column_widths => [135, 135]), :width => 270}]]
+    #deductions_table_data << ["TOTAL", @payslip.total_deductions]
+    outer_table_data = [[{:content  => "EARNINGS (in Rupees)", :width => 270}, {:content => "DEDUCTIONS (in Rupees)", :width => 270}], [{:content => make_table(earnings_table_data, :column_widths => [135, 135]), :width => 270}, {:content => make_table(deductions_table_data, :column_widths => [135, 135]), :width => 270}]]
 
     make_cell(:content => make_table(outer_table_data))
+  end
+
+  def part_2_totals
+    data = [["TOTAL", @payslip.total_earnings, "TOTAL", @payslip.total_deductions]]
+    make_table(data, :column_widths => [135, 135, 135, 135])
   end
 
   def part_3
@@ -80,7 +85,9 @@ class PayslipPdf  #< Prawn::Document
                    ["EMPLOYEE SIGNATURE", "AUTHORISED SIGNATORY", "NET PAY Rs."],
                    ["", "", @payslip.net_total]
                   ]
-    make_table(footer_rows, :column_widths => [180, 180, 180])
+    make_table(footer_rows, :column_widths => [180, 180, 180]) do |t|
+      t.row(1).height = 60
+    end
   end
   
   

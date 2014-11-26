@@ -5,7 +5,7 @@ class SalaryBreakUpCreator
   attr_fixed_per_year :conveyance_allowance, :medical_allowance
   #private_class_method :new
 
-  EARNINGS = ["basic", "hra", "conveyance_allowance", "city_compensatory_allowance", "medical_allowance", "special_allowance", "loyalty_allowance"] 
+  EARNINGS = ["basic", "hra", "conveyance_allowance", "city_compensatory_allowance", "medical_allowance", "special_allowance"] #, "loyalty_allowance" 
   DEDUCTIONS = ["employer_pf_contribution", "bonus_payment"]
   BREAK_UPS = EARNINGS + DEDUCTIONS + ["grade_allowance", "incentive_payment"]
   BREAK_UP_FORUMULA_DESC = {
@@ -33,7 +33,8 @@ class SalaryBreakUpCreator
   def to_h
     {
       earnings: EARNINGS.map{|component| salary_break_up_entity(component)},
-      deductions: DEDUCTIONS.map{|component| salary_break_up_entity(component)}
+      deductions: DEDUCTIONS.map{|component| salary_break_up_entity(component)},
+      loyalty_allowance: salary_break_up_entity("loyalty_allowance")
     }
   end
 

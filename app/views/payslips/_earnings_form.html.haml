@@ -4,7 +4,7 @@
     .col-md-5
       = f.text_field :basic, :class => "form-control", :readonly => true, :rel => "earningInputField"
   .form-group
-    = f.label "Human Resource Allowance", :class => 'col-md-7 control-label'
+    = f.label "HRA", :class => 'col-md-7 control-label'
     .col-md-5
       = f.text_field :hra, :class => "form-control", :readonly => true, :rel => "earningInputField"
   .form-group
@@ -19,10 +19,11 @@
     = f.label :special_allowance, :class => 'col-md-7 control-label'
     .col-md-5
       = f.text_field :special_allowance, :class => "form-control", :readonly => true, :rel => "earningInputField"
-  .form-group
-    = f.label :loyalty_allowance, :class => 'col-md-7 control-label'
-    .col-md-5
-      = f.text_field :loyalty_allowance, :class => "form-control", :readonly => true, :rel => "earningInputField"
+  - if @payslip.employee_master.eligible_for_loyality_allowance?(@payslip.generated_date)
+    .form-group
+      = f.label :loyalty_allowance, :class => 'col-md-7 control-label'
+      .col-md-5
+        = f.text_field :loyalty_allowance, :class => "form-control", :readonly => true, :rel => "earningInputField"
   .form-group
     = f.label :medical_allowance, :class => 'col-md-7 control-label'
     .col-md-5
@@ -45,10 +46,16 @@
     = f.label :grade_allowance, :class => 'col-md-7 control-label'
     .col-md-5
       = f.text_field :grade_allowance, :class => "form-control", :rel => "earningInputField"
-  .form-group
-    = f.label :leave_settlement, :class => 'col-md-7 control-label'
-    .col-md-5
-      = f.text_field :leave_settlement, :class => "form-control", :rel => "earningInputField"
+  - if @payslip.employee_master.eligible_for_leave_settlement?(@payslip.generated_date)
+    .form-group
+      = f.label :leave_settlement, :class => 'col-md-7 control-label'
+      .col-md-5
+        = f.text_field :leave_settlement, :class => "form-control", :rel => "earningInputField", :readonly => true
+  - if @payslip.employee_master.eligible_for_annual_bonus_payment?(@payslip.generated_date)
+    .form-group
+      = f.label :annual_bonus, :class => 'col-md-7 control-label'
+      .col-md-5
+        = f.text_field :annual_bonus, :class => "form-control", :rel => "earningInputField", :readonly => true
   .form-group
     = f.label :performance_bonus, :class => 'col-md-7 control-label'
     .col-md-5
@@ -68,5 +75,5 @@
   .form-group
     = f.label :Total, :class => 'col-md-7 control-label'
     .col-md-5
-      = text_field_tag "Total","", :id => "totalEarningsField",:class => "form-control", :readonly => true
+      = text_field_tag "Total","", :id => "totalEarningsField",:class => "form-control", :readonly => true, :value => "#{f.object.total_earnings}"
   

@@ -1,8 +1,8 @@
 module ApplicationHelper
 
-  def save_button
+  def save_button(params={})
     button_tag(:type => "submit", class: "btn btn-primary") do
-      raw "<i class='fa fa-save fa-lg'></i> Save"
+      raw "<i class='fa fa-save fa-lg'></i> #{params['label'].present? ? params['label'] : 'Save'}"
     end
   end
 
@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def email_button(path, params={})
-    link_to raw("<i class='fa fa-at fa-lg'></i> Email"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}"
+    link_to raw("<i class='fa fa-at fa-lg'></i> #{params['label'].present? ? params['label'] : 'Email'}"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}"
   end
 
   def flash_alert_class(key)

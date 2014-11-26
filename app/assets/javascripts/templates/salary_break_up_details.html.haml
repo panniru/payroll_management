@@ -25,3 +25,13 @@
       %th
       %th {{(deductionPerMonth + earningPerMonth)}}
       %th {{((deductionPerMonth + earningPerMonth)*12)}}
+    %tr
+      %td {{components.loyalty_allowance.component}}
+      %td {{components.loyalty_allowance.criteria}}
+      %td {{components.loyalty_allowance.amount_per_month}}
+      %td {{components.loyalty_allowance.amount_per_year}}
+    %tr
+      %th Total
+      %th
+      %th {{(deductionPerMonth + earningPerMonth + components.loyalty_allowance.amount_per_month)}}
+      %th {{((deductionPerMonth + earningPerMonth + components.loyalty_allowance.amount_per_month)*12)}}

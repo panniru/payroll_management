@@ -1,0 +1,13 @@
+%h3
+  = link_to "Mailing Jobs", job_runs_path
+  %hr
+%table{ :class => "table table-striped table-condensed table-bordered instrument_table" }
+  %thead
+    %tr
+      %th Job Run Id
+      %th Job
+      %th Started On
+      %th Finished On
+      %th Status
+  %tbody
+    = render 'job_run', :job_run => @job_run

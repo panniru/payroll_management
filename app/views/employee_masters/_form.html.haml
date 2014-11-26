@@ -1,83 +1,98 @@
-= form_for @employee_master, :html => {:class => "form-horizontal", :role=>"form", :id => "employee_master_form"} do |f|
-  - if f.object.errors.present?
-    = render "shared/error_messages", :object => f.object
-  .row
-    .form-group
-      = f.label :code, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :code, :class => "form-control"
-    .form-group
-      = f.label :name, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :name, :class => "form-control"
-    .form-group
-      = f.label :gender, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.select :gender, options_for_select([["", ""], ['Male', 'M'], ['Female', 'F']], f.object.gender), {}, {:class => "form-control"}
-    .form-group
-      
-      = f.label :designation_id, :class => 'col-md-3 control-label'
-      .col-md-9
-        = autocomplete_field_tag "employee_master[designation_name]", 
-        f.object.designation_name,
-        autocomplete_designation_master_name_employee_masters_path,
-        :id_element => "#designation_id",
-        :placeholder => "New designation/write to select existing",
-        :class => "form-control",
-        :id => "designation_name"
+.row{:ng_controller => "SalaryBreakUpInitializeController"}
+  = form_for @employee_master, :html => {:class => "form-horizontal", :role=>"form", :id => "employee_master_form"} do |f|
+    - if f.object.errors.present?
+      = render "shared/error_messages", :object => f.object
+    .row
+      .col-md-6
+        .form-group
+          = f.label :code, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :code, :class => "form-control"
+        .form-group
+          = f.label :name, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :name, :class => "form-control"
+        .form-group
+          = f.label :gender, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.select :gender, options_for_select([["", ""], ['Male', 'M'], ['Female', 'F']], f.object.gender), {}, {:class => "form-control"}
+        .form-group
+          = f.label :date_of_birth, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :date_of_birth, :class => "form-control datepicker"
+        .form-group
+          = f.label :email, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :email, :class => "form-control"
+        .form-group
 
-        = f.hidden_field :designation_master_id, :class => "form-control", :id => "designation_id"
-    .form-group
-      = f.label :department_id, :class => 'col-md-3 control-label'
-      .col-md-9
-        = autocomplete_field_tag "employee_master[department_name]", 
-        f.object.department_name,
-        autocomplete_department_master_name_employee_masters_path,
-        :id_element => "#department_id",
-        :placeholder => " New department/ write to select existing",
-        :class => "form-control",
-        :id => "department_name"
-        = f.hidden_field :department_master_id, :class => "form-control", :id => "department_id"
+          = f.label :designation_id, :class => 'col-md-3 control-label'
+          .col-md-9
+            = autocomplete_field_tag "employee_master[designation_name]", 
+            f.object.designation_name,
+            autocomplete_designation_master_name_employee_masters_path,
+            :id_element => "#designation_id",
+            :placeholder => "New designation/write to select existing",
+            :class => "form-control",
+            :id => "designation_name"
 
-    .form-group
-      = f.label :initials, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :initials, :class => "form-control"
-    .form-group
-      = f.label :qualification, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :qualification, :class => "form-control"
-    .form-group
-      = f.label :date_of_joining, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :date_of_joining, :class => "form-control datepicker"
-    .form-group
-      = f.label :probation_date, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :probation_date, :class => "form-control datepicker"
-    .form-group
-      = f.label :confirmation_date, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :confirmation_date, :class => "form-control datepicker"
-    .form-group
-      = f.label :p_f_no, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :p_f_no, :class => "form-control"
-    .form-group
-      = f.label :bank_name, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :bank_name, :class => "form-control"
-    .form-group
-      = f.label :account_number, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :account_number, :class => "form-control"
-    .form-group
-      = f.label :pan, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :pan, :class => "form-control"
-    .form-group
-      = f.label :ctc, :class => 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :ctc, :class => "form-control"
-    .actions
-      = submit_link
+            = f.hidden_field :designation_master_id, :class => "form-control", :id => "designation_id"
+        .form-group
+          = f.label :department_id, :class => 'col-md-3 control-label'
+          .col-md-9
+            = autocomplete_field_tag "employee_master[department_name]", 
+            f.object.department_name,
+            autocomplete_department_master_name_employee_masters_path,
+            :id_element => "#department_id",
+            :placeholder => " New department/ write to select existing",
+            :class => "form-control",
+            :id => "department_name"
+            = f.hidden_field :department_master_id, :class => "form-control", :id => "department_id"
+
+        .form-group
+          = f.label :initials, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :initials, :class => "form-control"
+        .form-group
+          = f.label :qualification, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :qualification, :class => "form-control"
+      .col-md-6
+        .form-group
+          = f.label :date_of_joining, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :date_of_joining, :class => "form-control datepicker"
+        .form-group
+          = f.label :probation_date, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :probation_date, :class => "form-control datepicker"
+        .form-group
+          = f.label :confirmation_date, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :confirmation_date, :class => "form-control datepicker"
+        .form-group
+          = f.label :p_f_no, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :p_f_no, :class => "form-control"
+        .form-group
+          = f.label :bank_name, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :bank_name, :class => "form-control"
+        .form-group
+          = f.label :account_number, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :account_number, :class => "form-control"
+        .form-group
+          = f.label :pan, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :pan, :class => "form-control"
+        .form-group
+          = f.label :ctc, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :ctc, :class => "form-control", :ng_model => "ctc"
+      .form-group
+        .col-md-offset-5
+          = submit_link
+          = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(ctc)", :ng_disabled => "isClicked", :ng_show => "ctc"
+  .col-md-12
+    #salaryBreakUpShowDiv

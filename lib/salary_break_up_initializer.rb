@@ -14,9 +14,6 @@ module SalaryBreakUpInitializer
     def attr_on_basic(*params)
       params.each do |param|
         define_method param.to_sym do
-          p (eligibility_fraction)
-          p "========="
-          p component_criterias
           (((component_criterias[param.to_sym]/100)*basic) * eligibility_fraction)
         end
       end
@@ -32,22 +29,17 @@ module SalaryBreakUpInitializer
   end
 
   def special_allowance
-    (ctc_per_month - (primary_earnings + salary_break_up_deductions))
+    (ctc_per_month - primary_earnings)
   end
-
-  def salary_break_up_deductions
-    (employer_pf_contribution + bonus_payment)
-  end
-  
 
   private
   
   def ctc_per_month
     ctc.to_f/12
   end
-  
+
   def primary_earnings
-    basic+hra+conveyance_allowance+ city_compensatory_allowance + medical_allowance
+    basic+hra+conveyance_allowance+ city_compensatory_allowance + medical_allowance + employer_pf_contribution + bonus_payment
   end
   
   def component_criterias

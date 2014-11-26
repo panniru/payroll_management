@@ -4,6 +4,12 @@ class PayslipCreationService
       employees.map do |emp|
         payslip = EmployeeNewPayslip.new(emp, date).payslip
         payslip.attributes.merge!({employee_master_code: emp.code, employee_master_name: emp.name}).except(:created_at, :updated_at)
+        # irregular_allowances = {
+        #   :is_eligible_for_loyality_allowance => emp.eligible_for_loyality_allowance?(date),
+        #   :is_eligible_for_leave_settlement => emp.eligible_for_leave_settlement?(date),
+        #   :is_eligible_for_annual_bonus_payment => emp.eligible_for_annual_bonus_payment?(date)
+        # } 
+        # payslip.attributes.merge!(irregular_allowances)
       end
     end
 
@@ -14,7 +20,10 @@ class PayslipCreationService
       ActiveRecord::Base.transaction do
         begin
           if payslips.map(&:valid?).all?
-            payslips.map(&:save)
+            payslips.each do |p|
+              p.save
+              p.post_payslip_creation_actions
+            end
             return true
           else
             return false
@@ -24,11 +33,12 @@ class PayslipCreationService
           return false
         end
       end
+      true
     end
 
 
     def payslip_params(params)
-      params.permit(:employee_master_id, :generated_date, :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :proffesional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :status)
+      params.permit(:employee_master_id, :generated_date, :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :status)
   end
 
   end

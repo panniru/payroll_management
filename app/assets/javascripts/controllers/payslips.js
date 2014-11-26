@@ -29,12 +29,12 @@
             })
         }
 
-        // $scope.emailPayslips = function(){
-        //     payslipService.Payslip.emailPayslips({employee_master_id: $scope.employee_master_id, month: $scope.month, year: $scope.year}, function(response){
-        //         $scope.alertSuccess = true
-        //         $scope.successMsg = "Mailing job has been scheduled"
-        //     })
-        // }
+        $scope.emailPayslips = function(){
+            payslipService.Payslip.emailPayslips({employee_master_id: $scope.employee_master_id, month: $scope.month, year: $scope.year}, function(response){
+                $scope.alertSuccess = true
+                $scope.successMsg = response.msg
+            })
+        }
     }]);
 
     app.controller("PayslipsController", ["$scope", "payslipService", function($scope, payslipService) {
@@ -75,7 +75,7 @@
         }
 
         $scope.totalDeductions = function(payslip){
-            return (payslip.pf + payslip.club_contribution + payslip.proffesional_tax + payslip.tds_pm +
+            return (payslip.pf + payslip.club_contribution + payslip.professional_tax + payslip.tds_pm +
                     payslip.additional_deduction_1 + payslip.additional_deduction_2 + payslip.additional_deduction_3)
         }
 

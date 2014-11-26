@@ -1,13 +1,15 @@
 class PayslipMailingJob
 
-  def initialize(scrolled_by, date)
+  def initialize(scrolled_by, month, year, date)
     @scrolled_by = scrolled_by
     @date = date
+    @month = month
+    @year = year
     @job_run_id = JobRun.schedule(JobRun::PAYSLIP_MAILING, scrolled_by, date).id
   end
 
   def perform
-    Payslip.in_the_current_month(@date).each do |payslip|
+    Payslip.in_the_month(@month).in_the_year(@year).each do |payslip|
       PayslipMailer.payslip(payslip).deliver if payslip.employee_master.email.present?
     end
   end
@@ -22,6 +24,10 @@ class PayslipMailingJob
 
   def failure(job)
     JobRun.finish_as_failed(@job_run_id)
+  end
+
+  def job_run_id
+    @job_run_id
   end
   
 end

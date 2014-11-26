@@ -1,0 +1,12 @@
+.row{:ng_controller => "PayslipsIndexController"}
+  = form_tag payslips_email_payslips_path, :method => 'post' , :class => "form-inline" do
+    .form-group
+      = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
+    .form-group
+      = select_tag "year", options_for_select(((Date.today.year-10..Date.today.year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
+    = link_to raw("<i class='fa fa-search fa-lg'></i> Go"), "#", :class => "btn btn-primary", :ng_click => "getPayslips(1)"
+    %button.btn.btn-primary{:type => 'submit'}
+      %i.fa.fa-at.fa-lg
+      Email Payslips
+  .row
+    = render "payslips_layout"

@@ -20,18 +20,46 @@ class EmployeeNewPayslip
     payslip.generated_date = @generation_date
     payslip.attributes.each do |attribute, value|
       if self.respond_to? attribute.to_sym and payslip.respond_to? "#{attribute}="
-        payslip.send("#{attribute}=", self.send(attribute).round) 
+        payslip.send("#{attribute}=", self.send(attribute).try(:round)) 
       end
     end
     payslip
   end
 
-  private
-  
+  # menthod_name should be same as payslip attribute salary_advance
   def salary_advance
     advs = @employee.employee_advance_payments.belongs_to_month(@generation_date.strftime("%b")).belongs_to_year(@generation_date.strftime("%Y"))
-    advs.inject{|sum, adv| sum+adv.amount_in_rupees}
+    advs.inject(0){|sum, adv| sum+adv.amount_in_rupees}
   end
+
+  # menthod_name should be same as payslip attribute salary_advance
+  def leave_settlement
+    if @employee.eligible_for_leave_settlement?(@generation_date)
+      leaves_to_encash = LeaveEncashment.employee_leave_encashments(@employee, @generation_date.year.to_s).first.try(:no_of_leaves_to_be_encashed).to_i
+      ((basic.to_f/@generation_date.end_of_month.day) * leaves_to_encash)
+    end
+  end
+
+  # menthod_name should be same as payslip attribute loyalti_allowance
+  def loyalty_allowance
+    if @employee.eligible_for_loyality_allowance?(@generation_date)
+      @employee.attributes['loyalty_allowance']
+    end
+  end
+  
+  # menthod_name should be same as payslip attribute annual_bonus
+  def annual_bonus
+    if @employee.eligible_for_annual_bonus_payment?(@generation_date)
+      last_annual_bonus_paid_on = @employee.last_annual_bonus_paid_on
+      unless last_annual_bonus_paid_on.present?
+        last_annual_bonus_paid_on = Date.new(@generation_date.year-1, @employee.rule_engine.value(:payslip, :bonus_payment_month)+1, 1)
+      end
+      EmployerContributions.belongs_to_employee(@employee).generated_after(last_annual_bonus_paid_on).inject(0){|sum, contrib| sum+contrib.bonus_payment}
+    end
+  end
+
+  private
+  
 
   def leave_details
     employee_leaves = @employee.employee_leaves.in_the_month(@generation_date.strftime("%b")).in_the_year(@generation_date.strftime("%Y")).first

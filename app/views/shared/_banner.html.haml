@@ -7,8 +7,17 @@
         %ul.nav.navbar-nav
           %li.navbar-brand
             = link_to "Employees", employee_masters_path
-          %li.navbar-brand
-            = link_to "Payslips", payslips_path
+          %li.dropdown.navbar-brand
+            = link_to raw("Payslips <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
+            %ul.dropdown-menu.dropdown-menu-right
+              %li
+                = link_to "Show", payslips_path
+              %li.divider
+              %li
+                = link_to "New Payslips", "#"
+              %li.divider
+              %li
+                = link_to "Email Payslips", payslips_new_email_payslips_path
           %li.navbar-brand
             = link_to "Leaves" , employee_leaves_path
           %li.navbar-brand

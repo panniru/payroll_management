@@ -43,6 +43,7 @@ PayrollManagement::Application.routes.draw do
   get "/payslips" => "payslips#index"
   post "/payslips/create_payslips"
   post "/payslips/approve_payslips"
+  get "/payslips/new_email_payslips"
   post "/payslips/email_payslips"
   get "/payslips/bank_advice"
 
@@ -63,6 +64,9 @@ PayrollManagement::Application.routes.draw do
       get "edit_user"
     end
   end
+
+  resources :job_runs, :only => [:index, :show] 
+
   devise_for :users
   root to: "home#index"
 end
