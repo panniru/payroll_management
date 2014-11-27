@@ -39,12 +39,16 @@ PayrollManagement::Application.routes.draw do
     end
   end
   
+  get "default_allowance_deductions" => "default_allowance_deductions#index"
+  get "default_allowance_deductions/new_upload"
+  post "default_allowance_deductions/upload"
+
   get "/payslips/new_payslips"
   get "/payslips" => "payslips#index"
   post "/payslips/create_payslips"
   post "/payslips/approve_payslips"
   get "/payslips/new_email_payslips"
-  post "/payslips/email_payslips"
+  get "/payslips/email_payslips"
   get "/payslips/bank_advice"
 
 
@@ -67,6 +71,6 @@ PayrollManagement::Application.routes.draw do
 
   resources :job_runs, :only => [:index, :show] 
 
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => 'sessions'}
   root to: "home#index"
 end

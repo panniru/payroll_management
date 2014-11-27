@@ -11,20 +11,20 @@ class Payslip < ActiveRecord::Base
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
   scope :generate_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
 
-  validates :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, allow_blank: true, numericality: { only_integer: true }
+
+  validates :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :notice_period_amount, allow_blank: true, numericality: { only_integer: true }
 
   EARNINGS = [:basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3]
 
-  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
+  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :notice_period_amount,:additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
 
-  def self.payslips_on_params(params, page = nil)
-    payslips = Payslip
+  def self.payslips_on_params(params)
+    payslips = Payslip.all
     if params[:employee_master_id].present? or params[:month].present? or params[:year].present? or params[:status].present?
       payslips = payslips.belongs_to_employee(params[:employee_master_id]) if params[:employee_master_id].present?
       payslips = payslips.in_the_month(params[:month]) if params[:month].present?
       payslips = payslips.in_the_year(params[:year]) if params[:year].present?
       payslips = payslips.having_status(params[:status]) if params[:status].present?
-      payslips = payslips.paginate(:page => page) if page.present?
     end
     payslips
   end
@@ -38,7 +38,7 @@ class Payslip < ActiveRecord::Base
   end
 
   def total_deductions
-    (pf.to_i + club_contribution.to_i + professional_tax.to_i + tds_pm.to_i + training_cost.to_i + salary_advance.to_i + additional_deduction_1.to_i + additional_deduction_2.to_i + additional_deduction_3.to_i)
+    (pf.to_i + club_contribution.to_i + professional_tax.to_i + tds_pm.to_i + training_cost.to_i + salary_advance.to_i + additional_deduction_1.to_i + additional_deduction_2.to_i + additional_deduction_3.to_i + notice_period_amount.to_i)
   end
 
   def ctc

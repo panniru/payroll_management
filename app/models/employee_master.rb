@@ -1,4 +1,4 @@
-WillPaginate.per_page = 5
+WillPaginate.per_page = 10
 class EmployeeMaster < ActiveRecord::Base
   validates :name, :presence => true
   validates :gender, :presence => true
@@ -13,6 +13,14 @@ class EmployeeMaster < ActiveRecord::Base
   has_many :employee_advance_payments
   has_many :employee_leaves, :class_name => "EmployeeLeave"
   has_many :payslips
+
+  scope :managed_by, (lambda do |user| 
+    if user.manager? or user.director?
+      all
+    else
+      where(:designation_master_id => DesignationMaster.select(:id).managed_by_role(user.role_id))
+    end
+  end)
 
   scope :having_designation, lambda{|design_id| where(:designation_master_id => design_id)}
   scope :has_no_pay_slips_in_the_month, lambda{|date| where("id not in (?)", Payslip.select(:employee_master_id).in_the_current_month(date))}
@@ -97,10 +105,23 @@ class EmployeeMaster < ActiveRecord::Base
     date.month == rule_engine.value(:payslip, :bonus_payment_month)
   end
 
-  
-
   def rule_engine
     @rule_engine ||= RuleEngine.new
+  end
+
+  grant(:find) { |user, model, action| model.readable_by_user? user }
+  grant(:create, :update, :destroy) { |user, model, action| model.editable_by_user? user }
+
+  def readable_by_user? user
+    if user.manager? or user.director?
+      true
+    else
+      self.designation_master.managed_by == user.role_id
+    end
+  end
+  
+  def editable_by_user? user
+    readable_by_user? user
   end
 
 end

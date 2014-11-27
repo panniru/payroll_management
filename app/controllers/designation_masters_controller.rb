@@ -1,8 +1,9 @@
 class DesignationMastersController < ApplicationController
-
+  authorize_resource
+  
   def map
     page = params[:page].present? ? params[:page] : 1
-    @designations = DesignationMaster.updated_at.all.paginate(:page => page )
+    @designations = DesignationMaster.updated_at.all.paginate(:page => page, :per_page => 30)
     respond_to do |format|
       data = {}
       format.json do
@@ -32,9 +33,6 @@ class DesignationMastersController < ApplicationController
       end
     end
   end
-  
-  
-  
 
   def designation_params(params)
     params.permit(:name , :managed_by)

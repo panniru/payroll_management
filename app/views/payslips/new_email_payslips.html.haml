@@ -1,12 +1,15 @@
 .row{:ng_controller => "PayslipsIndexController"}
-  = form_tag payslips_email_payslips_path, :method => 'post' , :class => "form-inline" do
+  = form_tag payslips_email_payslips_path, :method => 'get' , :class => "form-inline", :id => "payslipsIndexForm" do
     .form-group
       = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
     .form-group
-      = select_tag "year", options_for_select(((Date.today.year-10..Date.today.year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
+      = select_tag "year", options_for_select(((session[:transaction_date].year-10..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
     = link_to raw("<i class='fa fa-search fa-lg'></i> Go"), "#", :class => "btn btn-primary", :ng_click => "getPayslips(1)"
-    %button.btn.btn-primary{:type => 'submit'}
+    %button.btn.btn-primary{:type => 'submit', :ng_disabled => "!payslips.length > 0"}
       %i.fa.fa-at.fa-lg
       Email Payslips
+    = link_to raw("<i class='fa fa-download fa-lg'></i> Download"), "/payslips.pdf?month={{month}}&year={{year}}", :class => "btn btn-primary", :rel => "downloadPayslip", :ng_disabled => "!payslips.length > 0", :target => "_blank"
+    = link_to raw("<i class='fa fa-bank fa-lg'></i> Download Bank Advice"), "/payslips/bank_advice.pdf?month={{month}}&year={{year}}", :class => "btn btn-primary", :rel => "bankAdviceDownload", :ng_disabled => "!payslips.length > 0", :target => "_blank"
   .row
-    = render "payslips_layout"
+    = render :partial => "payslips_layout", :locals => {:editable => false}
+    

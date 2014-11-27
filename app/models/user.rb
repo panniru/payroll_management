@@ -33,11 +33,11 @@ class User < ActiveRecord::Base
     role_code == "manager"
   end
   
-  def director
+  def director?
     role_code == "director"
   end
   
-  def accountant
+  def accountant?
     role_code == "accountant"
   end
 end

@@ -3,7 +3,7 @@ class EmployeeMasterUploader
   include ActiveModel::Conversion
   include ActiveModel::Validations
   include Uploader
-  HEADERS = ["code", "name", "designation_name", "department_name", "gender", "initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "p_f_no", "bank_name", "account_number", "pan", "ctc"]
+  HEADERS = ["code", "name", "designation_name", "department_name", "gender", "date_of_birth", "email","initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "p_f_no", "bank_name", "account_number", "pan", "ctc"]
   
   def persisted?
     false

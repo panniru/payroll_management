@@ -22,6 +22,18 @@
         %label TDS
       %td
         %label= payslip.tds_pm
+  - if  payslip.training_cost.present?
+    %tr
+      %td
+        %label Training Cost
+      %td
+        %label= payslip.training_cost
+  - if  payslip.notice_period_amount.present?
+    %tr
+      %td
+        %label Notice Period Amount
+      %td
+        %label= payslip.notice_period_amount
   - if  payslip.additional_deduction_1.present?
     %tr
       %td

@@ -1,0 +1,39 @@
+= wicked_pdf_stylesheet_link_tag "pdf_reports"
+.row
+  .pull-right
+    = wicked_pdf_image_tag "logo.jpg",width: "100", height: "40"
+.col-xs-offset-5
+  %h3= "PAY SLIP FOR THE MONTH OF #{@month.try(:upcase)} #{@year}"
+
+
+%table.table.table-bordered
+  %thead
+    %th Code
+    %th Name
+    %th Designation
+    - Payslip::EARNINGS.each do |earning|
+      %th= earning.to_s.titleize.split(" ").length > 1 ? earning.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : earning.to_s.titleize
+    %th Total
+    - Payslip::DEDUCTIONS.each do |deduction|
+      %th= deduction.to_s.titleize.split(" ").length > 1 ? deduction.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : deduction.to_s.titleize
+    %th Total
+    %th Net Pay
+    %th Status
+  %tbody
+    - @payslips.each do |payslip|
+      %tr
+        %td= payslip.employee_master.code
+        %td= payslip.employee_master.name
+        %td= payslip.employee_master.designation_master.name
+        - Payslip::EARNINGS.each do |earning|
+          %td= payslip.send(earning)
+        %th= payslip.total_earnings
+        - Payslip::DEDUCTIONS.each do |deduction|
+          %td= payslip.send(deduction)
+        %th= payslip.total_deductions
+        %th= payslip.net_total
+        %td
+.row
+  - (Payslip::EARNINGS + Payslip::DEDUCTIONS).each do |componet|
+    .col-xs-3
+      %label= "#{componet.to_s.titleize.split(' ').length > 1 ? componet.to_s.titleize.split(' ').inject(''){|sum, v| sum+v[0]} : componet.to_s.titleize} : #{componet}"

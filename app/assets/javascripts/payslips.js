@@ -21,4 +21,16 @@ $(function() {
         $("#totalDeductionField").val(totalDeduction)
         $("#netAmountField").val($("#totalEarningsField").val() - totalDeduction)
     })
+
+    // $("a[rel='downloadPayslip']").on("click", function(event){
+    //     $("form#payslipsIndexForm").attr("action", "/payslips.pdf")
+    //     $("form#payslipsIndexForm").attr("terget", "_blank")
+    //     $("form#payslipsIndexForm").submit()
+    // })
+
+    // $("a[rel='bankAdviceDownload']").on("click", function(event){
+    //     $("form#payslipsIndexForm").attr("action", "/payslips/bank_advice.pdf")
+    //     $("form#payslipsIndexForm").attr("terget", "_blank")
+    //     $("form#payslipsIndexForm").submit()
+    // })
 });

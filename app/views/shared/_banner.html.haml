@@ -1,32 +1,29 @@
-.navbar.navbar-inverse
+.navbar.navbar-inverse                 
   .navbar-inner.container
     .col-sm-12
       .navbar-header
         .navbar-brand= link_to "Payroll", "#", :class => "navbar-brand"
       - if current_user.present?
         %ul.nav.navbar-nav
-          %li.navbar-brand
+          %li{:class => "#{controller_name == 'employee_masters' ? 'active': ''}"} 
             = link_to "Employees", employee_masters_path
-          %li.dropdown.navbar-brand
-            = link_to raw("Payslips <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
+          %li.dropdown{:class => "#{controller_name == "payslips" ? 'active': ''}"} 
+            = link_to raw("Payslips <b class='caret'></b>"), payslips_path, "data-toggle" => "dropdown", :class => 'dropdown-toggle'
             %ul.dropdown-menu.dropdown-menu-right
               %li
-                = link_to "Show", payslips_path
+                = link_to "Payslips", payslips_path
               %li.divider
               %li
-                = link_to "New Payslips", "#"
-              %li.divider
-              %li
-                = link_to "Email Payslips", payslips_new_email_payslips_path
-          %li.navbar-brand
+                = link_to "Email & Print Payslips", payslips_new_email_payslips_path
+          %li{:class => "#{controller_name == 'employee_leaves' ? 'active': ''}"} 
             = link_to "Leaves" , employee_leaves_path
-          %li.navbar-brand
+          %li{:class => "#{controller_name == 'salary_break_ups' ? 'active': ''}"} 
             = link_to "Salary BreakUps" , salary_break_ups_path
-          %li.navbar-brand
+          %li{:class => "#{controller_name == 'designation_masters' ? 'active': ''}"} 
             = link_to "Mapping" , designation_masters_path
         .pull-right
           %ul.nav.navbar-nav
-            %li.dropdown.navbar-brand
+            %li.dropdown
               = link_to raw("#{current_user.user_id} <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
               %ul.dropdown-menu.dropdown-menu-right
                 %li

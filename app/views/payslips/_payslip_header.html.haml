@@ -18,5 +18,5 @@
   %hr
 .col-md-12
   .col-md-offset-2
-    %h3= "PAY SLIP FOR THE MONTH OF #{Date.today.strftime("%b").upcase} #{Date.today.strftime("%Y")}"
+    %h3= "PAY SLIP FOR THE MONTH OF #{@payslip.generated_date.strftime("%b").upcase} #{@payslip.generated_date.strftime("%Y")}"
   %hr

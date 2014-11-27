@@ -55,7 +55,7 @@ gem 'angularjs-rails', '~> 1.3.2'
 gem 'angular-rails-templates', '~> 0.1.3'
 gem 'prawn', '~> 1.3.0'
 gem 'prawn-table', '~> 0.2.1'
-
+gem 'grant', '~> 2.1.0'
 
 gem 'delayed_job_active_record'
 

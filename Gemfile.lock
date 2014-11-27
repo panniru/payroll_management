@@ -63,6 +63,8 @@ GEM
     execjs (2.2.2)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
+    grant (2.1.0)
+      activerecord (> 3.0.0)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -197,6 +199,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   font-awesome-rails (~> 4.2.0.0)
+  grant (~> 2.1.0)
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails

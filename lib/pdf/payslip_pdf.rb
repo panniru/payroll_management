@@ -8,7 +8,7 @@ class PayslipPdf  #< Prawn::Document
   end
 
   def payslip
-    heading = "<font size = '15'> <b>PAYSLIP FOR THE MONTH OF #{Date.today.strftime('%b').upcase} #{Date.today.strftime('%Y')}</b></font>"
+    heading = "<font size = '15'> <b>PAYSLIP FOR THE MONTH OF #{@date.strftime('%b').upcase} #{@date.strftime('%Y')}</b></font>"
     body_rows = [[logo],[payslip_header], [part_1], [{:content => heading, :padding_left => 130}], [part_2], [part_2_totals], [part_3]] #
     table(body_rows, :cell_style => { :inline_format => true })
     #encrypt_document(:user_password => 'welcome', :owner_password => 'welcome')

@@ -1,4 +1,4 @@
 .row{:ng_controller => "PayslipsIndexController"}
   = render "search_payslips"
   .row
-    = render "payslips_layout"
+    = render :partial => "payslips_layout", :locals => {:editable => true}

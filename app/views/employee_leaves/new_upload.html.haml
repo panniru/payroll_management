@@ -12,13 +12,13 @@
       .col-md-1
         = f.label :date, :class => ' control-label'
       .col-md-3
-        = f.text_field :entered_date , :value => Date.today.to_s , :disabled=>true
+        = f.text_field :entered_date , :value => session[:transaction_date].to_s , :disabled=>true
       
       .col-md-4
         = f.file_field :file
       .col-md-3
         = f.submit "Upload", :class => "btn btn-primary"
-        - if Date.today.strftime("%m") == '12'
+        - if session[:transaction_date].strftime("%m") == '12'
           = link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
         - else 
           = link_to "Download Sample",  export_employee_leaves_path

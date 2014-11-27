@@ -9,6 +9,8 @@
   .form-group
     = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
   .form-group
-    = select_tag "year", options_for_select(((Date.today.year-10..Date.today.year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
+    = select_tag "year", options_for_select(((session[:transaction_date].year-10..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
   = link_to raw("<i class='fa fa-search fa-lg'></i> Go"), "#", :class => "btn btn-primary", :ng_click => "getPayslips(1)"
   = link_to raw("<i class='fa fa-at fa-lg'></i> Email Payslips"), "#", :class => "btn btn-primary", :ng_click => "emailPayslips()"
+  = link_to raw("<i class='fa fa-downoad fa-lg'></i> Download"), "#", :class => "btn btn-primary", :ng_click => "emailPayslips()"
+  

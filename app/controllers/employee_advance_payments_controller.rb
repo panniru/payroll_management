@@ -14,7 +14,7 @@ class EmployeeAdvancePaymentsController < ApplicationController
 
   def new
     @employee_advance_payment = EmployeeAdvancePayment.new do |adv_payment|
-      adv_payment.payment_date = Date.today
+      adv_payment.payment_date = session[:transaction_date]
       adv_payment.employee_master = @employee_master
     end
   end

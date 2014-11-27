@@ -23,6 +23,7 @@ class EmployeeNewPayslip
         payslip.send("#{attribute}=", self.send(attribute).try(:round)) 
       end
     end
+    inject_monthly_input_components_from_prvious_month(payslip)
     payslip
   end
 
@@ -59,7 +60,6 @@ class EmployeeNewPayslip
   end
 
   private
-  
 
   def leave_details
     employee_leaves = @employee.employee_leaves.in_the_month(@generation_date.strftime("%b")).in_the_year(@generation_date.strftime("%Y")).first
@@ -69,6 +69,30 @@ class EmployeeNewPayslip
         @total_days - employee_leaves.lop
       else
         @total_days
+      end
+    end
+  end
+
+  def inject_monthly_input_components_from_prvious_month(payslip)
+    old_payslip = @employee.payslips.in_the_current_month(@generation_date.last_month).first
+    if old_payslip.present?
+      DefaultAllowanceDeduction.valid_attributes.each do |key|
+        if payslip.respond_to? key
+          payslip.send("#{key}=", old_payslip.send(key))
+        end
+      end
+    else
+      inject_monthly_input_components_from_defaults(payslip)
+    end
+  end
+
+  def inject_monthly_input_components_from_defaults(payslip)
+    dafault_values = DefaultAllowanceDeduction.belongs_to_employee(@employee).first
+    if dafault_values.present?
+      DefaultAllowanceDeduction.valid_attributes.each do |key|
+        if payslip.respond_to? key
+          payslip.send("#{key}=", dafault_values.send(key))
+        end
       end
     end
   end
