@@ -39,7 +39,7 @@ module SalaryBreakUpInitializer
   end
 
   def primary_earnings
-    basic+hra+conveyance_allowance+ city_compensatory_allowance + medical_allowance + employer_pf_contribution + bonus_payment
+    basic.round + hra.round + conveyance_allowance.round + city_compensatory_allowance.round + medical_allowance.round + employer_pf_contribution.round + bonus_payment.round
   end
   
   def component_criterias

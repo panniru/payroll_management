@@ -20,6 +20,8 @@ class EmployeeMasterUploader
       employee_master.attributes = map_row_data(row_hash)
       employee_master.designation_master = employee_master.designation_from_params
       employee_master.department_master = employee_master.department_from_params
+      employee_master.ctc = employee_master.ctc.to_i
+      employee_master.account_number = employee_master.account_number.to_i.to_s
       employee_master
     end
   end

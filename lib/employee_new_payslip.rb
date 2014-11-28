@@ -1,7 +1,7 @@
 class EmployeeNewPayslip
   include SalaryBreakUpInitializer 
   basic_on_ctc :basic
-  attr_on_basic :hra, :city_compensatory_allowance, :employer_pf_contribution, :bonus_payment, :loyalty_allowance
+  attr_on_basic :hra, :city_compensatory_allowance, :employer_pf_contribution, :bonus_payment #, :loyalty_allowance
   attr_fixed_per_year :conveyance_allowance, :medical_allowance
   alias_method :pf, :employer_pf_contribution
   
@@ -44,7 +44,7 @@ class EmployeeNewPayslip
   # menthod_name should be same as payslip attribute loyalti_allowance
   def loyalty_allowance
     if @employee.eligible_for_loyality_allowance?(@generation_date)
-      @employee.attributes['loyalty_allowance']
+      (((component_criterias[:loyalty_allowance]/100)*basic) * eligibility_fraction)
     end
   end
   
