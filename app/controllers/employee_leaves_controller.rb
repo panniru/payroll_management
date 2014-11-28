@@ -42,7 +42,7 @@ class EmployeeLeavesController < ApplicationController
 
     spreadsheet = StringIO.new
     employee_leave.write spreadsheet
-    file = "payroll_employee_sample.xlsx"
+    file = "Employee_Leaves_Sample.xlsx"
     send_data spreadsheet.string, :filename => "#{file}", :type =>  "application/vnd.ms-excel"
   end
 
@@ -65,7 +65,7 @@ class EmployeeLeavesController < ApplicationController
     
     spreadsheet = StringIO.new
     employee_leave.write spreadsheet
-    file = "payroll_employee_sample.xlsx"
+    file = "Employee_Leaves_Sample.xlsx"
     send_data spreadsheet.string, :filename => "#{file}", :type =>  "application/vnd.ms-excel"
   end
 

@@ -7,10 +7,7 @@ PayrollManagement::Application.routes.draw do
       post 'save_designation'
     end
   end
-  # get "/designation_masters/new"
-  # get "/designation_masters/map"
-  # get "/designation_masters/index"
-  # post "/designation_masters/save_designation"
+ 
   resources :salary_break_ups do
     collection do
       put :update_all
@@ -67,6 +64,7 @@ PayrollManagement::Application.routes.draw do
   resources :home do
     collection do
       get "edit_user"
+      put "edit_user_index"
     end
   end
 
