@@ -9,10 +9,9 @@ class DesignationMastersController < ApplicationController
         data = {}
         designations = @designations.map do |var|
           if Role.find_by_id(var.managed_by).present?
-            { id: var.id, name: var.name , managed_by: Role.find_by_id(var.managed_by).role}
+            { id: var.id, name: var.name , managed_by: var.managed_by , role: Role.find_by_id(var.managed_by).code  }
           else
-            
-            { id: var.id, name: var.name , managed_by: "Need to be Mapped"}
+            { id: var.id, name: var.name , managed_by: var.managed_by }
           end
         end
         data[:designations] = designations

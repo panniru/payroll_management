@@ -14,11 +14,11 @@
           %tr{"ng-repeat" => "designation in designations.designations"}
             %td {{designation.name}}
             %td
-              %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("accountant").id}
+              %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("accountant").id }
               Senior Accountant
               %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("manager").id}
               Commercial Manager
-              = hidden_field_tag :managed_by , :value => "{{designation['managed_by']}}"
-
+              = hidden_field_tag :managed_by , :value => Role.find_by_code("accountant").role
+              
         .pull-right
           = save_button
