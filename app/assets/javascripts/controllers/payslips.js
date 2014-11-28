@@ -11,6 +11,7 @@
                 $scope.to_index = data.to_index 
                 $scope.from_index = data.from_index
                 $.each($scope.payslips, function(index, val){
+                    
                     val["isChecked"] = false
                 });
 
@@ -18,8 +19,10 @@
         }
 
         $scope.checkAll = function(){
-            $.each($scope.payslips, function(index, val){
-                val.isChecked = $scope.allChecked
+            $.each($scope.payslips, function(index, payslip){
+                if(payslip.status == 'pending'){
+                    payslip.isChecked = $scope.allChecked
+                }
             });
         };
 

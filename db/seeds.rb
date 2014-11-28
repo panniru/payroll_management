@@ -54,19 +54,10 @@ def seed_user
 end
 
 def seed_salary_break_ups
-  # SalaryBreakUpCreator::BREAK_UPS.each do |break_up|
-  #   SalaryBreakUp.find_or_create_by(:component_code => break_up, :component => break_up.titleize, :criteria => 0)
-  # end
-  SalaryBreakUp.first_or_create(:component => 'Basic',:component_code => 'Basic', :criteria => '50')
-  SalaryBreakUp.create(:component => 'Hra' ,:component_code => 'Hra' ,:criteria => '12')
-  SalaryBreakUp.create(:component => ' Medical Allowance',:component_code => ' Medical Allowance', :criteria => '500')
-  SalaryBreakUp.create(:component => ' Conveyance Allowance',:component_code => ' Conveyance Allowance', :criteria => '200')
-  SalaryBreakUp.create(:component => '  City Compensatory Allowance',:component_code => '  City Compensatory Allowance', :criteria => '10')
-  SalaryBreakUp.create(:component => ' Special Allowance',:component_code => ' Special Allowance', :criteria => '40')
-  SalaryBreakUp.create(:component => ' Employer Pf Contribution',:component_code => ' Employer Pf Contribution', :criteria => '10')
-  SalaryBreakUp.create(:component => ' Bonus Payment',:component_code => ' Bonus Payment', :criteria => '10')
-  SalaryBreakUp.create(:component => ' Grade Allowance',:component_code => ' Grade Allowance', :criteria => '900')
-  SalaryBreakUp.create(:component => ' Incentive Payment',:component_code => ' Incentive Payment', :criteria => '100')
+  SalaryBreakUpCreator::BREAK_UPS.each do |break_up|
+    SalaryBreakUp.find_or_create_by(:component_code => break_up, :component => break_up.titleize, :criteria => 0)
+  end
+  SalaryBreakUp.find_or_create_by(:component_code => "loyalty_allowance", :component => "loyalty_allowance".titleize, :criteria => 0)
 end
 
 def seed_all
