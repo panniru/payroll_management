@@ -5,7 +5,7 @@ class EmployeeLeaveUploader
   
   include Uploader
   SHEET1_HEADERS = ["code"  , "days_worked" , "working_days" , "lop" , "sl" , "pl" , "cl"]
-  SHEET2_HEADERS = [ "code" , "no_of_leaves_to_be_encashed" , "year"]
+  SHEET2_HEADERS = [ "code" , "no_of_leaves_to_be_encashed" ]
 
   def persisted?
     false
@@ -31,6 +31,7 @@ class EmployeeLeaveUploader
         encashment.attributes = map_row_data_of_sheet2(row_hash)
         employee_master = EmployeeMaster.find_by(:code => encashment.attributes['code'])
         encashment.employee_master_id = employee_master.id
+        encashment.date = Date.today.to_s
         encashment
       end
     end

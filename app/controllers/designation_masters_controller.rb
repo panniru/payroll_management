@@ -5,10 +5,15 @@ class DesignationMastersController < ApplicationController
     page = params[:page].present? ? params[:page] : 1
     @designations = DesignationMaster.updated_at.all.paginate(:page => page, :per_page => 30)
     respond_to do |format|
-      data = {}
       format.json do
+        data = {}
         designations = @designations.map do |var|
-          { id: var.id, name: var.name , managed_by: var.managed_by}
+          if Role.find_by_id(var.managed_by).present?
+            { id: var.id, name: var.name , managed_by: Role.find_by_id(var.managed_by).role}
+          else
+            
+            { id: var.id, name: var.name , managed_by: "Need to be Mapped"}
+          end
         end
         data[:designations] = designations
         render :json => JsonPagination.inject_pagination_entries(@designations , data)

@@ -1,6 +1,6 @@
 (function(angular, app) {
     "use strict";
-    app.controller("DesignationMasterController",["$scope", "designationService", function($scope, designationService) {
+    app.controller("DesignationMasterController",["$scope", "designationService",'$window', function($scope,designationService,$window) {
 	$scope.getDesignation = function(page){
 	    designationService.getDesignationServiceView(page)
 		.then(function(result) {
@@ -32,6 +32,9 @@
 	    }
 	    designationService.saveDesignation($scope.designation_details)
 		.then(function(result) {
+		    alert(window.location.href)		    		    
+		    $window.location.href = '/designation_masters';
+		   
 		    
 		});
 	}

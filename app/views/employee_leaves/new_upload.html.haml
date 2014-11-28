@@ -19,6 +19,6 @@
       .col-md-3
         = f.submit "Upload", :class => "btn btn-primary"
         - if session[:transaction_date].strftime("%m") == '12'
-          = link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
-        - else 
           = link_to "Download Sample",  export_employee_leaves_path
+        - else 
+          = link_to "Download sample", new_upload_employee_leaves_path(:format => :xlsx)
