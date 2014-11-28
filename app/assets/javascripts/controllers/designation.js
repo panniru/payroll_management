@@ -32,10 +32,7 @@
 	    }
 	    designationService.saveDesignation($scope.designation_details)
 		.then(function(result) {
-		    alert(window.location.href)		    		    
 		    $window.location.href = '/designation_masters';
-		   
-		    
 		});
 	}
 	
