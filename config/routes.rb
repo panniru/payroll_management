@@ -42,6 +42,7 @@ PayrollManagement::Application.routes.draw do
   get "default_allowance_deductions" => "default_allowance_deductions#index"
   get "default_allowance_deductions/new_upload"
   post "default_allowance_deductions/upload"
+  delete "default_allowance_deductions/delete_all"
 
   get "/payslips/new_payslips"
   get "/payslips" => "payslips#index"

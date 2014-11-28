@@ -23,4 +23,9 @@ class DefaultAllowanceDeductionsController < ApplicationController
       render "new_upload"
     end
   end
+
+  def delete_all
+    DefaultAllowanceDeduction.destroy_all
+    redirect_to default_allowance_deductions_path
+  end
 end

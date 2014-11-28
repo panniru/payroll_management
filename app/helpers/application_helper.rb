@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def delete_button(path, params={})
-    link_to raw("<i class='fa fa-trash fa-lg'></i> Delete"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :method => "delete", :data => {:confirm => "Are you sure?"}
+    link_to raw("<i class='fa fa-trash fa-lg'></i> #{params['label'].present? ? params['label'] : 'Delete'}"), path, :class => "btn #{params[:class].present? ? params[:class] : 'btn-primary'}", :method => "delete", :data => {:confirm => "Are you sure?"}
   end
 
   def print_button(path, params={})

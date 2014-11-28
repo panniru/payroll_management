@@ -109,8 +109,8 @@ class EmployeeMaster < ActiveRecord::Base
     @rule_engine ||= RuleEngine.new
   end
 
-  grant(:find) { |user, model, action| model.readable_by_user? user }
-  grant(:create, :update, :destroy) { |user, model, action| model.editable_by_user? user }
+  # grant(:find) { |user, model, action| model.readable_by_user? user }
+  # grant(:create, :update, :destroy) { |user, model, action| model.editable_by_user? user }
 
   def readable_by_user? user
     if user.manager? or user.director?
