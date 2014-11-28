@@ -1,7 +1,9 @@
-= render "payslip_header"
 .col-md-12
-  = render "payslip_employee_details"
+  .pull-right
+    = image_tag "logo.jpg", :align => 'left', :class => "img-rounded", :style => "margin-left:33px;" 
 .col-md-12
-  %hr
+  = render "payslip_header"
+.col-md-12
+  = render "payslip_header_2"
 .col-md-12
   = render "form"

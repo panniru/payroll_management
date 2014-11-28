@@ -13,9 +13,9 @@ class PayslipsController < ApplicationController
   end
   
   def new
-    @payslip = @employee_master.payslips.in_the_current_month(session[:transaction_date].next_month).first
+    @payslip = @employee_master.payslips.in_the_current_month(session[:transaction_date]).first
     unless @payslip.present?
-      @payslip = EmployeeNewPayslip.new(@employee_master, session[:transaction_date].next_month).payslip
+      @payslip = EmployeeNewPayslip.new(@employee_master, session[:transaction_date]).payslip
       render "new"
     else
       flash[:alert] = "Payslip of #{@employee_master.name} for the month <b>#{session[:transaction_date].strftime('%b')} #{session[:transaction_date].strftime('%Y')}</b>  has been generated and it exists <a href='/employee_masters/#{@employee_master.id}/payslips/#{@payslip.id}'> here</a>"

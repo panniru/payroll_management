@@ -4,7 +4,7 @@
   .col-md-5.col-right-border  
     .container
       %label Name: 
-      %label.org-name= @employee_master.name
+      %label.org-name= link_to @employee_master.name, @employee_master
       %br
       %br
       %label Designation: 
