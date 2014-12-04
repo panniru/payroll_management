@@ -28,18 +28,29 @@
       %th{:ng_show => "isEarningsEdit"} Grade Allowance
       -#%th{:ng_show => "isEarningsEdit"} Leave Settlement
       %th{:ng_show => "isEarningsEdit"} Performance Bonus
-      %th{:ng_show => "isEarningsEdit"} Additional Allowance 1
-      %th{:ng_show => "isEarningsEdit"} Additional Allowance 2
-      %th{:ng_show => "isEarningsEdit"} Additional Allowance 3
-
+      %th{:ng_show => "isEarningsEdit"} 
+        %span{:ng_hide => "additional_allowance_1_label_edit", :ng_click => "additional_allowance_1_label_edit = true"}Additional Allowance 1
+        %input{:type => "text", :ng_show => "additional_allowance_1_label_edit", :ng_model => "additional_allowance_1_label", :style => "width: 100px;"}
+      %th{:ng_show => "isEarningsEdit"} 
+        %span{:ng_hide => "additional_allowance_2_label_edit", :ng_click => "additional_allowance_2_label_edit = true"}Additional Allowance 2
+        %input{:type => "text", :ng_show => "additional_allowance_2_label_edit", :ng_model => "additional_allowance_2_label", :style => "width: 100px;"}
+      %th{:ng_show => "isEarningsEdit"}
+        %span{:ng_hide => "additional_allowance_3_label_edit", :ng_click => "additional_allowance_3_label_edit = true"}Additional Allowance 3
+        %input{:type => "text", :ng_show => "additional_allowance_3_label_edit", :ng_model => "additional_allowance_3_label", :style => "width: 100px;"}
       %th{:ng_hide => "isEarningsEdit"}  Club Contribution
       %th{:ng_hide => "isEarningsEdit"} Proffesional Tax
       %th{:ng_hide => "isEarningsEdit"} TDS(Income Tax)
       %th{:ng_hide => "isEarningsEdit"} Training Cost
       %th{:ng_hide => "isEarningsEdit"} Notice Period Amount
-      %th{:ng_hide => "isEarningsEdit"} Additional Deduction 1
-      %th{:ng_hide => "isEarningsEdit"} Additional Deduction 2
-      %th{:ng_hide => "isEarningsEdit"} Additional Deduction 3
+      %th{:ng_hide => "isEarningsEdit"} 
+        %span{:ng_hide => "additional_deduction_1_label_edit", :ng_click => "additional_deduction_1_label_edit = true"}Additional Deduction 1
+        %input{:type => "text", :ng_show => "additional_deduction_1_label_edit", :ng_model => "additional_deduction_1_label", :style => "width: 100px;"}
+      %th{:ng_hide => "isEarningsEdit"}
+        %span{:ng_hide => "additional_deduction_2_label_edit", :ng_click => "additional_deduction_2_label_edit = true"}Additional Deduction 2
+        %input{:type => "text", :ng_show => "additional_deduction_2_label_edit", :ng_model => "additional_deduction_2_label", :style => "width: 100px;"}
+      %th{:ng_hide => "isEarningsEdit"}
+        %span{:ng_hide => "additional_deduction_3_label_edit", :ng_click => "additional_deduction_3_label_edit = true"}Additional Deduction 3
+        %input{:type => "text", :ng_show => "additional_deduction_3_label_edit", :ng_model => "additional_deduction_3_label", :style => "width: 100px;"}
     %tbody
       %tr{:ng_repeat => "payslip in payslips"}
         %td

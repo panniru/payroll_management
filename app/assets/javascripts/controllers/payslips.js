@@ -51,7 +51,24 @@
                 $scope.current_page = parseInt(data.current_page)
                 $scope.to_index = data.to_index 
                 $scope.from_index = data.from_index
+                initializeHeaders()
             })
+        }
+
+        var initializeHeaders = function(){
+            $scope.additional_allowance_1_label = null
+            $scope.additional_allowance_2_label = null
+            $scope.additional_allowance_3_label = null
+            $scope.additional_deduction_1_label = null
+            $scope.additional_deduction_2_label = null
+            $scope.additional_deduction_3_label = null
+            
+            $scope.additional_allowance_1_label_edit = null
+            $scope.additional_allowance_2_label_edit = null
+            $scope.additional_allowance_3_label_edit = null
+            $scope.additional_deduction_1_label_edit = null
+            $scope.additional_deduction_2_label_edit = null
+            $scope.additional_deduction_3_label_edit = null
         }
 
         $scope.toggleComponents = function(){
@@ -61,6 +78,16 @@
         
         $scope.savePayslips = function(){
             if($scope.payslipsForm.$valid){
+                angular.forEach($scope.payslips, function(payslip, index){
+                    payslip["additional_allowance_1_label"] = $scope.additional_allowance_1_label
+                    payslip["additional_allowance_2_label"] = $scope.additional_allowance_2_label
+                    payslip["additional_allowance_3_label"] = $scope.additional_allowance_3_label
+                    payslip["additional_deduction_1_label"] = $scope.additional_deduction_1_label
+                    payslip["additional_deduction_2_label"] = $scope.additional_deduction_2_label
+                    payslip["additional_deduction_3_label"] = $scope.additional_deduction_3_label
+                });
+                
+
                 payslipService.Payslip.savePayslips({payslips: $scope.payslips}, function(response){
                     $scope.newPayslips(1)
                 })

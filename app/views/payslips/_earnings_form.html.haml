@@ -63,15 +63,24 @@
   .form-group
     = f.label :additional_allowance_1, :class => 'col-md-7 control-label'
     .col-md-5
-      = f.text_field :additional_allowance_1, :class => "form-control", :rel => "earningInputField"
+      .row
+        = f.text_field :additional_allowance_1_label, :class => "form-control", :placeholder => "Label"
+      .row
+        = f.text_field :additional_allowance_1, :class => "form-control", :rel => "earningInputField"
   .form-group
     = f.label :additional_allowance_2, :class => 'col-md-7 control-label'
     .col-md-5
-      = f.text_field :additional_allowance_2, :class => "form-control", :rel => "earningInputField"
+      .row
+        = f.text_field :additional_allowance_2_label, :class => "form-control", :placeholder => "Label"
+      .row
+        = f.text_field :additional_allowance_2, :class => "form-control", :rel => "earningInputField"
   .form-group
     = f.label :additional_allowance_3, :class => 'col-md-7 control-label'
     .col-md-5
-      = f.text_field :additional_allowance_3, :class => "form-control", :rel => "earningInputField"
+      .row
+        = f.text_field :additional_allowance_3_label, :class => "form-control", :placeholder => "Label"
+      .row
+        = f.text_field :additional_allowance_3, :class => "form-control", :rel => "earningInputField"
   .form-group
     = f.label :Total, :class => 'col-md-7 control-label'
     .col-md-5

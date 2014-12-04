@@ -5,7 +5,9 @@ class PayslipsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html {}
+      @payslip = PayslipDecorator.decorate(@payslip)
+      format.html do
+      end
       format.pdf do 
         send_data @payslip.pdf.render, type: "application/pdf", disposition: "inline"
       end
@@ -25,7 +27,7 @@ class PayslipsController < ApplicationController
 
   def create
     @payslip = Payslip.new(payslip_params)
-    @payslip.status = "pending"
+    @payslip.mark_as_pending
     #@payslip.generated_date = session[:transaction_date]
     respond_to do |format|
       if @payslip.save_payslip

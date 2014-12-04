@@ -27,6 +27,8 @@
             
         .pull-right
           %ul.nav.navbar-nav
+            %li
+              = link_to raw("#{fa_icon "bell 2x"}"), root_path
             %li.dropdown
               = link_to raw("#{current_user.user_id} <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
               %ul.dropdown-menu.dropdown-menu-right

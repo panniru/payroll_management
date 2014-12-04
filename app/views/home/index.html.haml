@@ -1,0 +1,18 @@
+%h2
+  = "Pending jobs for the month #{session[:transaction_date].strftime('%b')} #{session[:transaction_date].strftime('%Y')}"
+  .pull-right
+    = link_to raw("<i class= 'fa fa-asterisk fa-lg'></i>Manage"), reminders_path, :class => "btn btn-primary" 
+%table.table.table-condenced
+  %tr
+    %th Occurrence
+    %th Description
+    %th Due Date
+    %th Previous Resolution Date
+  - @reminders.each do |rem|
+    %tr.active-reminder-row
+      %td= rem.occurrence.titleize
+      %td= rem.description
+      %td= rem.created_date
+      %td= rem.previous_resolution_date
+    
+  

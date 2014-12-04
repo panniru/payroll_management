@@ -79,19 +79,19 @@
   - if payslip.additional_allowance_1.present? 
     %tr
       %td
-        %label Additional Allowance 1
+        %label= payslip.additional_allowance_1_label
       %td
         %label= payslip.additional_allowance_1
   - if payslip.additional_allowance_2.present?
     %tr
       %td
-        %label Additional Allowance 2
+        %label= payslip.additional_allowance_2_label
       %td
         %label= payslip.additional_allowance_2
   - if payslip.additional_allowance_3.present? 
     %tr
       %td
-        %label Additional Allowance 3
+        %label= payslip.additional_allowance_3_label
       %td
         %label= payslip.additional_allowance_3
   %tr

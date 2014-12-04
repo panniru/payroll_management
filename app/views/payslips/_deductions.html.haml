@@ -37,19 +37,19 @@
   - if  payslip.additional_deduction_1.present?
     %tr
       %td
-        %label Additional Deduction 1
+        %label= payslip.additional_deduction_1_label
       %td
         %label= payslip.additional_deduction_1
   - if  payslip.additional_deduction_2.present?
     %tr
       %td
-        %label Additional Deduction 2
+        %label= payslip.additional_deduction_2_label
       %td
         %label= payslip.additional_deduction_2
   - if  payslip.additional_deduction_3.present?
     %tr
       %td
-        %label Additional Deduction 3
+        %label= payslip.additional_deduction_3_label
       %td
         %label= payslip.additional_deduction_3
   %tr

@@ -1,5 +1,7 @@
 PayrollManagement::Application.routes.draw do
 
+  resources :reminders
+
   resources :designation_masters do
     collection do
       get "map"

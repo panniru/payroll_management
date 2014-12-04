@@ -26,6 +26,12 @@
     %label Code:
     %label.label.label-info.employee_code= @employee_master.code
     %br
+    - if @employee_master.relation == 'M'
+      %label Husband Name:
+    - else
+      %label Father Name:
+    %label= @employee_master.father_or_husband_name
+    %br
     %label Gender: 
     %label= @employee_master.gender
     %br
@@ -44,12 +50,16 @@
       %th Date of joining
       %th Probation date
       %th Confirmation date
+      %th Resignation Date
+      %th Reason For Resignation
     %tbody
       %td= @employee_master.initials
       %td= @employee_master.qualification
       %td= @employee_master.date_of_joining
       %td= @employee_master.probation_date
       %td= @employee_master.confirmation_date
+      %td= @employee_master.resignation_date
+      %td= @employee_master.reason_for_resignation
 .col-md-12
   .col-md-6
     %table.table.table-bordered
@@ -59,6 +69,7 @@
       %tr
         %th PAN
         %td= @employee_master.pan
+
   .col-md-6
     %table.table.table-bordered
       %tr

@@ -57,8 +57,8 @@ gem 'prawn', '~> 1.3.0'
 gem 'prawn-table', '~> 0.2.1'
 gem 'grant', '~> 2.1.0'
 gem 'activerecord-session_store'
-
 gem 'delayed_job_active_record'
+gem 'draper', '~> 1.3'
 
 gem 'rails_12factor', group: :production
 group :development, :test do

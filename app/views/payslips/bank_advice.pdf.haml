@@ -24,3 +24,10 @@
         %td= payslip.employee_master.account_number
         %td= payslip.net_total
         %td= "Hochtief - Salary - #{@month.to_s[0..2]} #{@year.to_s[2..3]}"
+    %tr
+      %th
+      %th
+      %th Total
+      %th
+      %th= @payslips.inject(0){|sum, payslip| sum+payslip.net_total}
+      %th

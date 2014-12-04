@@ -30,15 +30,24 @@
 .form-group
   = f.label :additional_deduction_1, :class => 'col-md-5 control-label'
   .col-md-7
-    = f.text_field :additional_deduction_1, :class => "form-control", :rel => "deductionInputField"
+    .row
+      = f.text_field :additional_deduction_1_label, :class => "form-control", :placeholder => "Label"
+    .row
+      = f.text_field :additional_deduction_1, :class => "form-control", :rel => "deductionInputField"
 .form-group
   = f.label :additional_deduction_2, :class => 'col-md-5 control-label'
   .col-md-7
-    = f.text_field :additional_deduction_2, :class => "form-control", :rel => "deductionInputField"
+    .row
+      = f.text_field :additional_deduction_2_label, :class => "form-control", :placeholder => "Label"
+    .row
+      = f.text_field :additional_deduction_2, :class => "form-control", :rel => "deductionInputField"
 .form-group
   = f.label :additional_deduction_3, :class => 'col-md-5 control-label'
   .col-md-7
-    = f.text_field :additional_deduction_3, :class => "form-control", :rel => "deductionInputField"
+    .row
+      = f.text_field :additional_deduction_3_label, :class => "form-control", :placeholder => "Label"
+    .row
+      = f.text_field :additional_deduction_3, :class => "form-control", :rel => "deductionInputField"
 .form-group
   = f.label :Total, :class => 'col-md-5 control-label'
   .col-md-7

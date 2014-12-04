@@ -11,9 +11,9 @@
   .form-group
     = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
   .form-group
-    //= select_tag "year", options_for_select(((session[:transaction_date].year-10..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
-  .form-group
-    = select_tag "status", options_for_select([['Pending', 'pending'], ['Approved', 'approved'], ['Rejected', 'rejected']], params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "status", :paceholder => "Status"
+    = select_tag "year", options_for_select(((session[:transaction_date].year-10..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "year"
+  -# .form-group
+  -#   = select_tag "status", options_for_select([['Pending', 'pending'], ['Approved', 'approved'], ['Rejected', 'rejected']], params[:year]), :class => "form-control", :placeholder => "Year", :ng_model => "status", :paceholder => "Status"
   = submit_search
   - unless @employee_master.present?
     = link_to_new("/payslips/new_payslips", {'label' => 'Payslips'})

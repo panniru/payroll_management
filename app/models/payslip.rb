@@ -1,6 +1,16 @@
 class Payslip < ActiveRecord::Base
   belongs_to :employee_master
   has_one :employer_contribution
+  has_one :payslip_additional_fields_label
+
+  validates :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :notice_period_amount, allow_blank: true, numericality: { only_integer: true }
+
+  attr_accessor :additional_allowance_1_label, :additional_allowance_2_label, :additional_allowance_3_label
+  attr_accessor :additional_deduction_1_label, :additional_deduction_2_label, :additional_deduction_3_label
+
+  EARNINGS = [:basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3]
+
+  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :notice_period_amount,:additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
 
   scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y"))}
   scope :in_the_year, lambda{|year| where("to_char(generated_date, 'YYYY') = ?", year)}
@@ -11,13 +21,7 @@ class Payslip < ActiveRecord::Base
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
   scope :generate_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
 
-
-  validates :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :notice_period_amount, allow_blank: true, numericality: { only_integer: true }
-
-  EARNINGS = [:basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3]
-
-  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :notice_period_amount,:additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
-
+  
   def self.payslips_on_params(params)
     payslips = Payslip.all
     if params[:employee_master_id].present? or params[:month].present? or params[:year].present? or params[:status].present?
@@ -69,8 +73,30 @@ class Payslip < ActiveRecord::Base
   end
 
   def post_payslip_creation_actions
+    make_binus_payment_entry
+    make_additional_fields_label_entry
+  end
+
+  def mark_as_pending
+    self.status = "pending"
+  end
+  
+  
+  private
+
+  def make_binus_payment_entry
     bonus = EmployeeNewPayslip.new(self.employee_master, self.generated_date).bonus_payment.round
     EmployerContribution.create!({:payslip_id => self.id, :pf => self.pf, :bonus_payment => bonus, :generated_date => self.generated_date, :employee_master_id => self.employee_master.id})
+  end
+  
+  def make_additional_fields_label_entry
+    PayslipAdditionalFieldsLabel.new do |payslip_label|
+      payslip_label.payslip = self
+      (1..3).each do |index|
+        payslip_label.send("additional_allowance_#{index}=", self.send("additional_allowance_#{index}_label"))
+        payslip_label.send("additional_deduction_#{index}=", self.send("additional_deduction_#{index}_label"))
+      end
+    end.save
   end
 
 end
