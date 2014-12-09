@@ -3,8 +3,17 @@
   %h2
     = raw "#{link_to "PF Statements", pf_statements_list_jobs_path} for the month #{@job_run.job_date.strftime('%b')} #{@job_run.job_date.strftime('%Y')}" 
     .pull-right
-      = link_to "Download", "/job_runs/#{@job_run.id}/pf_statements.pdf", :class => "btn btn-primary", :target => "_blank"
-
+      .btn-group
+        = link_to raw("<i class='fa fa-downoad fa-lg'></i> Downloads"), "#", :class => "btn btn-primary", :target => "_blank"
+        %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
+          %span.fa.fa-caret-down
+        %ul.dropdown-menu.dropdown-menu-right
+          %li
+            = link_to "As PDF", "/job_runs/#{@job_run.id}/pf_statements.pdf", :target => "_blank"
+          %li
+            = link_to "As @~@ separated Value", "/job_runs/#{@job_run.id}/pf_statements.csv", :target => "_blank"
+          %li
+            = link_to "As Excel", "/job_runs/#{@job_run.id}/pf_statements.xlsx", :target => "_blank"
 .row
   %table.table.table-condensed.table-bordered.table-responsive
     %thead

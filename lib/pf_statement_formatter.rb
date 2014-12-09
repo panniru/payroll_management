@@ -8,10 +8,16 @@ class PfStatementFormatter
     @pf_statements = pf_statements
   end
 
-  def xls_template
+  def xlsx(options ={})
+    CSV.generate(options) do |csv|
+      csv << HEADERS.map{|h| h.to_s.titleize}
+      @pf_statements.each do |pf_statement|
+        csv << HEADERS.map{|head| pf_statement.send(head)} 
+      end 
+    end
   end
 
-  def csv(oprions ={})
+  def csv(options ={})
     CSV.generate(options) do |csv|
       @pf_statements.each do |pf_statement|
         csv << HEADERS.map{|head| pf_statement.send(head)} 

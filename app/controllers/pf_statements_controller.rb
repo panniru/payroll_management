@@ -4,7 +4,7 @@ class PfStatementsController < ApplicationController
   
   def list_jobs
     page = params[:page].present? ? params[:page] : 1
-    @job_runs = JobRun.matching_code(JobRun::PF_STATEMENT).paginate(:page => page)
+    @job_runs = JobRun.matching_code(JobRun::PF_STATEMENT).paginate(:page => page).order("job_date DESC")
   end
   
   def index
@@ -14,13 +14,21 @@ class PfStatementsController < ApplicationController
         @pf_statements = @job_run.pf_statements.paginate(:page => page)
         @pf_statements = PfStatementDecorator.decorate_collection(@pf_statements)
       end
+      @pf_statements = @job_run.pf_statements
+      @pf_statements = PfStatementDecorator.decorate_collection(@pf_statements)
+      @month = @job_run.job_date.strftime('%b')
+      @year = @job_run.job_date.strftime('%Y')
       format.pdf do
-        @pf_statements = @job_run.pf_statements
-        @pf_statements = PfStatementDecorator.decorate_collection(@pf_statements)
         render :pdf => "pf_statement_#{@month}_#{@year}",
         :formats => [:pdf],
         :page_size => 'A4',
         :orientation => 'Landscape'
+      end
+      format.csv do
+        send_data PfStatementFormatter.new(@pf_statements).csv(col_sep: "@~@"), :filename=>"pf_statement_#{@month}_#{@year}.txt"
+      end
+      format.xlsx do
+        send_data PfStatementFormatter.new(@pf_statements).xlsx(col_sep: ","), :filename=>"pf_statement_#{@month}_#{@year}.xlsx"
       end
     end
   end

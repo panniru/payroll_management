@@ -3,7 +3,7 @@ class JobRunsController < ApplicationController
   authorize_resource
   def index
     page = params[:page].present? ? params[:page] : 1
-    @job_runs = JobRun.all.paginate(:page => page)
+    @job_runs = JobRun.matching_code(JobRun::PAYSLIP_MAILING).paginate(:page => page)
   end
 
   def show

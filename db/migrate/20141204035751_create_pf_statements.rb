@@ -12,11 +12,11 @@ class CreatePfStatements < ActiveRecord::Migration
       t.integer :diff_epf_and_eps
       t.integer :diff_remitted
       t.integer :n
-      t.integer :refund_adv
-      t.integer :arrear_epf
-      t.integer :arrear_epf_ee
-      t.integer :arrear_epf_er
-      t.integer :arrear_eps
+      t.integer :refund_adv, :default => 0
+      t.integer :arrear_epf, :default => 0
+      t.integer :arrear_epf_ee, :default => 0
+      t.integer :arrear_epf_er, :default => 0
+      t.integer :arrear_eps, :default => 0
       t.integer :job_run_id
       t.timestamps
     end

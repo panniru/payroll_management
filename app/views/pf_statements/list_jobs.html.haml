@@ -7,7 +7,7 @@
 %table.table.table-condensed
   %thead
     %tr
-      %th Job Run Id
+      -#%th Job Run Id
       %th Schedule Date
       %th Job
       %th Started On
@@ -17,8 +17,8 @@
   %tbody
     - @job_runs.each do |job_run|
       %tr
-        %td= link_to job_run.id, "/job_runs/#{job_run.id}/pf_statements"
-        %td= job_run.job_date
+        -#%td= link_to job_run.id, "/job_runs/#{job_run.id}/pf_statements"
+        %td= link_to job_run.job_date, "/job_runs/#{job_run.id}/pf_statements"
         %td= job_run.job_code.titleize
         %td= job_run.started_on.to_s
         %td= job_run.finished_on.to_s

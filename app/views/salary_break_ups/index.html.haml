@@ -8,7 +8,7 @@
   .pull-right
     = link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), "#", :class => "btn btn-primary", :ng_click => "editable = true", :ng_hide => "editable"
     = link_to raw("<i class='fa fa-save fa-lg'></i> Update"), "#", :class => "btn btn-primary", :ng_click => "update()", :ng_show => "editable"
-    = link_to raw("<i class='fa fa-undo fa-lg'></i> Cancel"), "#", :class => "btn btn-primary", :ng_click => "initialize()", :ng_show => "editable"
+    = link_to raw("<i class='fa fa-undo fa-lg'></i> Cancel"), "#", :class => "btn btn-primary", :ng_click => "initialize('#{@type}')", :ng_show => "editable"
   %table.table.table-condensed
     %thead
       %th Component
