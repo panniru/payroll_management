@@ -1,13 +1,13 @@
 (function(angular, app) {
     "use strict";
     app.controller("SalaryBreakUpsController",["$scope", "$http", function($scope, $http) {
-        $scope.initialize = function(){
+        $scope.initialize = function(type){
             $scope.editable = false;
-            $http.get("/salary_break_ups.json")
+            $http.get("/salary_break_ups.json?type="+type)
                 .then(function(response){
                     $scope.salary_break_ups = response.data
                 })
-        };
+        }
 
         $scope.update = function(){
             $http.put("/salary_break_ups/update_all.json", {salary_break_ups: $scope.salary_break_ups})

@@ -5,9 +5,14 @@ class SalaryBreakUpsController < ApplicationController
   # GET /salary_break_ups.json
   def index
     respond_to do |format|
+      @type = params[:type]
       format.html{ render "index"}
       format.json do
-        @salary_break_ups = SalaryBreakUp.all.order("id")
+        if @type.present? and @type.to_sym == :pf
+          @salary_break_ups = SalaryBreakUp.belongs_to_pf.order("id")
+        else
+          @salary_break_ups = SalaryBreakUp.belongs_to_salary.order("id")
+        end
         render json: @salary_break_ups, methods: [:component_description]
       end
     end

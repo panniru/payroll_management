@@ -37,7 +37,6 @@ class PayslipCreationService
       true
     end
 
-
     def payslip_params(params)
       params.permit(:employee_master_id, :generated_date, :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :status, :notice_period_amount, :additional_allowance_1_label, :additional_allowance_2_label, :additional_allowance_3_label, :additional_deduction_1_label, :additional_deduction_2_label, :additional_deduction_3_label)
   end

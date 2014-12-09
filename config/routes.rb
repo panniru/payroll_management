@@ -51,7 +51,6 @@ PayrollManagement::Application.routes.draw do
   get "/payslips/email_payslips"
   get "/payslips/bank_advice"
 
-
   resources :employee_leaves do
     collection do
       post "upload"
@@ -70,7 +69,12 @@ PayrollManagement::Application.routes.draw do
     end
   end
 
-  resources :job_runs, :only => [:index, :show] 
+  resources :job_runs
+
+  get "/job_runs/:job_run_id/pf_statements" => "pf_statements#index"
+  get "/pf_statements/schedule"
+  get "/pf_statements/list_jobs"
+  
 
   devise_for :users, :controllers => { :sessions => 'sessions'}
   root to: "home#index"

@@ -43,7 +43,7 @@ module SalaryBreakUpInitializer
   end
   
   def component_criterias
-    @component_criterias ||= SalaryBreakUp.all.map{|break_up| [break_up.component_code.to_sym, break_up.criteria] }.to_h
+    @component_criterias ||= SalaryBreakUp.belongs_to_salary.map{|break_up| [break_up.component_code.to_sym, break_up.criteria] }.to_h
   end
 
   def eligibility_fraction

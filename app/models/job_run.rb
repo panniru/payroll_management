@@ -1,5 +1,9 @@
 class JobRun < ActiveRecord::Base
-  PAYSLIP_MAILING = "payslip _mailing"
+  PAYSLIP_MAILING = "payslip_mailing"
+  PF_STATEMENT = "pf_statement"
+  
+  has_many :pf_statements
+
   scope :matching_code, lambda {|code| where(:job_code => code)}
   scope :on_date, lambda{|date| where(:job_date => date)}
   scope :in_the_current_month, lambda{|date| in_the_month(date.strfitime("%b").in_the_year(date.strftime("%Y")))}

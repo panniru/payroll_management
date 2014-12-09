@@ -124,4 +124,8 @@ class EmployeeMaster < ActiveRecord::Base
     readable_by_user? user
   end
 
+  def leaves_taken_in_the_month(date)
+    employee_leaves.in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y")).first
+  end
+
 end

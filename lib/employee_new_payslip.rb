@@ -62,7 +62,7 @@ class EmployeeNewPayslip
   private
 
   def leave_details
-    employee_leaves = @employee.employee_leaves.in_the_month(@generation_date.strftime("%b")).in_the_year(@generation_date.strftime("%Y")).first
+    employee_leaves = @employee.leaves_taken_in_the_month(@generation_date)
     if employee_leaves.present?
       @total_days = employee_leaves.working_days
       if employee_leaves.lop.present? 

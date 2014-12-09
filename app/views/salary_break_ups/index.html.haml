@@ -1,7 +1,10 @@
 %h2
-  = link_to "Salary BreakUp Details", salary_break_ups_path
+  - if @type.present? and @type.to_sym == :pf
+    = link_to "PF BreakUp Details", salary_break_ups_path(:type => :pf)
+  - else
+    = link_to "Salary BreakUp Details", salary_break_ups_path(:type => :salary)
 
-.col-md-12{:ng_controller => "SalaryBreakUpsController", :ng_init => "initialize()"}
+.col-md-12{:ng_controller => "SalaryBreakUpsController", :ng_init => "initialize('#{@type}')"}
   .pull-right
     = link_to raw("<i class='fa fa-edit fa-lg'></i> Edit"), "#", :class => "btn btn-primary", :ng_click => "editable = true", :ng_hide => "editable"
     = link_to raw("<i class='fa fa-save fa-lg'></i> Update"), "#", :class => "btn btn-primary", :ng_click => "update()", :ng_show => "editable"

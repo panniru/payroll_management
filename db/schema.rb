@@ -11,10 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124055048) do
+ActiveRecord::Schema.define(version: 20141204091843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "default_allowance_deductions", force: true do |t|
+    t.integer  "employee_master_id"
+    t.integer  "arrears_of_salary"
+    t.integer  "incentive_payment"
+    t.integer  "loyalty_deposit"
+    t.integer  "grade_allowance"
+    t.integer  "performance_bonus"
+    t.integer  "additional_allowance_1"
+    t.integer  "additional_allowance_2"
+    t.integer  "additional_allowance_3"
+    t.integer  "club_contribution"
+    t.integer  "proffesional_tax"
+    t.integer  "tds_pm"
+    t.integer  "training_cost"
+    t.integer  "notice_period_amount"
+    t.integer  "additional_deduction_1"
+    t.integer  "additional_deduction_2"
+    t.integer  "additional_deduction_3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "department_masters", force: true do |t|
     t.string   "name"
@@ -72,16 +110,52 @@ ActiveRecord::Schema.define(version: 20141124055048) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ctc"
+    t.string   "email"
+    t.date     "date_of_birth"
+    t.string   "father_or_husband_name"
+    t.string   "relation"
+    t.date     "resignation_date"
+    t.string   "reason_for_resignation"
+    t.boolean  "unusual_pf"
+  end
+
+  add_index "employee_masters", ["code"], name: "index_employee_masters_on_code", using: :btree
+  add_index "employee_masters", ["name"], name: "index_employee_masters_on_name", using: :btree
+
+  create_table "employer_contributions", force: true do |t|
+    t.integer "payslip_id"
+    t.integer "employee_master_id"
+    t.integer "pf"
+    t.integer "bonus_payment"
+    t.date    "generated_date"
+  end
+
+  create_table "job_runs", force: true do |t|
+    t.string   "job_code"
+    t.datetime "started_on"
+    t.datetime "finished_on"
+    t.string   "status"
+    t.integer  "scrolled_by"
+    t.date     "job_date"
   end
 
   create_table "leave_encashments", force: true do |t|
-    t.string   "employee_master_id"
-    t.string   "integer"
-    t.string   "year"
-    t.string   "string"
-    t.string   "no_of_leaves_to_be_encashed"
+    t.integer  "employee_master_id"
+    t.date     "date"
+    t.integer  "no_of_leaves_to_be_encashed"
+    t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "payslip_additional_fields_labels", force: true do |t|
+    t.integer "payslip_id"
+    t.string  "additional_allowance_1"
+    t.string  "additional_allowance_2"
+    t.string  "additional_allowance_3"
+    t.string  "additional_deduction_1"
+    t.string  "additional_deduction_2"
+    t.string  "additional_deduction_3"
   end
 
   create_table "payslips", force: true do |t|
@@ -106,7 +180,7 @@ ActiveRecord::Schema.define(version: 20141124055048) do
     t.integer  "additional_allowance_3"
     t.integer  "pf"
     t.integer  "club_contribution"
-    t.integer  "proffesional_tax"
+    t.integer  "professional_tax"
     t.integer  "tds_pm"
     t.integer  "training_cost"
     t.integer  "salary_advance"
@@ -116,6 +190,37 @@ ActiveRecord::Schema.define(version: 20141124055048) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "notice_period_amount"
+    t.integer  "voluntary_pf_contribution"
+  end
+
+  create_table "pf_statements", force: true do |t|
+    t.integer  "employee_master_id"
+    t.integer  "payslip_id"
+    t.integer  "epf_wages"
+    t.integer  "eps_wages"
+    t.integer  "epf_ee_share"
+    t.integer  "epf_ee_remitted"
+    t.integer  "eps_due"
+    t.integer  "eps_remitted"
+    t.integer  "diff_epf_and_eps"
+    t.integer  "diff_remitted"
+    t.integer  "n"
+    t.integer  "refund_adv"
+    t.integer  "arrear_epf"
+    t.integer  "arrear_epf_ee"
+    t.integer  "arrear_epf_er"
+    t.integer  "arrear_eps"
+    t.integer  "job_run_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reminders", force: true do |t|
+    t.string "description"
+    t.date   "created_date"
+    t.string "occurrence"
+    t.date   "previous_resolution_date"
   end
 
   create_table "roles", force: true do |t|
@@ -132,7 +237,18 @@ ActiveRecord::Schema.define(version: 20141124055048) do
     t.float    "criteria"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "break_up_type"
   end
+
+  create_table "sessions", force: true do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

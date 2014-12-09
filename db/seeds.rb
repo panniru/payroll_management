@@ -55,9 +55,12 @@ end
 
 def seed_salary_break_ups
   SalaryBreakUpCreator::BREAK_UPS.each do |break_up|
-    SalaryBreakUp.find_or_create_by(:component_code => break_up, :component => break_up.titleize, :criteria => 0)
+    SalaryBreakUp.where(:component_code => break_up).first_or_create(:component_code => break_up, :component => break_up.titleize, :criteria => 0, :break_up_type => "salary")
   end
-  SalaryBreakUp.find_or_create_by(:component_code => "loyalty_allowance", :component => "loyalty_allowance".titleize, :criteria => 0)
+  SalaryBreakUp.where(:component_code => "loyalty_allowance").first_or_create(:component_code => "loyalty_allowance", :component => "loyalty_allowance".titleize, :criteria => 0, :break_up_type => "salary")
+  SalaryBreakUp.where(:component_code => "epf_ee_share").first_or_create(:component_code => "epf_ee_share", :component => "epf_ee_share".titleize, :criteria => 12, :break_up_type => "pf")
+  SalaryBreakUp.where(:component_code => "eps_upper_limit").first_or_create(:component_code => "eps_upper_limit", :component => "eps_upper_limit".titleize, :criteria => 15000, :break_up_type => "pf")
+  SalaryBreakUp.where(:component_code => "eps_share").first_or_create(:component_code => "eps_share", :component => "eps_share".titleize, :criteria => 8.33, :break_up_type => "pf")
 end
 
 def seed_all
