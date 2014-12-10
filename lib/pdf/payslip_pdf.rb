@@ -26,7 +26,7 @@ class PayslipPdf  #< Prawn::Document
       "<font>#{I18n.t(:address_line2, :scope => :organization)} #{I18n.t(:city, :scope => :organization)}<font>\n"+
       "<font>#{I18n.t(:state, :scope => :organization)} - #{I18n.t(:pin, :scope => :organization)}</font>"
     row_data = [
-                [{:content => org_details, :rowspan => 2, :width => 200}, "Name", {:content => "<b>#{@payslip.employee_master.name}</b>"}, {:content => "FORM - T - WAGE SLIP", :rowspan => 2, :min_font_size => 16, :width => 200}],
+                [{:content => org_details, :rowspan => 2, :width => 200}, "Name", {:content => "<b>#{@payslip.employee_master.name}</b>"}, {:content => "FORM - T - WAGE SLIP", :rowspan => 2, :min_font_size => 13, :width => 200}],
                 ["Designation", {:content => "<b>#{@payslip.employee_master.designation_master.name}</b>"}]
                ]
     make_table(row_data, :cell_style => { :inline_format => true })
@@ -49,11 +49,11 @@ class PayslipPdf  #< Prawn::Document
     earnings_table_data = []
     Payslip::EARNINGS.map do |component|
       label = component.to_s.titleize
-      if @payslip.send(component).present?
+      if @payslip.send(component).present? and @payslip.send(component) > 0
         if label == "hra"
           label = "HRA"
         elsif component =~ /additional_allowance_\d/
-          label = @payslip.payslip_additional_fields_label.send("#{component}")
+          label = @payslip.send("#{component}_label".to_sym)
         end
         earnings_table_data << [label, @payslip.send(component)]
       end
@@ -66,9 +66,9 @@ class PayslipPdf  #< Prawn::Document
       if label == "Pf" or label == "Tds Pm"
         label = label.upcase.gsub("PM", "")
       elsif component =~ /additional_deduction_\d/
-        label = @payslip.payslip_additional_fields_label.send("#{component}")
+        label = @payslip.send("#{component}_label".to_sym)
       end
-      if @payslip.send(component).present?
+      if @payslip.send(component).present? and @payslip.send(component) > 0
         deductions_table_data << [label, @payslip.send(component)]
       end
     end

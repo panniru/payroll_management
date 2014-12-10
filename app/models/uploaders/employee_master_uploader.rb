@@ -3,7 +3,7 @@ class EmployeeMasterUploader
   include ActiveModel::Conversion
   include ActiveModel::Validations
   include Uploader
-  HEADERS = ["code", "name", "designation_name", "department_name", "father_or_husband_name", "relation", "gender", "date_of_birth", "email","initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "resignation_date", "reason_for_resignation", "p_f_no", "unusual_pf","bank_name", "account_number", "pan", "ctc"]
+  HEADERS = ["code", "name", "designation_name", "department_name", "father_or_husband_name", "relation", "gender", "date_of_birth", "email","initials", "qualification", "date_of_joining", "probation_date", "confirmation_date", "resignation_date", "reason_for_resignation", "p_f_no", "bank_name", "account_number", "pan", "ctc"]
   
   def persisted?
     false
@@ -27,11 +27,19 @@ class EmployeeMasterUploader
   end
 
   def headers_to_show
-    HEADERS.map(&:titleize)
+    HEADERS.map{|key| key_to_show(key)}
   end
 
   def map_row_data(row_hash)
-    HEADERS.map{|key| [key, row_hash[key.titleize]]}.to_h
+    HEADERS.map{|key| [key, row_hash[key_to_show(key)]]}.to_h
+  end
+
+  def key_to_show(key)
+    if ["p_f_no", "pan", "ctc"].include? key
+      key.titleize.upcase 
+    else
+      key.titleize
+    end
   end
 
   def xls_template(options = {})

@@ -105,8 +105,8 @@
         }
 
         $scope.totalDeductions = function(payslip){
-            return (payslip.pf + payslip.club_contribution + payslip.professional_tax + payslip.tds_pm +
-                    payslip.additional_deduction_1 + payslip.additional_deduction_2 + payslip.additional_deduction_3)
+            return (payslip.pf + payslip.club_contribution + payslip.professional_tax + payslip.tds_pm + payslip.training_cost + 
+                     payslip.notice_period_amount + payslip.voluntary_pf_contribution + payslip.additional_deduction_1 + payslip.additional_deduction_2 + payslip.additional_deduction_3)
         }
 
         $scope.netTotal = function(payslip){

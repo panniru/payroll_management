@@ -107,7 +107,7 @@ class EmployeeMastersController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def employee_master_params
-    params.require(:employee_master).permit(:code, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name, :ctc, :father_or_husband_name, :relation, :resignation_date, :reason_for_resignation, :unusual_pf)
+    params.require(:employee_master).permit(:code, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name, :ctc, :father_or_husband_name, :relation, :resignation_date, :reason_for_resignation)
   end
 end
   

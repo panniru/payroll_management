@@ -10,7 +10,7 @@ class Payslip < ActiveRecord::Base
 
   EARNINGS = [:basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3]
 
-  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :notice_period_amount,:additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
+  DEDUCTIONS = [:pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :notice_period_amount, :voluntary_pf_contribution, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3]
 
   scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y"))}
   scope :in_the_year, lambda{|year| where("to_char(generated_date, 'YYYY') = ?", year)}
@@ -54,7 +54,7 @@ class Payslip < ActiveRecord::Base
   end
 
   def pdf
-    @pdf ||= PayslipPdf.new(self)
+    @pdf ||= PayslipPdf.new(PayslipDecorator.decorate(self))
     @pdf.payslip
     @pdf
   end

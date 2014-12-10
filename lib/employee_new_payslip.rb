@@ -66,7 +66,7 @@ class EmployeeNewPayslip
     if employee_leaves.present?
       @total_days = employee_leaves.working_days
       if employee_leaves.lop.present? 
-        @total_days - employee_leaves.lop
+        @worked_days = @total_days - employee_leaves.lop
       else
         @total_days
       end

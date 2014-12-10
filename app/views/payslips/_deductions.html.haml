@@ -34,6 +34,12 @@
         %label Notice Period Amount
       %td
         %label= payslip.notice_period_amount
+  - if  payslip.voluntary_pf_contribution.present?
+    %tr
+      %td
+        %label Voluntary PF Contribution
+      %td
+        %label= payslip.voluntary_pf_contribution
   - if  payslip.additional_deduction_1.present?
     %tr
       %td

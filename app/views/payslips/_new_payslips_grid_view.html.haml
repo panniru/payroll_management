@@ -11,7 +11,7 @@
         %h4
           %span.center-header-content Earnings (in Rupees) 
           = render "toggle_component"
-      %th{:colspan => 8, :align => "center", :ng_hide => "isEarningsEdit"} 
+      %th{:colspan => 9, :align => "center", :ng_hide => "isEarningsEdit"} 
         %h4 
           %span.center-header-content Deductions (in Rupees) 
           = render "toggle_component"
@@ -42,6 +42,7 @@
       %th{:ng_hide => "isEarningsEdit"} TDS(Income Tax)
       %th{:ng_hide => "isEarningsEdit"} Training Cost
       %th{:ng_hide => "isEarningsEdit"} Notice Period Amount
+      %th{:ng_hide => "isEarningsEdit"} Voluntary PF
       %th{:ng_hide => "isEarningsEdit"} 
         %span{:ng_hide => "additional_deduction_1_label_edit", :ng_click => "additional_deduction_1_label_edit = true"}Additional Deduction 1
         %input{:type => "text", :ng_show => "additional_deduction_1_label_edit", :ng_model => "additional_deduction_1_label", :style => "width: 100px;"}
@@ -100,6 +101,9 @@
         %td{:ng_hide => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.notice_period_amount", :name => "notice_period_amount{{$index}}"}
           %span.error{:ng_show => "payslipsForm.notice_period_amount{{$index}}.$error.number"} Invalid
+        %td{:ng_hide => "isEarningsEdit"} 
+          %input{:type => "number", :class => "form-control", :ng_model => "payslip.voluntary_pf_contribution", :name => "voluntary_pf_contribution{{$index}}"}
+          %span.error{:ng_show => "payslipsForm.voluntary_pf_contribution{{$index}}.$error.number"} Invalid
         %td{:ng_hide => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.additional_deduction_1", :name => "additional_deduction_1{{$index}}"}
           %span.error{:ng_show => "payslipsForm.additional_deduction_1{{$index}}.$error.number"} Invalid

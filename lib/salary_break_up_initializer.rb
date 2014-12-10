@@ -7,7 +7,8 @@ module SalaryBreakUpInitializer
   module ClassMethods
     def basic_on_ctc(param)
       define_method param.to_sym do
-        ((((component_criterias[:basic]/100)*ctc)/12) * eligibility_fraction)
+        #((((component_criterias[:basic]/100)*ctc)/12) * eligibility_fraction)
+        ((((component_criterias[:basic]/100)*ctc)) * eligibility_fraction)
       end
     end
     
@@ -23,6 +24,7 @@ module SalaryBreakUpInitializer
       params.each do |param|
         define_method param.to_sym do
           ((component_criterias[param.to_sym]/12) * eligibility_fraction)
+          #((component_criterias[param.to_sym]) * eligibility_fraction)
         end
       end
     end
@@ -35,7 +37,8 @@ module SalaryBreakUpInitializer
   private
   
   def ctc_per_month
-    ctc.to_f/12
+    #ctc.to_f/12
+    ctc.to_f
   end
 
   def primary_earnings

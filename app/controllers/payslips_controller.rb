@@ -4,8 +4,8 @@ class PayslipsController < ApplicationController
   authorize_resource
 
   def show
+    @payslip = PayslipDecorator.decorate(@payslip)
     respond_to do |format|
-      @payslip = PayslipDecorator.decorate(@payslip)
       format.html do
       end
       format.pdf do 

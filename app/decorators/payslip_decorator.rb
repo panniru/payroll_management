@@ -5,7 +5,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_allowance_1
     else
-      "additional_allowance_1"
+      "additional_allowance_1".titleize
     end
   end
 
@@ -13,7 +13,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_allowance_2
     else
-      "additional_allowance_2"
+      "additional_allowance_2".titleize
     end
   end
 
@@ -21,7 +21,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_allowance_3
     else
-      "additional_allowance_3"
+      "additional_allowance_3".titleize
     end
   end
 
@@ -29,7 +29,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_deduction_1
     else
-      "additional_deduction_1"
+      "additional_deduction_1".titleize
     end
   end
 
@@ -37,7 +37,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_deduction_1
     else
-      "additional_deduction_1"
+      "additional_deduction_1".titleize
     end
   end
 
@@ -45,7 +45,7 @@ class PayslipDecorator < Draper::Decorator
     if self.payslip_additional_fields_label.present?
       self.payslip_additional_fields_label.additional_deduction_3
     else
-      "additional_deduction_3"
+      "additional_deduction_3".titleize
     end
   end
 end

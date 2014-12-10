@@ -25,7 +25,7 @@ class PfStatementsController < ApplicationController
         :orientation => 'Landscape'
       end
       format.csv do
-        send_data PfStatementFormatter.new(@pf_statements).csv(col_sep: "@~@"), :filename=>"pf_statement_#{@month}_#{@year}.txt"
+        send_data PfStatementFormatter.new(@pf_statements).csv(col_sep: "#~#"), :filename=>"pf_statement_#{@month}_#{@year}.txt"
       end
       format.xlsx do
         send_data PfStatementFormatter.new(@pf_statements).xlsx(col_sep: ","), :filename=>"pf_statement_#{@month}_#{@year}.xlsx"
