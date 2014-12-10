@@ -1,7 +1,7 @@
 .form-group
-  = f.label "PF", :class => 'col-md-5 control-label'
+  %label.col-md-5.control-label PF
   .col-md-7
-    = f.text_field :pf, :class => "form-control", :rel => "deductionInputField", :readonly => true
+    = f.text_field :pf, :class => "form-control", :rel => "deductionInputField"
 .form-group
   = f.label :club_contribution, :class => 'col-md-5 control-label'
   .col-md-7
@@ -59,4 +59,4 @@
 .form-group
   = f.label "Net Amount", :class => 'col-md-5 control-label'
   .col-md-7
-    = text_field_tag "Net Total", f.object.net_total-f.object.total_deductions, :id => "netAmountField",:class => "form-control", :readonly => true
+    = text_field_tag "Net Total", f.object.net_total, :id => "netAmountField",:class => "form-control", :readonly => true

@@ -111,9 +111,13 @@
           = f.label :ctc, :class => 'col-md-3 control-label'
           .col-md-9
             = f.text_field :ctc, :class => "form-control", :ng_model => "ctc"
+        .form-group
+          = f.label :basic, :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :basic, :class => "form-control", :ng_model => "basic"
       .form-group
         .col-md-offset-5
           = submit_link
-          = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(ctc)", :ng_disabled => "isClicked", :ng_show => "ctc"
+          = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(ctc, basic)", :ng_disabled => "isClicked", :ng_show => "ctc"
   .col-md-12
     #salaryBreakUpShowDiv

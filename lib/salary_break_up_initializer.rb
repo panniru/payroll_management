@@ -1,14 +1,20 @@
 module SalaryBreakUpInitializer 
   attr_accessor :ctc
+
   def self.included(base)
     base.extend(ClassMethods)
   end
   
   module ClassMethods
+    
     def basic_on_ctc(param)
       define_method param.to_sym do
+        if @basic.present?
+          @basic
+        else
         #((((component_criterias[:basic]/100)*ctc)/12) * eligibility_fraction)
         ((((component_criterias[:basic]/100)*ctc)) * eligibility_fraction)
+        end
       end
     end
     

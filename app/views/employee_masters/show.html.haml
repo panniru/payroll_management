@@ -81,8 +81,9 @@
       %tr
         %th CTC
         %td= @employee_master.ctc
+
   .pull-right{:ng_controller => "SalaryBreakUpInitializeController"}
-    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc})", :ng_disabled => "isClicked"
+    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc}, #{@employee_master.basic})", :ng_disabled => "isClicked"
 .col-md-12
   #salaryBreakUpShowDiv
   -#%salary_break_up{:ctc => @employee_master.ctc} 

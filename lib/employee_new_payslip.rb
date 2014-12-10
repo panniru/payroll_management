@@ -7,6 +7,7 @@ class EmployeeNewPayslip
   
   def initialize(employee, generation_date)
     @ctc = employee.ctc
+    @basic = employee.basic
     @employee = employee
     @generation_date = generation_date
     # @total_days = total_days

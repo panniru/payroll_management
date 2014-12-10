@@ -90,7 +90,7 @@ class SalaryBreakUpsController < ApplicationController
   def break_up_report
     respond_to do |format|
       format.json do
-        render :json => SalaryBreakUpCreator.new(params[:ctc].to_f).to_h
+        render :json => SalaryBreakUpCreator.new(params[:ctc].to_f, params[:basic].try(:to_f)).to_h
       end
     end
   end

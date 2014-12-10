@@ -4,10 +4,11 @@
         return {
             restrict: 'E',
             scope: {
-                ctc: '='
+                ctc: '=',
+                basic: '='
             },
             controller: ["$scope", "payRollService", function($scope, payRollService){
-                payRollService.salaryBreakUps($scope.ctc)
+                payRollService.salaryBreakUps($scope.ctc, $scope.basic)
                     .then(function(response){
                         $scope.earningPerMonth = 0;
                         $scope.deductionPerMonth = 0;

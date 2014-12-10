@@ -20,8 +20,9 @@ class SalaryBreakUpCreator
     :loyalty_allowance => "% of Basic pay after the complation of 3 years of continuous service from probation"
   }
 
-  def initialize(ctc)
+  def initialize(ctc, basic = nil)
     @ctc = ctc
+    @basic = basic
   end
 
 
