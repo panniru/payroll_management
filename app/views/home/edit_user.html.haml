@@ -11,10 +11,10 @@
                 %th Role
                 %th
               %tbody
-                - User.all.each do |user|
+                - @users.all.each do |user|
                   %tr
                     %td= user.email
                     %td= user.user_id
                     %td
-                      = link_to "Edit", registration_home_index_path(user), :class => "btn-sm btn-warning btn-sm", :title => "Edit"
+                      = link_to "Edit", edit_user_registration_path(user), :class => "btn-sm btn-warning btn-sm", :title => "Edit"
                       

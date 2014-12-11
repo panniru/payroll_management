@@ -1,16 +1,13 @@
 %center
-  %h2
-    //Edit #{resource_name.to_s.humanize} 
-    Change Password
-  
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = form_for(@resource, as: resource_name, url:  registration_path(@resource), html: { method: :put }) do |f|  
     = devise_error_messages!
-    .row
-      -# .col-sm-4
-      -# .col-sm-2
-      -#   = f.label :email
-      -# .col-sm-2
-      -#   = f.email_field :email, :class => "form-control"
+    - if current_user.manager?
+      .row
+        .col-sm-4
+        .col-sm-2
+          = f.label :email
+        .col-sm-3
+          = f.email_field :email, :class => "form-control"
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -18,31 +15,33 @@
     .row
       .col-sm-4
       .col-sm-2
-        = f.label :new_password
-        //%i (leave blank if you don't want to change it)
-      .col-sm-2
+        = f.label :password
+     
+      .col-sm-3
         = f.password_field :password, :class => "form-control"
     %br
     .row
       .col-sm-4
       .col-sm-2
         = f.label :password_confirmation
-      .col-sm-2
+      .col-sm-3
         = f.password_field :password_confirmation,:class => "form-control"
     %br
     .row
       .col-sm-4
       .col-sm-2
         = f.label :current_password
-        //%i (we need your current password to confirm your changes)
-      .col-sm-2
+     
+      .col-sm-3
         = f.password_field :current_password, :class => "form-control"
-        %br
-        
     .row
       .col-sm-4
       .col-sm-1
       .col-sm-2
-        = f.submit "Save  " ,  :class => "btn btn-primary "
-
-  
+        %br
+        = f.submit "Update" ,  :class => "btn btn-primary"
+        = f.hidden_field :id , :value => @resource.id 
+  -# %h3 Cancel my account
+  -# %p
+  -#   Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+  -# = link_to "Back", :back

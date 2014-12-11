@@ -76,6 +76,6 @@ PayrollManagement::Application.routes.draw do
   get "/pf_statements/list_jobs"
   
 
-  devise_for :users, :controllers => { :sessions => 'sessions'}
+  devise_for :users, :controllers => {:registrations => 'registrations' , :sessions => 'sessions'}
   root to: "home#index"
 end

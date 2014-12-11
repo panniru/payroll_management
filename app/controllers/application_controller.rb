@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:user_id, :email) }
+    devise_parameter_sanitizer.for(:account_update) { |u| 
+      u.permit(:id , :email ,:password, :password_confirmation, :current_password ) 
+    }
   end
   after_filter :set_csrf_cookie_for_ng
   
