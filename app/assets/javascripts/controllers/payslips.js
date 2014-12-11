@@ -3,7 +3,7 @@
 
     app.controller("PayslipsIndexController", ["$scope", "payslipService", function($scope, payslipService) {
         $scope.getPayslips = function(page){
-            payslipService.Payslip.payslips({employee_master_id: $scope.employee_master_id, month: $scope.month, year: $scope.year, page: page, status: $scope.status}, function(data){
+            payslipService.Payslip.payslips({employee_master_id: $("#employee_master_id").val(), month: $scope.month, year: $scope.year, page: page, status: $scope.status}, function(data){
                 $scope.payslips = []
                 $scope.payslips = data.payslips
                 $scope.total_entries = data.total_entries;

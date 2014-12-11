@@ -1,3 +1,4 @@
+= title("#{@employee_master.present? ? @employee_master.name : ""} Payslips")
 .row{:ng_controller => "PayslipsIndexController"}
   = render "search_payslips"
   .row

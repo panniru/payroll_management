@@ -2,10 +2,11 @@ class EmployeeLeaveUploader
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
-  
+
   include Uploader
   SHEET1_HEADERS = ["code"  , "days_worked" , "working_days" , "lop" , "sl" , "pl" , "cl"]
   SHEET2_HEADERS = ["code", "no_of_leaves_to_be_encashed" ]
+  attr_accessor :entered_date
 
   def persisted?
     false
@@ -13,7 +14,8 @@ class EmployeeLeaveUploader
   
   def initialize(params = {})
     super(params[:file])
-   end
+    @entered_date = params[:entered_date]
+  end
 
   def save
     super do |row, params={}|
@@ -23,7 +25,7 @@ class EmployeeLeaveUploader
         employee_leave.attributes = map_row_data_of_sheet1(row_hash)
         employee_master = EmployeeMaster.find_by(:code => employee_leave.attributes['code'])
         employee_leave.employee_master_id = employee_master.id
-        employee_leave.entered_date = Date.today.to_s
+        employee_leave.entered_date = @entered_date.to_s
         employee_leave
       elsif params[:sheet_name] == "Encahment Leaves"
         encashment = LeaveEncashment.new
@@ -31,7 +33,7 @@ class EmployeeLeaveUploader
         encashment.attributes = map_row_data_of_sheet2(row_hash)
         employee_master = EmployeeMaster.find_by(:code => encashment.attributes['code'])
         encashment.employee_master_id = employee_master.id
-        encashment.date = Date.today.to_s
+        encashment.date = @entered_date.to_s
         encashment
       end
     end

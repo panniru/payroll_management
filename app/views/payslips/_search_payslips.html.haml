@@ -6,8 +6,7 @@
       autocomplete_employee_employee_masters_path,
       :placeholder => "Employee code/name", :class => 'form-control',
       :id_element => "#employee_master_id"
-      = hidden_field_tag :employee_master_id, :id => "employee_master_id", :ng_model => "employee_master_id"
-
+  = hidden_field_tag :employee_master_id, params[:employee_master_id], :id => "employee_master_id" #, :ng_model => "employee_master_id"
   .form-group
     = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"
   .form-group

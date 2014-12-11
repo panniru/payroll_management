@@ -48,4 +48,5 @@
                   - if current_user.manager?
                     = link_to "Edit User", edit_user_home_index_path
 
-                    
+            %li
+              = link_to session[:transaction_date], "#"

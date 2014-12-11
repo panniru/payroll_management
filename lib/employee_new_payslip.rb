@@ -42,10 +42,10 @@ class EmployeeNewPayslip
     end
   end
 
-  # menthod_name should be same as payslip attribute loyalti_allowance
+  # menthod_name should be same as payslip attribute loyalty_allowance
   def loyalty_allowance
     if @employee.eligible_for_loyality_allowance?(@generation_date)
-      (((component_criterias[:loyalty_allowance]/100)*basic) * eligibility_fraction)
+      ((component_criterias[:loyalty_allowance]/100)*basic) #* eligibility_fraction)
     end
   end
   

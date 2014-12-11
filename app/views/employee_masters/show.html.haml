@@ -10,15 +10,16 @@
       = edit_button(edit_employee_master_path(@employee_master))
       = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), employee_master_employee_advance_payments_path(@employee_master), :class => "btn btn-primary"
       = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), employee_master_payslips_path(@employee_master, :origin => "employee"), :class => "btn btn-primary"
-      .btn-group
-        = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"
-        %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
-          %span.fa.fa-caret-down
-        %ul.dropdown-menu.dropdown-menu-right
-          %li
-            = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), "#"
-          %li
-            = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), "#"
+      = link_to_new( new_employee_master_payslip_path(@employee_master), {'label' => 'Payslip'})
+      -# .btn-group
+      -#   = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"
+      -#   %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
+      -#     %span.fa.fa-caret-down
+      -#   %ul.dropdown-menu.dropdown-menu-right
+      -#     %li
+      -#       = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), "#"
+      -#     %li
+      -#       = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), "#"
             
             
 .col-md-12
