@@ -1,8 +1,9 @@
 .navbar.navbar-inverse                 
-  .navbar-inner.container
+  .navbar-inner.container-fluid
     .col-sm-12
       .navbar-header
-        .navbar-brand= link_to "Payroll", "#", :class => "navbar-brand"
+        .navbar-brand
+          = link_to "Payroll", root_path, :class => "navbar-brand"
       - if current_user.present?
         %ul.nav.navbar-nav
           %li{:class => "#{controller_name == 'employee_masters' ? 'active': ''}"} 

@@ -1,4 +1,4 @@
-WillPaginate.per_page = 10
+WillPaginate.per_page = 30
 class EmployeeMaster < ActiveRecord::Base
   validates :name, :presence => true
   validates :gender, :presence => true
@@ -26,6 +26,7 @@ class EmployeeMaster < ActiveRecord::Base
 
   scope :having_designation, lambda{|design_id| where(:designation_master_id => design_id)}
   scope :has_no_pay_slips_in_the_month, lambda{|date| where("id not in (?)", Payslip.select(:employee_master_id).in_the_current_month(date))}
+  scope :not_resigned_on_or_before_month_begin, lambda{|date| where("resignation_date IS NULL OR resignation_date >= ?", date.at_beginning_of_month)}
   
   def save_employee
     ActiveRecord::Base.transaction do
@@ -128,6 +129,10 @@ class EmployeeMaster < ActiveRecord::Base
 
   def leaves_taken_in_the_month(date)
     employee_leaves.in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y")).first
+  end
+
+  def eligible_for_payslip?(date)
+    (resignation_date.present? and resignation_date < date.at_beginning_of_month) ? false : true
   end
 
 end

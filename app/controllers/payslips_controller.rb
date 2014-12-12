@@ -15,13 +15,18 @@ class PayslipsController < ApplicationController
   end
   
   def new
-    @payslip = @employee_master.payslips.in_the_current_month(session[:transaction_date]).first
-    unless @payslip.present?
-      @payslip = EmployeeNewPayslip.new(@employee_master, session[:transaction_date]).payslip
-      render "new"
+    if @employee_master.eligible_for_payslip? (session[:transaction_date])
+      @payslip = @employee_master.payslips.in_the_current_month(session[:transaction_date]).first
+      unless @payslip.present?
+        @payslip = EmployeeNewPayslip.new(@employee_master, session[:transaction_date]).payslip
+        render "new"
+      else
+        flash[:alert] = "Payslip of #{@employee_master.name} for the month <b>#{session[:transaction_date].strftime('%b')} #{session[:transaction_date].strftime('%Y')}</b>  has been generated and it exists <a href='/employee_masters/#{@employee_master.id}/payslips/#{@payslip.id}'> here</a>"
+        redirect_to payslips_path
+      end
     else
-      flash[:alert] = "Payslip of #{@employee_master.name} for the month <b>#{session[:transaction_date].strftime('%b')} #{session[:transaction_date].strftime('%Y')}</b>  has been generated and it exists <a href='/employee_masters/#{@employee_master.id}/payslips/#{@payslip.id}'> here</a>"
-      redirect_to payslips_path
+      flash[:alert] = "Employee has been resigned. Not eligible to create payslip"
+      redirect_to @employee_master
     end
   end
 
@@ -42,7 +47,7 @@ class PayslipsController < ApplicationController
     respond_to do |format|
       format.json do
         page = params[:page].present? ? params[:page] : 1
-        employees = EmployeeMaster.having_designation(params[:designation_id]).paginate(:page => page).has_no_pay_slips_in_the_month(session[:transaction_date])
+        employees = EmployeeMaster.having_designation(params[:designation_id]).not_resigned_on_or_before_month_begin(session[:transaction_date]).paginate(:page => page).has_no_pay_slips_in_the_month(session[:transaction_date])
         render :json => JsonPagination.pagination_entries(employees).merge!(payslips: PayslipCreationService.new_payslip_attributes_for_employees(employees, session[:transaction_date]))
       end
       format.html{}

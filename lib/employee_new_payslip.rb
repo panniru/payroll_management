@@ -66,11 +66,12 @@ class EmployeeNewPayslip
     employee_leaves = @employee.leaves_taken_in_the_month(@generation_date)
     if employee_leaves.present?
       @total_days = employee_leaves.working_days
-      if employee_leaves.lop.present? 
-        @worked_days = @total_days - employee_leaves.lop
-      else
-        @total_days
-      end
+      @worked_days = employee_leaves.days_worked
+      # if employee_leaves.lop.present? 
+      #   @worked_days = @total_days - employee_leaves.lop
+      # else
+      #   @total_days
+      # end
     end
   end
 

@@ -44,7 +44,7 @@ module Uploader
           yield row, :sheet_name => name
         end
         puts "Loaded Sheet ######## #{name} Count: #{sheet.count}"
-        if save_questions(name, models)
+        if save_records(name, models)
           status = true
           #RAILS.loger.info "##########All Sheets Uploaded"
         else
@@ -55,14 +55,8 @@ module Uploader
       end
     end
   end
-  
-  
-  
 
-  def save_questions(name , models)
-    p name
-    p models
-    
+  def save_records(name , models)
     if models.map(&:valid?).all?
       models.each(&:save!)
       true

@@ -17,6 +17,7 @@
   - unless @employee_master.present?
     = link_to_new("/payslips/new_payslips", {'label' => 'Payslips'})
   - else
-    = link_to_new( new_employee_master_payslip_path(@employee_master), {'label' => 'Payslip'})
+    - if @employee_master.eligible_for_payslip? (session[:transaction_date])
+      = link_to_new( new_employee_master_payslip_path(@employee_master), {'label' => 'Payslip'})
   -#= link_to_new(new_employee_master_employee_advance_payment_path(@employee_master))
   
