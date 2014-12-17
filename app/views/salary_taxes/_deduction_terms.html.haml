@@ -1,0 +1,37 @@
+%table.table.table-bordered
+  %thead
+    %th Component
+    %th Amount
+  %tbody
+    %tr
+      %th Rent Paid (-)
+      %td
+        = "#{@salary_tax.rent_per_month}/Month  [#{@salary_tax.rent_paid}/Year]"
+    %tr
+      %th Medical Allowance (-)
+      %td= @salary_tax.claimed_medical_bill
+    %tr
+      %th Conveyance Allowance (-)
+      %td= @salary_tax.conveyance_allowance
+    %tr
+      %th Medical Allowance (-)
+      %td= @salary_tax.claimed_medical_bill
+    %tr
+      %th Professional Tax (-)
+      %td= @salary_tax.professional_tax
+    %tr
+      %th Mediclaim U/s80D
+      %td= @salary_tax.medical_insurances_total
+    %tr
+      %th Rent Recieved(+)
+      %td= @salary_tax.rent_received
+    %tr
+      %th Home Loan Amount(-)
+      %td= @salary_tax.home_loan_amount
+    %tr
+      %th Savings (-)
+      %td= @salary_tax.savings_total
+    %tr
+      %th ATG(-)
+      %td= @salary_tax.atg
+        

@@ -19,7 +19,7 @@ class Payslip < ActiveRecord::Base
   scope :having_status, lambda{|status| where(:status =>  status)}
   scope :having_loyality_allowance, lambda{ where("loyalty_allowance IS NOT NULL")}
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
-  scope :generate_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
+  scope :generated_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
 
   
   def self.payslips_on_params(params)
@@ -46,7 +46,7 @@ class Payslip < ActiveRecord::Base
   end
 
   def ctc
-    (employee_master.ctc.to_f/12).round
+    (employee_master.ctc.to_f).round #/12
   end
   
   def net_total
@@ -81,6 +81,9 @@ class Payslip < ActiveRecord::Base
     self.status = "pending"
   end
   
+  def approved?
+    self.status == "approved"
+  end
   
   private
 

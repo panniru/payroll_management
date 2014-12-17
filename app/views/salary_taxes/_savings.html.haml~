@@ -1,0 +1,23 @@
+%table.table.table-bordered{:ng_show => "savings"}
+  %thead
+    %th Bill No
+    %th Bill Date
+    %th Parent Included
+    %th Amount
+  %tbody
+    %tr{"ng-repeat" => "saving in savings"}
+      %td
+        = text_field_tag  "salary_tax[savings][][bill_no]",nil, :class => "form-control-medium", :ng_model => "saving.bill_no", :placeholder => "No"
+      %td
+        = text_field_tag  "salary_tax[savings][][bill_date]",nil, :class => "form-control-medium date-picker", :ng_model => "saving.bill_date", :placeholder => "Date"
+      %td
+        = check_box_tag "salary_tax[savings][][parent_included]",nil, :class => "form-control-medium", :ng_model => "saving.parent_included"
+        = check_box_tag "salary_tax[savings][][parent_senior_citizen]",nil, :class => "form-control-medium", :ng_model => "saving.parent_senior_citizen", :ng_show => "saving.parent_included"
+      %td
+        = text_field_tag  "salary_tax[savings][][amount]",nil, :class => "form-control-medium", :ng_model => "saving.amount", :placeholder => "Amount", :ng_blur => "broadcastInsuranceAmount()"
+    %tr
+      %th Total
+      %td
+      %td
+      %th {{totalInsurance}}
+  

@@ -36,6 +36,7 @@ PayrollManagement::Application.routes.draw do
         get "mail"
       end
     end
+    resources :salary_taxes
   end
   
   get "default_allowance_deductions" => "default_allowance_deductions#index"
@@ -50,7 +51,8 @@ PayrollManagement::Application.routes.draw do
   get "/payslips/new_email_payslips"
   get "/payslips/email_payslips"
   get "/payslips/bank_advice"
-
+  get "/salary_taxes/tax_limits"
+  
   resources :employee_leaves do
     collection do
       post "upload"

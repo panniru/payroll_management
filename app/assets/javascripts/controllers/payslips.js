@@ -11,7 +11,6 @@
                 $scope.to_index = data.to_index 
                 $scope.from_index = data.from_index
                 $.each($scope.payslips, function(index, val){
-                    
                     val["isChecked"] = false
                 });
 

@@ -1,0 +1,21 @@
+.col-md-3-no-padding
+  .col-md-4
+    %label Name:
+  .col-md-8
+    %label= link_to employee.name, employee
+.col-md-3-no-padding
+  .col-md-4
+    %label Code:
+  .col-md-8
+    %label= employee.code
+.col-md-3-no-padding
+  .col-md-4
+    %label Designation:
+  .col-md-8
+    %label= employee.designation_master.name 
+.col-md-3-no-padding
+  .col-md-4
+    %label Department:
+  .col-md-8
+    %label= employee.department_master.name
+

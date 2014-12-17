@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204091843) do
+ActiveRecord::Schema.define(version: 20141215162542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141204091843) do
     t.integer  "additional_allowance_2"
     t.integer  "additional_allowance_3"
     t.integer  "club_contribution"
-    t.integer  "proffesional_tax"
+    t.integer  "professional_tax"
     t.integer  "tds_pm"
     t.integer  "training_cost"
     t.integer  "notice_period_amount"
@@ -116,7 +116,8 @@ ActiveRecord::Schema.define(version: 20141204091843) do
     t.string   "relation"
     t.date     "resignation_date"
     t.string   "reason_for_resignation"
-    t.boolean  "unusual_pf"
+    t.integer  "basic"
+    t.string   "status"
   end
 
   add_index "employee_masters", ["code"], name: "index_employee_masters_on_code", using: :btree
@@ -146,6 +147,26 @@ ActiveRecord::Schema.define(version: 20141204091843) do
     t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "medical_bills", force: true do |t|
+    t.integer "employee_master_id"
+    t.integer "salary_tax_id"
+    t.integer "amount"
+    t.string  "bill_no"
+    t.date    "bill_date"
+    t.string  "attachment"
+  end
+
+  create_table "medical_insurances", force: true do |t|
+    t.integer "employee_master_id"
+    t.integer "salary_tax_id"
+    t.integer "amount"
+    t.string  "bill_no"
+    t.date    "bill_date"
+    t.boolean "parent_included"
+    t.boolean "parent_senior_citizen"
+    t.string  "attachement"
   end
 
   create_table "payslip_additional_fields_labels", force: true do |t|
@@ -206,11 +227,11 @@ ActiveRecord::Schema.define(version: 20141204091843) do
     t.integer  "diff_epf_and_eps"
     t.integer  "diff_remitted"
     t.integer  "n"
-    t.integer  "refund_adv"
-    t.integer  "arrear_epf"
-    t.integer  "arrear_epf_ee"
-    t.integer  "arrear_epf_er"
-    t.integer  "arrear_eps"
+    t.integer  "refund_adv",         default: 0
+    t.integer  "arrear_epf",         default: 0
+    t.integer  "arrear_epf_ee",      default: 0
+    t.integer  "arrear_epf_er",      default: 0
+    t.integer  "arrear_eps",         default: 0
     t.integer  "job_run_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -238,6 +259,36 @@ ActiveRecord::Schema.define(version: 20141204091843) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "break_up_type"
+  end
+
+  create_table "salary_taxes", force: true do |t|
+    t.integer  "employee_master_id"
+    t.string   "financial_year"
+    t.integer  "rent_paid"
+    t.integer  "rent_per_month"
+    t.string   "rent_receipt"
+    t.integer  "standard_deduction"
+    t.integer  "home_loan_amount"
+    t.string   "home_loan_document"
+    t.integer  "rent_received"
+    t.integer  "other_tax"
+    t.integer  "total_tax_projection"
+    t.integer  "tax_paid"
+    t.integer  "educational_cess"
+    t.integer  "surcharge"
+    t.integer  "atg"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "savings", force: true do |t|
+    t.integer "employee_master_id"
+    t.integer "salary_tax_id"
+    t.string  "saving_type"
+    t.integer "amount"
+    t.string  "bill_no"
+    t.date    "bill_date"
+    t.string  "attachement"
   end
 
   create_table "sessions", force: true do |t|

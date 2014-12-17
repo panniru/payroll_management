@@ -1,0 +1,23 @@
+%table.table.table-bordered{:ng_show => "medicalBills"}
+  %thead
+    %th Bill No
+    %th Bill Date
+    %th Amount
+  %tbody
+    %tr{"ng-repeat" => "bill in medicalBills"}
+      %td
+        = text_field_tag  "salary_tax[medical_bills][][bill_no]",nil, :class => "form-control-medium", :ng_model => "bill.bill_no", :placeholder => "No"
+      %td
+        = text_field_tag  "salary_tax[medical_bills][][bill_date]",nil, :class => "form-control-medium date-picker", :ng_model => "bill.bill_date", :placeholder => "Date"
+      %td
+        = check_box_tag "salary_tax[medical_bills][][parent_included]",nil, :class => "form-control-medium", :ng_model => "bill.parent_included"
+        = check_box_tag "salary_tax[medical_bills][][parent_senior_citizen]",nil, :class => "form-control-medium", :ng_model => "bill.parent_senior_citizen", :ng_show => "bill.parent_included"
+      %td
+        = text_field_tag  "salary_tax[medical_bills][][amount]",nil, :class => "form-control-medium", :ng_model => "bill.amount", :placeholder => "Amount", :ng_blur => "broadcastBillAmount()"
+        %span
+          = link_to raw("<i class='fa fa-plus-circle'></i>"), "#", :ng_click => "addMoreMedicalBill()"
+    %tr
+      %th Total
+      %td
+      %td
+      %th {{totalBill}}

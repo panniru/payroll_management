@@ -1,0 +1,17 @@
+-# .col-md-offset-4
+-#   %h3= "Salary Tax For the Year #{session[:financial_year]}"
+  
+.row
+  = render :partial => "employee_header", :locals => {:employee => @employee_master}
+.row
+  %hr
+.row{:ng_controller => "SalaryTaxController", :ng_init => "initialize(#{@employee_master.id})"}
+  %form{:name=>"salaryTaxForm", :ng_submit => "saveSalaryTax()", :novalidate => "", :class => "form-horizontal", :role=>"form", :id => "salary_tax_form"}
+    .row
+      = render :partial => "tax_building_blocks"
+    .row
+      = render :partial => "form"
+    .row
+      .col-md-offset-6
+        = save_button
+    

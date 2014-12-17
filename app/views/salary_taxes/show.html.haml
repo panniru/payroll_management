@@ -1,0 +1,33 @@
+.row
+  = render :partial => "employee_header", :locals => {:employee => @employee_master}
+.row
+  %hr
+.row
+  .col-md-4
+    = render "earning_terms"
+  .col-md-5
+    = render "deduction_terms"
+  .col-md-3
+    %table.table.table-bordered
+      %thead
+        %th Component
+        %th Amount
+      %tbody
+        %tr
+          %th Surcharge(+)
+          %td= @salary_tax.surcharge
+        %tr
+          %th Educational Cess(+)
+          %td= @salary_tax.educational_cess
+        %tr
+          %th Net Tax
+          %td= @salary_tax.net_tax
+        %tr
+          %th Tax Deducted(-)
+          %td= @salary_tax.tax_paid
+        %tr
+          %th Balance Tax
+          %td= @salary_tax.balance_tax
+.row
+  .col-md-offset-6
+    = edit_button(edit_employee_master_salary_tax_path(@employee_master, @salary_tax))

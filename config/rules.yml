@@ -1,3 +1,27 @@
 payslip:
   leave_settlement_month: 1
   bonus_payment_month: 10
+salary_tax:
+  mediclaim_employee_limit: 150000
+  mediclaim_parent_limit: 150000
+  mediclaim_parent_senior_citizen_limit: 50000
+  savings_up_to: 150000
+  educational_cess: 3
+  surcharge: 10
+  income_tax:
+    bucket_1: 
+      from: 0
+      to: 250000
+      range: 
+      tax: 0
+    bucket_2: 
+      from: 250000
+      to: 500000
+      tax: 10
+    bucket_3: 
+      from: 500000
+      to: 1000000
+      tax: 20
+    bucket_4: 
+      from: 1000000
+      tax: 30

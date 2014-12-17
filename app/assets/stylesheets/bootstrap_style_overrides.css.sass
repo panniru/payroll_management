@@ -17,6 +17,32 @@ hr
   border-color: #DDD
   font-weight: bold
 
+.font-9
+  font-size: 9px
 .form-control
+  @extend .form-control
+  height: 32px
   border-radius: 0px
+
+.form-control-medium
+  @extend .form-control
+  height: 25px
+.form-group-less-margin
+  @extend .form-group
+  margin-top: 10px
+.panel-body-no-padding
+  @extend .panel-body
+  padding: 0px
+.col-md-4-no-padding
+  @extend .col-md-4
+  padding: 5px
   
+.col-md-3-no-padding
+  @extend .col-md-3
+  padding: 2px
+.col-md-6-no-padding
+  @extend .col-md-6
+  padding: 2px
+
+.form-group 
+  margin-bottom: 8px

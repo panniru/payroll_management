@@ -1,0 +1,121 @@
+.col-md-4.col-right-border
+  .form-group
+    %label.col-md-6.control-label Basic
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.basic", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label HRA
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.hra", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Conveyance Allowance
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.conveyance_allowance", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label City Compensatory Allowance
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.city_compensatory_allowance", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Special Allowance
+    .col-md-6
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.special_allowance", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Loyalty Allowance
+    .col-md-6
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.loyalty_allowance", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Leave Settlement 
+    .col-md-6
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.leave_settlement", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Medical Allowance
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.medical_allowance", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Other Payment
+    .col-md-6
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.other_payment", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Total Earning
+    .col-md-6
+      %input{ :type => "number" , :class => "form-control", :readonly => "true", :ng_model => "stotal_earnings"}
+.col-md-5.col-right-border
+  .form-group
+    %label.col-md-6.control-label Rent Paid(-)
+    .col-md-3
+      = text_field_tag :rent_per_month, "", :ng_model => "salary_tax.rent_per_onth", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRent()"
+    .col-md-3-no-padding
+      %label
+        = "[{{salaryTax.rent_paid}} / Year]"
+  .form-group
+    %label.col-md-6.control-label Medical Allowance (-)
+    .col-md-3
+      = text_field_tag :medical_allowance, "",:class => "form-control", :readonly => "true", :ng_model => "salaryTax.claimed_medical_bill", :salary_tax_component => "true"
+  .form-group
+    %label.col-md-6.control-label Conveyance Allowance (-)
+    .col-md-3
+      %input{ :type => "number", :class => "form-control", :readonly => "true", :ng_model => "salaryTax.conveyance_allowance", :salary_tax_component => "true"}
+
+  .form-group
+    %label.col-md-6.control-label Standard Deduction (-)
+    .col-md-3
+      = text_field_tag :standard_deduction, "",:class => "form-control", :ng_model => "salaryTax.standard_deduction", :salary_tax_component => "true"
+  .form-group
+    %label.col-md-6.control-label Professional Tax (-)
+    .col-md-3
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.professional_tax", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Mediclaim U/s80D
+    .col-md-3
+      %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.medical_insurances_total", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Rent Recieved(+)
+    .col-md-3
+      = text_field_tag :rent_recieved_per_month, "", :ng_model => "rentReceivedPerMonth", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRentRecieved()", :salary_tax_component => "true"
+    .col-md-3-no-padding
+      %label
+        = "[{{salaryTax.rent_received}} / Year]"
+  .form-group
+    %label.col-md-6.control-label Home Loan Amount(-)
+    .col-md-3
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.home_loan_amount", :salary_tax_component => "true"}
+  .form-group
+    %label.col-md-6.control-label Savings (-)
+    .col-md-3
+      = text_field_tag :savings, "",:class => "form-control", :readonly => "true", :ng_model => "salaryTax.savings_total", :salary_tax_component => "true"
+  .form-group
+    %label.col-md-6.control-label ATG(-)
+    .col-md-3
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.atg", :salary_tax_component => "true"}
+
+  .form-group
+    %label.col-md-6.control-label Total
+    .col-md-3
+      %input{ :type => "number", :class => "form-control", :ng_model => "total_deductions", :readonly => true}
+
+.col-md-3
+  .form-group
+    %label.col-md-6.control-label Total Tax Projected
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.total_tax_projection"}
+
+  .form-group
+    %label.col-md-6.control-label Surcharge(+)
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.surcharge"}
+  .form-group
+    %label.col-md-6.control-label Educational Cess(+)
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.educational_cess"}
+  .form-group
+    %label.col-md-6.control-label Net Tax
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.netTax"}
+  .form-group
+    %label.col-md-6.control-label Tax Deducted(-)
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.tax_paid"}
+  .form-group
+    %label.col-md-6.control-label Balance Tax
+    .col-md-6
+      %input{ :type => "number", :class => "form-control"}
