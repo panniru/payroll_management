@@ -263,7 +263,8 @@ ActiveRecord::Schema.define(version: 20141215162542) do
 
   create_table "salary_taxes", force: true do |t|
     t.integer  "employee_master_id"
-    t.string   "financial_year"
+    t.date     "financial_year_from"
+    t.date     "financial_year_to"
     t.integer  "rent_paid"
     t.integer  "rent_per_month"
     t.string   "rent_receipt"

@@ -8,8 +8,8 @@
     %tr{"ng-repeat" => "insurance in salaryTax.medical_insurances"}
       %td
         = text_field_tag  "salary_tax[medical_insurances][][bill_no]",nil, :class => "form-control-medium", :ng_model => "insurance.bill_no", :placeholder => "No"
-      %td
-        %input.form-control-medium.datepicker{:type => "text", :name => "salary_tax[medical_insurances][][bill_date]", :ng_model => "bill.bill_date", :placeholder => "Date"}
+      %td{:style => "width: 35%;"}
+        %input.form-control-medium{:type => "text", :name => "salary_tax[medical_insurances][][bill_date]", :ng_model => "bill.bill_date", :placeholder => "Date", :my_datepicker => true}
       %td
         .btn-group.btn-group-xs
           %button{:type => "button", :ng_class => "{'btn btn-success btn-xs' : insurance.parent_included, 'btn btn-default btn-xs' : !insurance.parent_included}", :ng_click => "insurance.parent_included= true"}
@@ -28,5 +28,4 @@
       %th Total
       %td
       %td
-      %th {{totalInsurance}}
-  
+      %th {{salaryTax.medical_insurances_total}}

@@ -36,7 +36,11 @@ PayrollManagement::Application.routes.draw do
         get "mail"
       end
     end
-    resources :salary_taxes
+    resources :salary_taxes do
+      collection do
+        get "component_monthly_report"
+      end
+    end
   end
   
   get "default_allowance_deductions" => "default_allowance_deductions#index"

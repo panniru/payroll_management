@@ -16,7 +16,14 @@ class SalaryTaxesController < ApplicationController
   def create
     respond_to do |format|
       format.html {
-        status = SalaryTaxCreationService.new(@employee_master, params[:salary_tax]).save
+        @salary_tax = SalaryTaxCreationService.new(@employee_master, params[:salary_tax], session[:financial_year_from], session[:financial_year_to]).save
+        if @salary_tax.present?
+          flash[:success] = "Salary Tax has been generated succesfully"
+          redirect_to employee_master_salary_tax_path(@employee_master, @salary_tax)
+        else
+          flash[:error] = "Salary Tax has not been generated"
+          render "new"
+        end
       }
       format.json do
         render :json => status
@@ -37,6 +44,15 @@ class SalaryTaxesController < ApplicationController
     respond_to do |format|
       format.json do
         render :json => SalaryTax.tax_limits
+      end
+    end
+  end
+
+  def component_monthly_report
+    respond_to do |format|
+      format.json do
+        salary_tax_break_up = SalaryTaxBreakup.new(@employee_master, session[:financial_year_from], session[:financial_year_to])
+        render :json => salary_tax_break_up.payslip_components_monthly_report(params[:component])
       end
     end
   end

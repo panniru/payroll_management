@@ -6,7 +6,6 @@ class SalaryTax < ActiveRecord::Base
   include SalaryTaxComponents
   
   #attr_accessor :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :leave_settlement, :medical_allowance, :other_payment, :pf, :tds_pm, :total_Earnings, :professional_tax
-  attr_accessor :fin_year_from, :fin_year_to
   
   def claimed_medical_bill
     medical_bills.inject(0){|sum, bill| sum+bill.amount.to_i}

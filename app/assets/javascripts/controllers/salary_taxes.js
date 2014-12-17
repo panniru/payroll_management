@@ -3,33 +3,34 @@
     app.controller("SalaryTaxController", ["$scope", "$window", "salaryTaxService", function($scope, $window, salaryTaxService) {
         
         $scope.taxLimits = null
+        $scope.rentReceivedPerMonth = 0;
 
         salaryTaxService.salaryTaxLimits()
             .then(function(response){
                 $scope.taxLimits = response.data
+                console.log(calculateIncomeTax(360718))
             })
 
         $scope.initialize = function(employee_master_id){
             
             $scope.employeeMasterId = employee_master_id
             $scope.newSalaryTax()
-            
+
         }
 
         $scope.newSalaryTax = function(){
             salaryTaxService.newSalaryTax($scope.employeeMasterId)
                 .then(function(response){
                     $scope.salaryTax = response.data
+                    $scope.calculateTax()
                 })
         }
 
         $scope.broadCastRent = function(){
             var rentPerYear = $scope.salaryTax.rent_per_month * 12
-            console.log(rentPerYear)
-            console.log($scope.salaryTax.rent_per_month)
-            var rent_excess_salary = $window.Math.abs(rentPerYear - ($scope.salaryTax.basic/10))
-            console.log(rent_excess_salary)
+            var rent_excess_salary = $window.Math.abs(rentPerYear - ($scope.salaryTax.basic * 0.1))
             $scope.salaryTax.rent_paid = $window.Math.min(rent_excess_salary, $scope.salaryTax.hra)
+            $scope.calculateTax()
         }
         
         $scope.addMoreMedicalInsurance = function(){
@@ -60,6 +61,7 @@
                 }
             })
             $scope.salaryTax.medical_insurances_total = total
+            $scope.calculateTax()
         }
 
         $scope.addMoreMedicalBill = function(){
@@ -78,6 +80,7 @@
             })
             if(total <= $scope.salaryTax.medical_allowance){
                 $scope.salaryTax.claimed_medical_bill = total
+                $scope.calculateTax()
             }else{
                 alert("Savings amount has been exceeded the limit "+ $scope.salaryTax.medical_allowance)
             }
@@ -107,10 +110,12 @@
                 }
             })
             $scope.salaryTax.savings_total = total
+            $scope.calculateTax()
         }
         
         $scope.broadCastRentRecieved = function(){
             $scope.salaryTax.rent_received = (parseInt($scope.rentReceivedPerMonth) * 12)
+            $scope.calculateTax()
         }
 
         $scope.totalAmountForTax = function(){
@@ -120,11 +125,12 @@
         $scope.calculateTax = function(){
             $scope.total_earnings = totalEarnings()
             $scope.total_deductions = totalDeductions()
-            var totalAmountToTax = ($scope.total_earnings - $scope.total_deductions)
-            $scope.salaryTax.total_tax_projection = calculateIncomeTax(totalAmountToTax)
+            $scope.total_amount = ($scope.total_earnings - $scope.total_deductions)
+            $scope.salaryTax.total_tax_projection = calculateIncomeTax($scope.total_amount)
+
             $scope.salaryTax.surcharge = 0
-            $scope.salaryTax.educational_cess = ($scope.salaryTax.total_tax_projection * ($scope.taxLimits.educational_cess/100))
-            $scope.salaryTax.net_tax = ($scope.salaryTax.total_tax_projection + $scope.salaryTax.surcharge + $scope.salaryTax.educational_cess)            
+            $scope.salaryTax.educational_cess = $window.Math.round($scope.salaryTax.total_tax_projection * ($scope.taxLimits.educational_cess/100))
+            $scope.salaryTax.net_tax = $window.Math.round($scope.salaryTax.total_tax_projection + $scope.salaryTax.surcharge + $scope.salaryTax.educational_cess)            
         }
 
         var totalEarnings = function(){
@@ -138,21 +144,23 @@
         var calculateIncomeTax = function(amount){
             var tax = 0
             angular.forEach($scope.taxLimits.income_tax, function(val, key){
-
-                if( typeof val.to != 'undefined' ){
-                    var range = val.to - val.from
-                    if(amount >= range ){
-                        tax += (range*(val.tax/100))
+                if(amount >= 0){
+                    if( typeof val.to != 'undefined' ){
+                        var range = val.to - val.from
+                        if(amount >= range ){
+                            tax += (range*(val.tax/100))
+                        }else{
+                            tax += (amount*(val.tax/100))
+                        }
+                        amount = amount - range
                     }else{
                         tax += (amount*(val.tax/100))
+                        amount = amount - val.from
                     }
-                    amount = amount - range
-                }else{
-                    tax += (amount*(val.tax/100))
-                    amount = amount - val.from
                 }
+                    
             })
-            return tax
+            return $window.Math.round(tax)
         }
 
         $scope.saveSalaryTax = function(){
@@ -170,6 +178,7 @@
 
         }
 
-
+        $scope.component_monthly_report = salaryTaxService.component_monthly_report;
+        
     }]);
 })(angular, payRollApp);

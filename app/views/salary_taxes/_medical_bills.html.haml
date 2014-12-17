@@ -8,11 +8,11 @@
       %td
         = text_field_tag  "salary_tax[medical_bills][][bill_no]",nil, :class => "form-control-medium", :ng_model => "bill.bill_no", :placeholder => "No"
       %td
-        %input{:type => "text", :name => "salary_tax[medical_bills][][bill_date]", :ng_model => "bill.bill_date", :placeholder => "Date", :class => "form-control-medium datepicker"}
+        %input{:type => "text", :name => "salary_tax[medical_bills][][bill_date]", :ng_model => "bill.bill_date", :placeholder => "Date", :class => "form-control-medium", :my_datepicker => true}
       %td
         = text_field_tag  "salary_tax[medical_bills][][amount]",nil, :class => "form-control-medium", :ng_model => "bill.amount", :placeholder => "Amount", :ng_blur => "broadcastMedicalBillAmount()"
     %tr
       %th Total
       %td
-      %th {{totalMedicalBill}}
+      %th {{salaryTax.claimed_medical_bill}}
   

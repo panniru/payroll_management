@@ -14,7 +14,7 @@ class EmployeeNewPayslip
     # @worked_days = worked_days
   end
 
-  def payslip
+  def payslip(inject_defaults = true)
     leave_details
     payslip = Payslip.new
     payslip.employee_master_id = @employee.id
@@ -24,7 +24,7 @@ class EmployeeNewPayslip
         payslip.send("#{attribute}=", self.send(attribute).try(:round)) 
       end
     end
-    inject_monthly_input_components_from_prvious_month(payslip)
+    inject_monthly_input_components_from_prvious_month(payslip) if inject_defaults
     payslip
   end
 

@@ -1,49 +1,76 @@
 .col-md-4.col-right-border
   .form-group
     %label.col-md-6.control-label Basic
-    .col-md-6
-      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.basic", :salary_tax_component => "true"}
+    .col-md-5
+      %input{ :type => "number", :class => "form-control ", :ng_model => "salaryTax.basic", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'basic')"
   .form-group
     %label.col-md-6.control-label HRA
-    .col-md-6
+    .col-md-5
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.hra", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'hra')"
   .form-group
     %label.col-md-6.control-label Conveyance Allowance
-    .col-md-6
+    .col-md-5
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.conveyance_allowance", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'conveyance_allowance')"
   .form-group
     %label.col-md-6.control-label City Compensatory Allowance
-    .col-md-6
+    .col-md-5
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.city_compensatory_allowance", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'city_compensatory_allowance')"
   .form-group
     %label.col-md-6.control-label Special Allowance
-    .col-md-6
+    .col-md-5
       %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.special_allowance", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'special_allowance')"
   .form-group
     %label.col-md-6.control-label Loyalty Allowance
-    .col-md-6
+    .col-md-5
       %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.loyalty_allowance", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'loyalty_allowance')"
   .form-group
     %label.col-md-6.control-label Leave Settlement 
-    .col-md-6
+    .col-md-5
       %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.leave_settlement", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'leave_settlement')"
   .form-group
     %label.col-md-6.control-label Medical Allowance
-    .col-md-6
+    .col-md-5
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.medical_allowance", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'medical_allowance')"
   .form-group
     %label.col-md-6.control-label Other Payment
-    .col-md-6
+    .col-md-5
       %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.other_payment", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button", :pop_up_payslip_component => "true"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'annual_bonus')"
   .form-group
     %label.col-md-6.control-label Total Earning
-    .col-md-6
-      %input{ :type => "number" , :class => "form-control", :readonly => "true", :ng_model => "stotal_earnings"}
+    .col-md-5
+      %input{ :type => "number" , :class => "form-control", :readonly => "true", :ng_model => "total_earnings"}
 .col-md-5.col-right-border
   .form-group
     %label.col-md-6.control-label Rent Paid(-)
     .col-md-3
-      = text_field_tag :rent_per_month, "", :ng_model => "salary_tax.rent_per_onth", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRent()"
+      = text_field_tag :rent_per_month, "", :ng_model => "salaryTax.rent_per_month", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRent()"
     .col-md-3-no-padding
       %label
         = "[{{salaryTax.rent_paid}} / Year]"
@@ -64,6 +91,9 @@
     %label.col-md-6.control-label Professional Tax (-)
     .col-md-3
       %input{ :type => "number" , :class => "form-control", :ng_model => "salaryTax.professional_tax", :salary_tax_component => "true"}
+    .col-md-1-no-padding
+      %button.input-icon{:type => "button", :pop_up_payslip_component => "true"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'professional_tax')"
   .form-group
     %label.col-md-6.control-label Mediclaim U/s80D
     .col-md-3
@@ -89,11 +119,16 @@
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.atg", :salary_tax_component => "true"}
 
   .form-group
-    %label.col-md-6.control-label Total
+    %label.col-md-6.control-label Total Deduction
     .col-md-3
       %input{ :type => "number", :class => "form-control", :ng_model => "total_deductions", :readonly => true}
 
 .col-md-3
+  .form-group
+    %label.col-md-6.control-label Total Amount
+    .col-md-6
+      %input{ :type => "number", :class => "form-control", :ng_model => "total_amount"}
+
   .form-group
     %label.col-md-6.control-label Total Tax Projected
     .col-md-6
@@ -110,12 +145,14 @@
   .form-group
     %label.col-md-6.control-label Net Tax
     .col-md-6
-      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.netTax"}
+      %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.net_tax"}
   .form-group
     %label.col-md-6.control-label Tax Deducted(-)
     .col-md-6
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.tax_paid"}
+      %button.input-icon1{:type => "button", :pop_up_payslip_component => "true"}
+        = fa_icon "list-alt lg", :pop_up_payslip_component => true, :action => "component_monthly_report(#{@employee_master.id}, 'tds_pm')", :placement => "left"
   .form-group
     %label.col-md-6.control-label Balance Tax
     .col-md-6
-      %input{ :type => "number", :class => "form-control"}
+      %input{ :type => "number", :class => "form-control", :ng_value => "salaryTax.net_tax -salaryTax.tax_paid "}
