@@ -70,15 +70,16 @@ class EmployeeMaster < ActiveRecord::Base
 
   def eligible_for_loyality_allowance?(date)
     date_before_3_years = Date.new(date.year-3, date.month, date.day)
-    if probation_date.present? and probation_date < date_before_3_years
-      if last_loyality_allowance_found_at.present? and last_loyality_allowance_found_at <= date_before_3_years
-        return true
-      elsif probation_date.present? and probation_date <= date_before_3_years
-        return true
-      else
-        return false
-      end
-    end
+    (probation_date.present? and probation_date < date_before_3_years)
+    # if probation_date.present? and probation_date < date_before_3_years
+    #   if last_loyality_allowance_found_at.present? and last_loyality_allowance_found_at <= date_before_3_years
+    #     return true
+    #   elsif probation_date.present? and probation_date <= date_before_3_years
+    #     return true
+    #   else
+    #     return false
+    #   end
+    # end
   end
 
   def last_loyality_allowance_found_at
