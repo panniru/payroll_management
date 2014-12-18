@@ -5,11 +5,13 @@
         $scope.taxLimits = null
         $scope.rentReceivedPerMonth = 0;
 
-        salaryTaxService.salaryTaxLimits()
-            .then(function(response){
-                $scope.taxLimits = response.data
-                console.log(calculateIncomeTax(360718))
-            })
+        var initSalaryTaxLimits = function(){
+            salaryTaxService.salaryTaxLimits()
+                .then(function(response){
+                    $scope.taxLimits = response.data
+                    $scope.calculateTax()
+                })
+        }
 
         $scope.initialize = function(employee_master_id){
             
@@ -22,13 +24,13 @@
             salaryTaxService.newSalaryTax($scope.employeeMasterId)
                 .then(function(response){
                     $scope.salaryTax = response.data
-                    $scope.calculateTax()
+                    initSalaryTaxLimits();
                 })
         }
 
         $scope.broadCastRent = function(){
-            var rentPerYear = $scope.salaryTax.rent_per_month * 12
-            var rent_excess_salary = $window.Math.abs(rentPerYear - ($scope.salaryTax.basic * 0.1))
+            $scope.salaryTax.rent_per_year = $scope.salaryTax.rent_per_month * 12
+            var rent_excess_salary = $window.Math.abs($scope.salaryTax.rent_per_year - ($scope.salaryTax.basic * 0.1))
             $scope.salaryTax.rent_paid = $window.Math.min(rent_excess_salary, $scope.salaryTax.hra)
             $scope.calculateTax()
         }
@@ -114,7 +116,9 @@
         }
         
         $scope.broadCastRentRecieved = function(){
-            $scope.salaryTax.rent_received = (parseInt($scope.rentReceivedPerMonth) * 12)
+            $scope.salaryTax.rent_received_per_year =  ($scope.salaryTax.rent_received_per_month * 12)
+            var maintainanceCutoff = $scope.taxLimits.maintanance_on_rent_received
+            $scope.salaryTax.rent_received = ($scope.salaryTax.rent_received_per_year - ($scope.salaryTax.rent_received_per_year * (maintainanceCutoff/100)))
             $scope.calculateTax()
         }
 
@@ -123,14 +127,23 @@
         }
 
         $scope.calculateTax = function(){
-            $scope.total_earnings = totalEarnings()
-            $scope.total_deductions = totalDeductions()
-            $scope.total_amount = ($scope.total_earnings - $scope.total_deductions)
-            $scope.salaryTax.total_tax_projection = calculateIncomeTax($scope.total_amount)
-
-            $scope.salaryTax.surcharge = 0
-            $scope.salaryTax.educational_cess = $window.Math.round($scope.salaryTax.total_tax_projection * ($scope.taxLimits.educational_cess/100))
-            $scope.salaryTax.net_tax = $window.Math.round($scope.salaryTax.total_tax_projection + $scope.salaryTax.surcharge + $scope.salaryTax.educational_cess)            
+            var total_earnings = totalEarnings()
+            var total_deductions = totalDeductions()
+            var total_amount = (total_earnings - total_deductions)
+            var total_tax_projection = calculateIncomeTax(total_amount)
+            var educational_cess = $window.Math.round( total_tax_projection * ($scope.taxLimits.educational_cess/100))
+            var surcharge = 0
+            var net_tax = $window.Math.round( total_tax_projection + surcharge + educational_cess)            
+            $scope.salaryTax.total_tax_projection = total_tax_projection
+            $scope.total_earnings = total_earnings
+            $scope.total_deductions = total_deductions
+            $scope.total_amount = total_amount
+            $scope.salaryTax.surcharge = surcharge
+            $scope.salaryTax.educational_cess = educational_cess
+            $scope.salaryTax.net_tax = net_tax
+            if(!$scope.$$phase) {
+                $scope.$digest()
+            }
         }
 
         var totalEarnings = function(){
@@ -138,7 +151,7 @@
         }
 
         var totalDeductions = function(){
-            return ($scope.salaryTax.rent_paid + $scope.salaryTax.home_loan_amount  + $scope.salaryTax.standard_deduction + $scope.salaryTax.medical_insurances_total + $scope.salaryTax.claimed_medical_bill + $scope.salaryTax.savings_total + $scope.salaryTax.professional_tax + $scope.salaryTax.conveyance_allowance + $scope.salaryTax.atg - $scope.salaryTax.rent_received)
+            return (parseInt($scope.salaryTax.rent_paid || 0) + parseInt($scope.salaryTax.home_loan_amount  || 0) + parseInt($scope.salaryTax.standard_deduction || 0) + parseInt($scope.salaryTax.medical_insurances_total || 0) + parseInt($scope.salaryTax.claimed_medical_bill || 0) + parseInt($scope.salaryTax.savings_total || 0) + parseInt($scope.salaryTax.professional_tax || 0) + parseInt($scope.salaryTax.conveyance_allowance || 0) + parseInt($scope.salaryTax.atg || 0 )- parseInt($scope.salaryTax.rent_received || 0))
         }
 
         var calculateIncomeTax = function(amount){
@@ -158,7 +171,6 @@
                         amount = amount - val.from
                     }
                 }
-                    
             })
             return $window.Math.round(tax)
         }
@@ -166,6 +178,11 @@
         $scope.saveSalaryTax = function(){
             salaryTaxService.createSalaryTax($scope.employeeMasterId, $scope.salaryTax)
             .then(function(response){
+                if(response.data.status){
+                    $window.location.href = "/employee_masters/"+$scope.employeeMasterId+"/salary_taxes/"+response.data.id
+                }else{
+                    alert("Internel Error Occurred")
+                }
             })
         }
 
@@ -174,9 +191,24 @@
             salaryTaxService.edit(employee_master_id, salary_tax_id)
                 .then(function(response){
                     $scope.salaryTax = response.data
+                    initSalaryTaxLimits();
                 })
 
         }
+
+        $scope.updateSalaryTax = function(){
+            salaryTaxService.update($scope.employeeMasterId, $scope.salaryTax)
+            .then(function(response){
+                if(response.data.status){
+                    $window.location.href = "/employee_masters/"+$scope.employeeMasterId+"/salary_taxes/"+$scope.salaryTax.id
+                }else{
+                    alert("Internel Error Occurred")
+                }
+            })
+        }
+
+
+        
 
         $scope.component_monthly_report = salaryTaxService.component_monthly_report;
         

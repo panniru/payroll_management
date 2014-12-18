@@ -6,7 +6,7 @@
     %tr
       %th Rent Paid (-)
       %td
-        = "#{@salary_tax.rent_per_month}/Month  [#{@salary_tax.rent_paid}/Year]"
+        = "#{@salary_tax.rent_per_year}/Year  [#{@salary_tax.rent_paid}]"
     %tr
       %th Medical Allowance (-)
       %td= @salary_tax.claimed_medical_bill
@@ -32,6 +32,9 @@
       %th Savings (-)
       %td= @salary_tax.savings_total
     %tr
-      %th ATG(-)
+      %th 80G(-)
       %td= @salary_tax.atg
+    %tr
+      %th Total
+      %td= @salary_tax.total_deductions
         

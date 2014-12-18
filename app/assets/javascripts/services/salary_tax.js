@@ -16,6 +16,11 @@
         var edit = function(employee_master_id, salary_tax_id){
             return $http.get("/employee_masters/"+employee_master_id+"/salary_taxes/"+salary_tax_id+"/edit.json")
         }
+        
+        var update = function(employee_master_id, salary_tax){
+            return $http.put("/employee_masters/"+employee_master_id+"/salary_taxes/"+salary_tax.id+".json", {salary_tax: salary_tax})
+        }
+
 
         var component_monthly_report = function(employee_master_id, component){
             return $http.get("/employee_masters/"+employee_master_id+"/salary_taxes/component_monthly_report.json?component="+component)
@@ -26,7 +31,8 @@
             newSalaryTax : newSalaryTax,
             createSalaryTax : createSalaryTax,
             edit : edit,
-            component_monthly_report : component_monthly_report
+            component_monthly_report : component_monthly_report, 
+            update : update
         };
     }]);
 })(angular, payRollApp);

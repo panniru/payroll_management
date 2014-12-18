@@ -73,7 +73,7 @@
       = text_field_tag :rent_per_month, "", :ng_model => "salaryTax.rent_per_month", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRent()"
     .col-md-3-no-padding
       %label
-        = "[{{salaryTax.rent_paid}} / Year]"
+        = "[{{salaryTax.rent_per_year}} / Year] [{{salaryTax.rent_paid}}]"
   .form-group
     %label.col-md-6.control-label Medical Allowance (-)
     .col-md-3
@@ -101,10 +101,10 @@
   .form-group
     %label.col-md-6.control-label Rent Recieved(+)
     .col-md-3
-      = text_field_tag :rent_recieved_per_month, "", :ng_model => "rentReceivedPerMonth", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRentRecieved()", :salary_tax_component => "true"
+      = text_field_tag :rent_recieved_per_month, "", :ng_model => "salaryTax.rent_received_per_month", :placeholder => "Per Month", :class => "form-control-medium", :ng_blur => "broadCastRentRecieved()", :salary_tax_component => "true"
     .col-md-3-no-padding
       %label
-        = "[{{salaryTax.rent_received}} / Year]"
+        = "[{{salaryTax.rent_received_per_year}} / Year] [{{salaryTax.rent_received}}]"
   .form-group
     %label.col-md-6.control-label Home Loan Amount(-)
     .col-md-3
@@ -114,13 +114,13 @@
     .col-md-3
       = text_field_tag :savings, "",:class => "form-control", :readonly => "true", :ng_model => "salaryTax.savings_total", :salary_tax_component => "true"
   .form-group
-    %label.col-md-6.control-label ATG(-)
+    %label.col-md-6.control-label 80G(-)
     .col-md-3
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.atg", :salary_tax_component => "true"}
 
   .form-group
     %label.col-md-6.control-label Total Deduction
-    .col-md-3
+    .col-md-4
       %input{ :type => "number", :class => "form-control", :ng_model => "total_deductions", :readonly => true}
 
 .col-md-3
@@ -147,7 +147,7 @@
     .col-md-6
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.net_tax"}
   .form-group
-    %label.col-md-6.control-label Tax Deducted(-)
+    %label.col-md-6.control-label Tax Deducted
     .col-md-6
       %input{ :type => "number", :class => "form-control", :ng_model => "salaryTax.tax_paid"}
       %button.input-icon1{:type => "button", :pop_up_payslip_component => "true"}

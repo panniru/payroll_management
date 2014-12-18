@@ -1,0 +1,20 @@
+= title("Salary Tax - #{@employee_master.name}")
+.page-header
+  %h1 
+    = raw "#{link_to @employee_master.name, @employee_master} Salary Taxes"
+    .pull-right
+      = link_to_new(new_employee_master_salary_tax_path(@employee_master), {"label" => "Salary Tax"})
+%table.table.table-condenced
+  %thead
+    %th Title
+    %th Tax Projected
+    %th Tax Paid
+    %th Balance Tax
+  %tbody
+    - @salary_taxes.each do |salary_tax|
+      %tr
+        %td= link_to salary_tax.title, employee_master_salary_tax_path(@employee_master, salary_tax)
+        %td= salary_tax.net_tax
+        %td= salary_tax.tax_paid
+        %td= salary_tax.balance_tax
+        

@@ -20,7 +20,26 @@ class SalaryTaxCreationService
     @fin_year_to = fin_year_to
   end
 
-  def save
+  def update(salary_tax)
+    ActiveRecord::Base.transaction do
+      begin
+        if salary_tax.update_attributes(salary_tax_params)
+          save_medicall_bills(salary_tax)
+          save_medicall_insurances(salary_tax)
+          save_savings(salary_tax)
+        else
+          raise ActiveRecord::Rollback
+          return false
+        end
+      rescue Exception => e
+        raise ActiveRecord::Rollback
+        return false
+      end
+    end
+    true
+  end
+
+  def create
     salary_tax = nil
     ActiveRecord::Base.transaction do
       begin
@@ -44,10 +63,19 @@ class SalaryTaxCreationService
   end
 
   def save_medicall_bills(salary_tax)
-    bills = @salary_tax_params[:medical_bills].map do |m_b_params|
-      MedicalBill.new(medicall_bill_params(m_b_params)) do |bill|
-        bill.employee_master = @employee_master
-        bill.salary_tax = salary_tax
+    bills = []
+      @salary_tax_params[:medical_bills].each do |m_b_params|
+      if m_b_params[:id].present?
+        medical_bill = MedicalBill.find(m_b_params[:id])
+        medical_bill.assign_attributes(medicall_bill_params(m_b_params))
+        bills << medical_bill
+      else
+        if m_b_params[:amount].present?
+          bills << MedicalBill.new(medicall_bill_params(m_b_params)) do |bill|
+            bill.employee_master = @employee_master
+            bill.salary_tax = salary_tax
+          end
+        end
       end
     end
     if bills.map(&:valid?).all?
@@ -60,10 +88,18 @@ class SalaryTaxCreationService
   end
 
   def save_medicall_insurances(salary_tax)
-    insurances = @salary_tax_params[:medical_insurances].map do |m_i_params|
-      MedicalInsurance.new(medicall_insurance_params(m_i_params)) do |insurance|
+    insurances = []
+    @salary_tax_params[:medical_insurances].each do |m_i_params|
+      if m_i_params[:id].present?
+        medical_insurance = MedicalInsurance.find(m_i_params[:id])
+        medical_insurance.assign_attributes(medicall_insurance_params(m_i_params))
+        insurances << medical_insurance
+      else
+        ins = MedicalInsurance.new(medicall_insurance_params(m_i_params)) do |insurance|
         insurance.employee_master = @employee_master
         insurance.salary_tax = salary_tax
+        end
+        insurances << ins  if m_i_params[:amount].present?
       end
     end
     if insurances.map(&:valid?).all?
@@ -76,10 +112,17 @@ class SalaryTaxCreationService
   end
 
   def save_savings(salary_tax)
-    savings = @salary_tax_params[:savings].map do |s_params|
-      Saving.new(saving_params(s_params)) do |saving|
-        saving.employee_master = @employee_master
-        saving.salary_tax = salary_tax
+    savings = []
+    @salary_tax_params[:savings].each do |s_params|
+      if s_params[:id].present?
+        saving = Saving.find(s_params[:id])
+        saving.assign_attributes(saving_params(s_params))
+        savings<< saving
+      else
+        savings << Saving.new(saving_params(s_params)) do |saving|
+          saving.employee_master = @employee_master
+          saving.salary_tax = salary_tax
+        end if s_params[:amount].present?
       end
     end
     if savings.map(&:valid?).all?
@@ -93,7 +136,7 @@ class SalaryTaxCreationService
 
     
   def salary_tax_params
-    @salary_tax_params.permit(:employee_master_id, :rent_paid, :rent_per_month, :rent_receipt, :standard_deduction, :home_loan_amount, :rent_received, :other_tax, :total_tax_projection, :tax_paid, :educational_cess, :surcharge, :atg)
+    @salary_tax_params.permit(:employee_master_id, :rent_per_month, :rent_receipt, :standard_deduction, :home_loan_amount, :rent_received_per_month, :other_tax, :tax_paid, :atg)
   end
 
   def medicall_bill_params(params)

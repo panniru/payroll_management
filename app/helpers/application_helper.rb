@@ -15,7 +15,11 @@ module ApplicationHelper
   def link_to_new(path, params = {})
     link_to raw("<i class='fa fa-plus-circle fa-lg'></i> New #{params['label']}"), path, :class => "btn #{params['class'].present? ? params['class'] : 'btn-primary'}"
   end
-
+  
+  def back_button(path, params = {})
+    link_to raw("<i class='fa fa-caret-square-o-left fa-lg'></i> #{params['label']}"), path, :class => "btn #{params['class'].present? ? params['class'] : 'btn-primary'}"
+  end
+  
   def link_to_upload(path, params = {})
     link_to raw("<i class='fa fa-upload fa-lg'></i> Upload #{params['label']}"), path, :class => "btn #{params['class'].present? ? params['class'] : 'btn-primary'}"
   end

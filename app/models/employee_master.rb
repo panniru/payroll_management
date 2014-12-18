@@ -15,6 +15,7 @@ class EmployeeMaster < ActiveRecord::Base
   has_many :employee_advance_payments
   has_many :employee_leaves, :class_name => "EmployeeLeave"
   has_many :payslips
+  has_many :salary_taxes
 
   scope :managed_by, (lambda do |user| 
     if user.manager? or user.director?

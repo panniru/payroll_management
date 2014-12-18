@@ -8,6 +8,7 @@ salary_tax:
   savings_up_to: 150000
   educational_cess: 3
   surcharge: 10
+  maintanance_on_rent_received: 30
   income_tax:
     bucket_1: 
       from: 0

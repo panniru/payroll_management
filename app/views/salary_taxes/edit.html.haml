@@ -3,7 +3,7 @@
 .row
   %hr
 .row{:ng_controller => "SalaryTaxController", :ng_init => "edit(#{@employee_master.id}, #{@salary_tax.id})"}
-  %form{:name=>"salaryTaxForm", :ng_submit => "saveSalaryTax()", :novalidate => "", :class => "form-horizontal", :role=>"form", :id => "salary_tax_form"}
+  %form{:name=>"salaryTaxForm", :ng_submit => "updateSalaryTax()", :novalidate => "", :class => "form-horizontal", :role=>"form", :id => "salary_tax_form"}
     .row
       = render :partial => "tax_building_blocks"
     .row
