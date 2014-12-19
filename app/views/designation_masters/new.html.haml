@@ -15,9 +15,9 @@
             %td {{designation.name}}
             %td
               %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("accountant").id }
-              Senior Accountant
+              Accountant
               %input{:ng_model =>"designation['managed_by']",  :type => "radio", :value => Role.find_by_code("manager").id }
-              Commercial Manager
+              Manager
               = hidden_field_tag :managed_by , :value => Role.find_by_code("accountant").role
               
         .pull-right

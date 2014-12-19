@@ -1,6 +1,9 @@
 (function(angular, app) {
     "use strict";
     app.controller("DesignationMasterController",["$scope", "designationService",'$window', function($scope,designationService,$window) {
+
+
+
 	$scope.getDesignation = function(page){
 	    designationService.getDesignationServiceView(page)
 		.then(function(result) {

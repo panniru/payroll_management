@@ -6,16 +6,17 @@ class EmployeeMaster < ActiveRecord::Base
   validates :pan, :uniqueness => true, allow_blank: true
   validates :ctc, :presence => true , numericality: { only_integer: true }
   validates :basic, :presence => true , numericality: { only_integer: true }
-
+  
   attr_accessor :department_name
   attr_accessor :designation_name
-
+  
   belongs_to :department_master
   belongs_to :designation_master
   has_many :employee_advance_payments
   has_many :employee_leaves, :class_name => "EmployeeLeave"
   has_many :payslips
   has_many :salary_taxes
+  has_many :form24s
 
   scope :managed_by, (lambda do |user| 
     if user.manager? or user.director?

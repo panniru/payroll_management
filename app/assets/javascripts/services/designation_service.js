@@ -12,9 +12,11 @@
 	};
 
 
+
 	return {
 	    getDesignationServiceView : getDesignationServiceView,
 	    saveDesignation :  saveDesignation
+	   
 	};
     }]);
 })(angular, payRollApp);

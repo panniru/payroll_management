@@ -1,0 +1,57 @@
+%table.table.table-condensed
+  %thead
+    %th PAN of the Employee
+    %th Name of the employee
+    %th Date of Payment/credit
+    %th Taxable amount on which tax deducted( Monthly Gross salary)Rs.
+    %th TDS Rs.
+    %th Surcharge Rs.
+    %th Educational Cess Rs.
+    %th Total tax deducted   (319+320+321)
+    %th Total tax deposited      Rs.
+    %th Interest
+    %th Others
+    %th Total     (322+Interest+ Others)
+    %th BSR Code
+    %th Challan Serial No.
+    %th Date on which tax Deposited
+    %th Date of deduction
+    %th Date of Deposit
+    %th Reason for non-deduction/lower deduction*
+  %thead
+    %th (315)
+    %th (316)
+    %th (317)
+    %th (318)
+    %th (319)
+    %th (320)
+    %th (321)
+    %th (322)
+    %th (323)
+    %th (323A)
+    %th (323B)
+    %th (323C)
+    %th (323D)
+    %th (323E)
+    %th (323F)
+    %th (324)
+    %th (325)
+    %th (326)
+  %tbody
+    - @forms.each do |x|
+      %tr
+        %td= x.employee_master.pan
+        %td= x.employee_master.name
+        %td= x.generated_date
+        %td= x.net_total
+        %td= x.tds_cal
+        %td= 0
+        %td= x.edu
+        %td= '1000'
+        %td= '1000'
+        %td= 0
+        %td= 0
+        %td= '1000'
+        
+        
+        

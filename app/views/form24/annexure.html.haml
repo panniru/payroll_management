@@ -1,0 +1,60 @@
+.row
+  %table.table.table-condensed
+    %thead
+      %th Employee PAN
+      %th Name of Employee
+      %th Write 'W' for Woman, 'S' for Senior Citizen and 'G' for others
+      %th Date from which employed with current employer
+      %th Total amount of salay (Includes wages, annuity, pension, gratuity, fees, commission, bonus, repayment of amount deposited etc.,)
+      %th Total Deduction under section 16(ii) and 16(iii) (Specify each deduction separtely)
+      %th Income Chargeable under the head "Salaries" (Column 332 minus 333)
+      %th Income (including loss from housing property) under  any head other than the head "Salaries" offered for TDS [section 192(2B)
+      %th Gross total income (Total of Columns 334 and 335)
+      %th Aggregate amount of deductions under sections 80C, 80CCC and 80CCD (Total to be limited to amount specified in section 80CCE)
+      %th Amount deductible under any other provision(s) of Chapter VI-A
+      %th Total Amount deductible under Chapter VI-A (Total of Columns 337 and 338)
+      %th Total taxable income(Columns 336 minus column 339)
+      %th Total tax - (I) income-tax on total income
+      %th (ii) Surcharge
+      %th (iii) Education Cess
+      %th Income tax Relief under section 89, when salary etc., is paid in arrear or in advance
+      %th Net tax payable (Columns 341+342+343-344)
+      %th Total amount of tax deducted at source for the whole year(aggregate of the amount in column 322 of Annexure I for all the four quarters in
+      %th Shortfall in tax deduction(+)/Excess tax deduction(-)[Column 345 minus column 346]
+    %thead
+      %th (328)
+      %th (329)
+      %th (330)
+      %th (331)
+      %th (332)
+      %th (333)
+      %th (334)
+      %th (335)
+      %th (336)
+      %th (337)
+      %th (338)
+      %th (339)
+      %th (340)
+      %th (341)
+      %th (342)
+      %th (343)
+      %th (344)
+      %th (345)
+      %th (346)
+      %th (347)
+    %tbody
+      - @forms.each do |x|
+        %tr
+          %td= x.employee_master.pan
+          %td= x.employee_master.name
+          %td
+            - if(x.employee_master.gender == 'F')
+              = 'W'
+            - elsif(x.employee_master.gender == 'M')
+              = 'G'
+          %td= ''
+          %td= x.net_total
+          %td= 0
+          %td= x.net_total
+          
+          

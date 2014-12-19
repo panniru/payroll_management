@@ -1,0 +1,48 @@
+.row
+  %h4
+    = link_to "Form24Q" , form24_index_path
+.row
+  %form{"ng-controller" => "FormTaxController" , "ng-init" => 'get_tds()' , "ng-submit" => "saveForm()"}
+    %table.table.table-condensed
+      %thead
+        %th Month
+        %Th Year
+        %th Status
+        %th TDS cal
+        %th Edu CESS
+        %th TDS 
+        %th Date on which Tax Deposited
+        %th Cheque NO
+        %th Challan Serial NO
+        %th BSR Code
+        %th Deposited by Book entry?
+      %tbody
+        %tr{"ng-repeat" => "form in forms"} 
+          %td {{form.month}}
+          %td {{form.year}}
+          %td {{form.status}}
+          %td {{form.tds_calculation}}
+          %td {{form.education_cess}}
+          %td {{form.tds_paid}}
+          %td 
+            %input{:type => "text" , :ng_model => 'form.deposited_date' , :class => 'form-control date-picker'}
+          %td
+            %input{:type => "text" , :ng_model => 'form.cheque_no' , :class => 'form-control ' , :ng_init => "form.cheque_no='E-Pymt'"}
+          %td 
+            %input{:type => "text"  , :class => 'form-control' , :ng_model => 'form.challan_serial_no' }
+          %td
+            %input{:type => "text"  , :class => 'form-control' , :ng_model => 'form.bsr_code',  :ng_init => "form.bsr_code= '271852'" }
+          %td 
+            = select_tag "payment_type" , options_for_select([['NO'],['YES ']]) ,"ng-model" => "form.payment_type",:class =>  "form-control", "ng-init" => "form.payment_type='NO'"
+            = hidden_field_tag "generated_date" , :value => "form['generated_date']" 
+            = hidden_field_tag "tds_calculation" , :value => "{{form.tds_calculation}}" 
+            = hidden_field_tag "education_cess" , :value => "{{form.education_cess}}" 
+            = hidden_field_tag "month" , :value => "form['month']"
+            = hidden_field_tag "year" , :value => "form['year']"
+            = hidden_field_tag "status" , :value => "form['status']"
+            = hidden_field_tag "tds_paid" , :value => "{{form.tds_paid}}"
+    .row
+      .pull-right
+        = save_button
+
+            

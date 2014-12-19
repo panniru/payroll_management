@@ -18,6 +18,8 @@ class EmployeeLeavesController < ApplicationController
 
   def upload
     @employee_leave_uploader = EmployeeLeaveUploader.new(params[:employee_leave_uploader])
+    p "333333333333333"
+    p params[:employee_leave_uploader]
     if @employee_leave_uploader.save
       flash[:success] = "Employees Successfully uploaded"
       redirect_to employee_leaves_path
@@ -97,6 +99,6 @@ class EmployeeLeavesController < ApplicationController
  
   private
   def employee_leave_params
-    params.require(:employee_leave).permit(:employee_master_id , :lop , :month , :days_worked, :working_days , :code , :sl , :pl , :cl)
+    params.require(:employee_leave).permit(:employee_master_id , :lop , :month ,:year, :days_worked, :working_days , :code , :sl , :pl , :cl)
   end
 end
