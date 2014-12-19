@@ -8,17 +8,21 @@ class SalaryTaxesController < ApplicationController
   end
   
   def new
-    # @salary_tax = @employee_master.salary_taxes.in_the_financial_year(session[])
-    # if 
-    @salary_tax = SalaryTaxCreationService.new_salary_tax(@employee_master, session[:financial_year_from], session[:financial_year_to])
+    @salary_tax = @employee_master.salary_taxes.in_the_financial_year(session[:financial_year_from], session[:financial_year_to]).first
     respond_to do |format|
-      format.html {}
+      format.html do
+        if @salary_tax.present?
+          flash[:alert] = "Salary Tax has already been generated to the employee <b> #{@employee_master.name}</b> in the year #{session[:financial_year]}"
+          redirect_to employee_master_salary_taxes_path(@employee_master)
+        end
+      end
       format.json do
+        @salary_tax = SalaryTaxCreationService.new_salary_tax(@employee_master, session[:financial_year_from], session[:financial_year_to])
         render :json => @salary_tax
       end
     end
   end
-
+  
   def create
     respond_to do |format|
       format.html {

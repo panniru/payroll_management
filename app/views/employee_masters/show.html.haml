@@ -10,17 +10,16 @@
       = edit_button(edit_employee_master_path(@employee_master))
       = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), employee_master_employee_advance_payments_path(@employee_master), :class => "btn btn-primary"
       = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), employee_master_payslips_path(@employee_master, :origin => "employee"), :class => "btn btn-primary"
-      - if @employee_master.eligible_for_payslip? (session[:transaction_date])
-        = link_to_new( new_employee_master_payslip_path(@employee_master), {'label' => 'Payslip'})
-      -# .btn-group
-      -#   = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"
-      -#   %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
-      -#     %span.fa.fa-caret-down
-      -#   %ul.dropdown-menu.dropdown-menu-right
-      -#     %li
-      -#       = link_to raw("<i class='fa fa-money fa-lg'></i> Adv Payment"), "#"
-      -#     %li
-      -#       = link_to raw("<i class='fa fa-file-text-o fa-lg'></i> Payslips"), "#"
+      .btn-group
+        = link_to raw("<i class='fa fa-ellipsis-v fa-lg'></i> More"), "#", :class => "btn btn-primary"
+        %a.btn.btn-primary.dropdown-toggle{:data => {:toggle => "dropdown"}, :href=> "#"}
+          %span.fa.fa-caret-down
+        %ul.dropdown-menu.dropdown-menu-right
+          - if @employee_master.eligible_for_payslip? (session[:transaction_date])
+            %li
+              = link_to raw("<i class='fa fa-plus fa-lg'></i> New Payslip"), new_employee_master_payslip_path(@employee_master)
+          %li
+            = link_to raw("<i class='fa fa-calculator fa-lg'></i> Salary Taxes"), employee_master_salary_taxes_path(@employee_master)
             
             
 .col-md-12
@@ -85,7 +84,7 @@
         %td= @employee_master.ctc
 
   .pull-right{:ng_controller => "SalaryBreakUpInitializeController"}
-    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc}, #{@employee_master.basic})", :ng_disabled => "isClicked"
+    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc}, '#{@employee_master.basic}')", :ng_disabled => "isClicked"
 .col-md-12
   #salaryBreakUpShowDiv
   -#%salary_break_up{:ctc => @employee_master.ctc} 
