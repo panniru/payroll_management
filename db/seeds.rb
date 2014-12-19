@@ -40,15 +40,15 @@ def seed_user
   
 
   unless @user_manager.present?
-    User.create(:email => "manager@gmail.com" , :password => "welcome" , :user_id => "Manager" , :role_id => manager_role.id)
+    User.create(:email => "manager@gmail.com" , :password => "hellohello" , :user_id => "Manager" , :role_id => manager_role.id)
   end
 
   unless @user_director.present?
-    User.create(:email => "director@gmail.com" , :password => "welcome" , :user_id => "Director" , :role_id => director_role.id)
+    User.create(:email => "director@gmail.com" , :password => "hellohello" , :user_id => "Director" , :role_id => director_role.id)
   end
 
   unless @user_accountant.present?
-    User.create(:email => "accountant@gmail.com", :password => "welcome", :user_id => "Accountant", :role_id => accountant_role.id)
+    User.create(:email => "accountant@gmail.com", :password => "hellohello", :user_id => "Accountant", :role_id => accountant_role.id)
   end
 
 end
