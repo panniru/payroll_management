@@ -9,7 +9,8 @@
   %thead
     %th Code
     %th Name
-    %th Date
+    %th Month
+    %th Year
     %th Days Worked
     %th Working Days
     %th SL
@@ -22,7 +23,8 @@
       %tr
         %td= employee.code
         %td= employee.employee_master.name
-        %td= employee.entered_date
+        %td= employee.month
+        %td= employee.year
         %td= employee.days_worked
         %td= employee.working_days
         %td= employee.sl

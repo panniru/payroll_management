@@ -1,0 +1,50 @@
+%h1 
+  = link_to "Form24Q"
+ 
+%h4
+  .row
+    %table.table.table-condensed
+      %thead
+        %th Month
+        %th TDS
+        %th Surcharge
+        %th Edu CESS
+        %th Interest
+        %th Others
+        %th Total Tax Deposited 
+        %th Cheque/DD No
+        %th BSR Code
+        %th Date On Which Tax Deposited
+        %th Transfer Voucher/Challan Serial NO
+        %th Whether TDS Deposited by book entry?
+      %thead
+        %th (301)
+        %th (302)
+        %th (303)
+        %th (304)
+        %th (305)
+        %th (306)
+        %th (307)
+        %th (308)
+        %th (309)
+        %th (310)
+        %th (311)
+        %th (312)
+      %tbody
+        - @forms.each do |x| 
+          %tr
+            %td
+              = link_to "#{x.month}" ,  payslips_form24_index_path(:month => x.month , :year => x.year , :status => x.emp_status)
+              = x.year
+            %td= x.tds
+            %td= 0
+            %td= x.edu_cess
+            %td= 0
+            %td= 0
+            %td= x.total_tax_deposited
+            %td= x.bsr_code
+            %td= x.cheque_no
+            %td= x.deposited_date  
+            %td= x.challan_serial_no
+            %td= x.payment_type
+         

@@ -2,7 +2,7 @@ class Payslip < ActiveRecord::Base
   belongs_to :employee_master
   has_one :employer_contribution
   has_one :payslip_additional_fields_label
-
+  belongs_to :form24
   validates :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :medical_allowance, :arrears_of_salary, :incentive_payment, :loyalty_deposit, :grade_allowance, :leave_settlement, :performance_bonus, :additional_allowance_1, :additional_allowance_2, :additional_allowance_3, :pf, :club_contribution, :professional_tax, :tds_pm, :training_cost, :salary_advance, :additional_deduction_1, :additional_deduction_2, :additional_deduction_3, :notice_period_amount, allow_blank: true, numericality: { only_integer: true }
 
   attr_accessor :additional_allowance_1_label, :additional_allowance_2_label, :additional_allowance_3_label
@@ -15,13 +15,15 @@ class Payslip < ActiveRecord::Base
   scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%b")).in_the_year(date.strftime("%Y"))}
   scope :in_the_year, lambda{|year| where("to_char(generated_date, 'YYYY') = ?", year)}
   scope :in_the_month, lambda{|month| where("to_char(generated_date, 'Mon') = ?", month[0..2])}
+  scope :in_the_mon, lambda{|month| where("EXTRACT(month from generated_date) = ?" , month)}
   scope :belongs_to_employee, lambda{|employee_id| where(:employee_master_id =>  employee_id)}
   scope :having_status, lambda{|status| where(:status =>  status)}
   scope :having_loyality_allowance, lambda{ where("loyalty_allowance IS NOT NULL")}
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
   scope :generated_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
 
-  
+
+
   def self.payslips_on_params(params)
     payslips = Payslip.all
     if params[:employee_master_id].present? or params[:month].present? or params[:year].present? or params[:status].present?
@@ -49,6 +51,24 @@ class Payslip < ActiveRecord::Base
     (employee_master.ctc.to_f).round #/12
   end
   
+  def tds_cal
+    (1000/30.9*30).round
+  end
+  
+  def self.get_tds_pm
+    get_tds = Payslip.where(:generated_date => 3.months.ago..Time.now).select(%q{status , EXTRACT(month from generated_date)  as month, EXTRACT(year from generated_date) as year, sum(tds_pm) as tds_paid, round(sum(tds_pm/30.9*30)) as tds_calculation, round(sum((tds_pm/30.9*30)*0.03)) as education_cess }).group('status , month , year')
+    get_tds
+  end
+  
+  def self.get_quarter
+    date = Date.today.beginning_of_quarter.month-3
+    p "date"
+    p date
+  end
+  
+  def edu
+    (tds_cal*0.03).round
+  end
   def net_total
     (total_earnings - total_deductions)
   end

@@ -1,4 +1,14 @@
 PayrollManagement::Application.routes.draw do
+  
+  resources :form24 do
+    collection do
+      get 'payslips'
+      get 'get_tds'
+      get 'quarter_details'
+      post 'save_form'
+      get 'annexure'
+    end
+  end
 
   resources :reminders
 
@@ -34,6 +44,7 @@ PayrollManagement::Application.routes.draw do
     resources :payslips do
       member do
         get "mail"
+        get "form24"
       end
     end
     resources :salary_taxes do
