@@ -50,7 +50,7 @@ class Form16
   end
   
   def lic_premium_and_others
-    saving_tax.savings_total
+    salary_tax.savings_total
   end
 
   def total_deductions_under_VI_A
@@ -62,7 +62,7 @@ class Form16
   end
 
   def section_80_d
-    salary_taxe.medical_insurances_total
+    salary_tax.medical_insurances_total.to_i
   end
 
   def section_80_e
@@ -70,7 +70,7 @@ class Form16
   end
 
   def section_80_g
-    salary_tax.atg
+    salary_tax.atg.to_i
   end
 
   def deductible_amount_sections

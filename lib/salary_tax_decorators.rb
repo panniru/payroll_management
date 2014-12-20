@@ -1,8 +1,9 @@
 module SalaryTaxDecorators
+
   def educational_cess
     (tax_projected * (tax_limits[:educational_cess].to_f/100)).round
   end
-
+  
   def surcharge
     0
   end

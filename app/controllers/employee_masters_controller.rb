@@ -1,5 +1,5 @@
 class EmployeeMastersController < ApplicationController
-  before_action :set_employee_master, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee_master, only: [:show, :edit, :update, :destroy, :form16]
   autocomplete :department_master, :name
   autocomplete :designation_master, :name
   
@@ -99,6 +99,20 @@ class EmployeeMastersController < ApplicationController
       render "new_upload"
     end
   end
+  
+  def form16
+    @salary_tax = @employee_master.salary_taxes.in_the_financial_year(session[:financial_year_from], session[:financial_year_to]).first
+    @form16 = Form16.new(@employee_master, @salary_tax)
+    respond_to do |format|
+      format.html{}
+      format.pdf do
+        render :pdf => "#{@employee_master.name}_form_16.pdf",
+        :formats => [:pdf],
+        :page_size => 'A4'
+      end
+    end
+  end
+  
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_employee_master

@@ -29,6 +29,8 @@ en:
     city: "Chennai"
     state: "Tamil Nadu"
     pin: "600032"
+    pan: "AAACH7274C"
+    tan: "CHEH02176G"
   job:
     schedule:
       success: "%{job} has been scheduled. You can view the results %{job_link}."

@@ -28,6 +28,9 @@ PayrollManagement::Application.routes.draw do
   end
   
   resources :employee_masters do
+    member do
+      get :form16
+    end
     collection do
       get :autocomplete_department_master_name
       get :autocomplete_designation_master_name

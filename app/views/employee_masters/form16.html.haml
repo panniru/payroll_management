@@ -1,0 +1,144 @@
+.col-md-12
+  %table.table.table-bordered
+    %tr
+      %td
+        %h4
+          .col-md-8
+          .col-md-2
+            Certificate no.
+          .col-md-2
+            2010-2011/006
+    %tr
+      %td
+        %h3
+          %center
+            %b
+              FORM No.16
+            %h5
+              %b
+                {See Rule 31(1)(a)}
+    %tr
+      %td
+        .certificate-css
+          PART A
+    %tr
+      %td
+        .certificate-css
+          Certificate under section 203 of the Incometax Act, 1961 for Tax deducted at source on Salary
+    %tr
+      %td
+        %table.table-bordered-no-outer-lines
+          %tr
+            .col-md-6
+              %td
+                .certificate-css
+                  Name and Address of the Employer
+            .col-md-6
+              %td
+                .certificate-css
+                  Name and Designation of the Employee
+          
+          %tr
+            %td{:rowspan => 2}
+              = render "shared/org_details"
+            %td
+              %h4= @employee_master.name
+          %tr
+            %td= @employee_master.designation_master.name
+    %tr
+      %td
+        %h4
+          %table.table-bordered-no-outer-lines
+            %tr
+              %th PAN of the Deductor
+              %th TAN of the Deductor
+              %th PAN of the Employee
+            %tr
+              %td= I18n.t(:pan, :scope => :organization)
+              %td= I18n.t(:tan, :scope => :organization)
+              %td= @employee_master.pan
+              
+    %tr
+      %td
+        %table.table-bordered-no-outer-lines
+          %tr
+            %td
+              %h4
+                CIT (TDS)
+                %br
+                Nungambakkam High Road
+                %br
+                Chennai 600034
+            %td
+              %table.table.table.bordered-no-outer-lines
+                %thead
+                  %tr
+                    %th
+                      .certificate-css
+                        Assessment Year
+                %tbody
+                  %tr
+                    %td
+                      .certificate-css
+                        = "#{session[:transaction_date].year}-#{session[:transaction_date].year+1}"
+
+            %td
+              %table.table.table.bordered-no-outer-lines
+                %thead
+                  %tr
+                    %th
+                      .certificate-css
+                        PERIOD
+                    
+                %tbody
+                  %td
+                    %table.table-bordered-no-outer-lines
+                      %td
+                        .certificate-css
+                          = @form16.salary_tax.financial_year_from
+                      %td
+                        .certificate-css
+                          = @form16.salary_tax.financial_year_to
+    %tr
+      %td
+        .certificate-css
+          Summary of tax deducted at source
+
+    %tr
+      %td
+        %table.table-bordered-no-outer-lines
+          %tr.certificate-css
+            %th 
+              Quarter
+            %th
+              Receipt Number of original statements of TDS under sub-section (3) of Section 200
+            %th
+              Amount of tax deducted in respect of employee
+            %th
+              Amount of tax deposited/remitted in respect of employee
+          %tr
+            %td Q1
+            %td 030041900942185
+            %td= @form16.quarter_1_tax_paid 
+            %td= @form16.quarter_1_tax_paid 
+          %tr
+            %td Q2
+            %td CATXXFGB
+            %td= @form16.quarter_2_tax_paid 
+            %td= @form16.quarter_2_tax_paid 
+          %tr
+            %td Q3
+            %td XRVXCBLA
+            %td= @form16.quarter_3_tax_paid 
+            %td= @form16.quarter_3_tax_paid 
+          %tr
+            %td Q4
+            %td Not yet Filed
+            %td= @form16.quarter_4_tax_paid 
+            %td= @form16.quarter_4_tax_paid 
+          = render "form16_partb"
+          = render "form16_annexure"
+
+
+
+

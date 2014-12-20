@@ -22,6 +22,7 @@ class SalaryTax < ActiveRecord::Base
     savings.inject(0){|sum, saving| sum+saving.amount.to_i}
   end
 
+
   def title
     "Salary Tax #{financial_year_from.strftime("%Y")} - #{financial_year_to.strftime("%Y")[2..3]}"
   end
