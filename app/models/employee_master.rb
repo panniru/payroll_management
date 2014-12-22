@@ -17,7 +17,9 @@ class EmployeeMaster < ActiveRecord::Base
   has_many :payslips
   has_many :salary_taxes
   has_many :form24s
-
+  scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%F"))}
+  scope :resignation_between, lambda{|from_date, to_date| where(:resignation_date => (from_date..to_date))}
+  scope :joined_between, lambda{|from_date, to_date| where(:date_of_joining => (from_date..to_date))}
   scope :managed_by, (lambda do |user| 
     if user.manager? or user.director?
       all
@@ -29,6 +31,8 @@ class EmployeeMaster < ActiveRecord::Base
   scope :having_designation, lambda{|design_id| where(:designation_master_id => design_id)}
   scope :has_no_pay_slips_in_the_month, lambda{|date| where("id not in (?)", Payslip.select(:employee_master_id).in_the_current_month(date))}
   scope :not_resigned_on_or_before_month_begin, lambda{|date| where("resignation_date IS NULL OR resignation_date >= ?", date.at_beginning_of_month)}
+  scope :foreign_employees, lambda{ where(:status => "foreign")}
+  scope :regular_employees, lambda{ where(:status => "regular")}
   
   def save_employee
     ActiveRecord::Base.transaction do

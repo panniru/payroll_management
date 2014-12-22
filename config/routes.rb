@@ -2,11 +2,13 @@ PayrollManagement::Application.routes.draw do
   
   resources :form24 do
     collection do
-      get 'payslips'
       get 'get_tds'
       get 'quarter_details'
       post 'save_form'
       get 'annexure'
+    end
+    member do
+      get 'payslips'
     end
   end
 
@@ -38,6 +40,8 @@ PayrollManagement::Application.routes.draw do
       get :new_upload
       post :upload
       get :search
+      get :reports
+      get :get_reports
     end
     resources :employee_advance_payments do
       collection do

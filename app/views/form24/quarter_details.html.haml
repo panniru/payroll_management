@@ -34,7 +34,7 @@
         - @forms.each do |x| 
           %tr
             %td
-              = link_to "#{x.month}" ,  payslips_form24_index_path(:month => x.month , :year => x.year , :status => x.emp_status)
+              = link_to "#{x.month}" ,  payslips_form24_path(:month => x.month , :year => x.year , :status => x.emp_status , id: x.id)
               = x.year
             %td= x.tds
             %td= 0

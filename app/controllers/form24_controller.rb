@@ -1,7 +1,7 @@
 class Form24Controller < ApplicationController
   
   def get_tds
-    forms = Payslip.get_tds_pm
+    forms = Form24.get_tds_pm(current_user, params[:date])
     respond_to do |format|
       format.json do
         render :json => forms
@@ -52,7 +52,7 @@ class Form24Controller < ApplicationController
   end
   
   def annexure
-    @forms = Payslip.all
+    @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year(session[:financial_year_from], session[:financial_year_to]).all
   end
   
   def show
@@ -60,7 +60,8 @@ class Form24Controller < ApplicationController
   end
   
   def payslips
-    @forms = Payslip.in_the_year(params[:year]).in_the_mon(params[:month]).having_status(params[:status])
+    @form24 = Form24.find(params[:id])
+    @forms = Payslip.manageable_by_user(current_user).in_the_year(params[:year]).in_the_mon(params[:month]).having_status(params[:status]).all
   end
   
   def quarter_details
@@ -68,21 +69,21 @@ class Form24Controller < ApplicationController
     # p @months
     @forms = Form24.in_the_quarter(params[:quarter]).in_the_financial_year(params[:financial_year])
   end
-
+  
   def quarter_dates(x)
     date = Date.today << (x * 3)
     [date.beginning_of_quarter, date.end_of_quarter]
   end
   
   
-
+  
   def edit
   end
-
+  
   def create
   end
   
   def new
   end
-
+  
 end

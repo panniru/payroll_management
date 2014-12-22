@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   
   def edit
+    p "111111111111111"
+    p params[:format]
     if params[:format].present?
       @resource = User.find(params[:format])
     else

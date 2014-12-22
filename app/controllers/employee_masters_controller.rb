@@ -25,6 +25,37 @@ class EmployeeMastersController < ApplicationController
       redirect_to employee_masters_path
     end
   end
+  
+  def reports
+    p "11111111111"
+    if  params[:status] == "Attrition"
+      @employee_masters = EmployeeMaster.resignation_between( params[:from_date] , params[:to_date])
+    else
+      @employee_masters = EmployeeMaster.joined_between( params[:from_date] , params[:to_date])
+    end
+  end
+
+ 
+  def get_reports
+    respond_to do |format|
+      @employee_masters = EmployeeMaster.joined_between( params[:from_date] , params[:to_date])
+      format.json do
+        leaves= @employee_masters.map do |field|
+          {id: id, code: field.code, name: field.name, designation_master_id: field.designation_master_id, department_master_id: field.department_master_id}
+        end
+        render :json => leaves
+      end
+      format.pdf do
+        render :pdf => "Employee Details",
+        :formats => [:pdf, :haml],
+        :page_size => 'A4',
+        :margin => {:top => '8mm',
+          :bottom => '8mm',
+          :left => '10mm',
+          :right => '10mm'}
+      end
+    end
+  end
 
   # GET /employee_masters/1
   # GET /employee_masters/1.json
@@ -121,7 +152,7 @@ class EmployeeMastersController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def employee_master_params
-    params.require(:employee_master).permit(:code, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name, :ctc, :basic, :father_or_husband_name, :relation, :resignation_date, :reason_for_resignation)
+    params.require(:employee_master).permit(:code, :from_date, :name, :designation_master_id, :department_master_id, :gender, :initials, :qualification, :date_of_joining, :probation_date, :confirmation_date, :p_f_no, :bank_name, :account_number, :pan, :designation_name, :department_name, :ctc, :basic, :father_or_husband_name, :relation, :resignation_date, :reason_for_resignation)
   end
 end
   

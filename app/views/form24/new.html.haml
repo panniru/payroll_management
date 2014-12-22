@@ -21,11 +21,11 @@
           %td {{form.month}}
           %td {{form.year}}
           %td {{form.status}}
-          %td {{form.tds_calculation}}
-          %td {{form.education_cess}}
-          %td {{form.tds_paid}}
+          %td {{form.total_tds_pm}}
+          %td {{form.educational_cess}}
+          %td {{form.total_tax_payble}}
           %td 
-            %input{:type => "text" , :ng_model => 'form.deposited_date' , :class => 'form-control date-picker'}
+            %input{:type => "text" , :ng_model => 'form.deposited_date' , :class => 'form-control ' , :datepicker => true}
           %td
             %input{:type => "text" , :ng_model => 'form.cheque_no' , :class => 'form-control ' , :ng_init => "form.cheque_no='E-Pymt'"}
           %td 
@@ -41,6 +41,7 @@
             = hidden_field_tag "year" , :value => "form['year']"
             = hidden_field_tag "status" , :value => "form['status']"
             = hidden_field_tag "tds_paid" , :value => "{{form.tds_paid}}"
+            
     .row
       .pull-right
         = save_button

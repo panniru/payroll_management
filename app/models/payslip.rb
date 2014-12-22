@@ -21,8 +21,9 @@ class Payslip < ActiveRecord::Base
   scope :having_loyality_allowance, lambda{ where("loyalty_allowance IS NOT NULL")}
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
   scope :generated_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}
-
-
+  scope :manageable_by_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.managed_by(current_user))}
+  scope :regulars_manageable_by_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.regular_employees.managed_by(current_user))}
+  scope :foreigners_manageable_by_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.foreign_employees.managed_by(current_user))}
 
   def self.payslips_on_params(params)
     payslips = Payslip.all
@@ -55,17 +56,7 @@ class Payslip < ActiveRecord::Base
     (1000/30.9*30).round
   end
   
-  def self.get_tds_pm
-    get_tds = Payslip.where(:generated_date => 3.months.ago..Time.now).select(%q{status , EXTRACT(month from generated_date)  as month, EXTRACT(year from generated_date) as year, sum(tds_pm) as tds_paid, round(sum(tds_pm/30.9*30)) as tds_calculation, round(sum((tds_pm/30.9*30)*0.03)) as education_cess }).group('status , month , year')
-    get_tds
-  end
-  
-  def self.get_quarter
-    date = Date.today.beginning_of_quarter.month-3
-    p "date"
-    p date
-  end
-  
+    
   def edu
     (tds_cal*0.03).round
   end

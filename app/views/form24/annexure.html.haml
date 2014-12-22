@@ -1,11 +1,13 @@
+.col-md-2
+  = select_tag(:year, options_for_select(((session[:transaction_date].year-1..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control")
 .row
-  %table.table.table-condensed
+  %table.table.table-condensed{:style => "width:100%;"}
     %thead
-      %th Employee PAN
-      %th Name of Employee
-      %th Write 'W' for Woman, 'S' for Senior Citizen and 'G' for others
-      %th Date from which employed with current employer
-      %th Total amount of salay (Includes wages, annuity, pension, gratuity, fees, commission, bonus, repayment of amount deposited etc.,)
+      %th{:height => "100"} Employee PAN
+      %th{:height => "100"} Name of Employee
+      %th{:height => "100"} Write 'W' for Woman, 'S' for Senior Citizen and 'G' for others
+      %th{:height => "100"} Date from which employed with current employer
+      %th{:height => "100"} Total amount of salay (Includes wages, annuity, pension, gratuity, fees, commission, bonus, repayment of amount deposited etc.,)
       %th Total Deduction under section 16(ii) and 16(iii) (Specify each deduction separtely)
       %th Income Chargeable under the head "Salaries" (Column 332 minus 333)
       %th Income (including loss from housing property) under  any head other than the head "Salaries" offered for TDS [section 192(2B)
@@ -21,8 +23,8 @@
       %th Net tax payable (Columns 341+342+343-344)
       %th Total amount of tax deducted at source for the whole year(aggregate of the amount in column 322 of Annexure I for all the four quarters in
       %th Shortfall in tax deduction(+)/Excess tax deduction(-)[Column 345 minus column 346]
-    %thead
-      %th (328)
+    %thead{:style => "height:50px"}
+      %th{:valign => "bottom"} (328)
       %th (329)
       %th (330)
       %th (331)
@@ -33,7 +35,7 @@
       %th (336)
       %th (337)
       %th (338)
-      %th (339)
+      %th (339)+
       %th (340)
       %th (341)
       %th (342)
@@ -53,8 +55,19 @@
             - elsif(x.employee_master.gender == 'M')
               = 'G'
           %td= ''
-          %td= x.net_total
+          %td= x.total_earnings
           %td= 0
-          %td= x.net_total
-          
-          
+          %td= x.total_earnings
+          %td= x.rent_recieved_per_year
+          %td= x.form16.gross_total_income(x.total_earnings,x.rent_recieved_per_year)
+          -# %td= x.form16.total_deductions_under_VI_A
+          -# %td= x.form16.deductible_amount_under_VI_A
+          -# %td= x.total_deductions_under_VI_A + x.deductible_amount_under_VI_A
+          -# %td= x.total_deductions_under_VI_A - x.deductible_amount_under_VI_A
+          -# %td= x.form16.tax_on_total_income()
+          -# %td= 0
+          -# %td= x.form16.educational_cess
+          -# %td= 0
+          -# %td= x.form16.tax_payble
+          -# %td= x.tds_pm
+          -# %td= x.tax_payble - x.tds_pm

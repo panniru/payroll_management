@@ -1,0 +1,19 @@
+= wicked_pdf_stylesheet_link_tag 'bootstrap'
+.col-md-12
+  %h5 Employee Details
+.row
+  %table.table.table-condensed
+    %thead
+      %th Code
+      %th Initials
+      %th Name
+      %th Designation
+      %th Department
+    %tbody
+      - @employee_masters.each do |employee_master|
+        %tr
+          %td= employee_master.code
+          %td= employee_master.initials
+          %td= employee_master.name
+          %td= employee_master.designation_master.name
+          %td= employee_master.department_master.name
