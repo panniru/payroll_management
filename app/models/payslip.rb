@@ -32,7 +32,7 @@ class Payslip < ActiveRecord::Base
       payslips = payslips.in_the_year(params[:year]) if params[:year].present?
       payslips = payslips.having_status(params[:status]) if params[:status].present?
     end
-    payslips
+    payslips.includes(:employee_master).order("employee_masters.code")
   end
 
   def change_status(status)

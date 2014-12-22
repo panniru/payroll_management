@@ -15,7 +15,7 @@ def seed_roles
 
 
   unless @manager.present?
-    Role.create(:role => "manager", :code => "manager", :description => "manager")
+    Role.create(:role => "commercial_manager", :code => "manager", :description => "Commercial Manager")
   end
 
   unless @director.present?
@@ -23,7 +23,7 @@ def seed_roles
   end
   
   unless @accountant.present?
-    Role.create(:role => "accountant", :code => "accountant", :description => "accountant")
+    Role.create(:role => "senior_accountant", :code => "accountant", :description => "Senior Accountant")
   end
   
   

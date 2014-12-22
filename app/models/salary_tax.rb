@@ -8,7 +8,7 @@ class SalaryTax < ActiveRecord::Base
   
   #attr_accessor :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :leave_settlement, :medical_allowance, :other_payment, :pf, :tds_pm, :total_Earnings, :professional_tax
   
-  scope :in_the_financial_year, lambda{|fin_year_from, fin_year_to| where(:financial_year_from => fin_year_from, :financial_year_to => fin_year_to)}
+  scope :in_the_financial_year, lambda{|fin_year_from, fin_year_to| where("financial_year_from >= ? and financial_year_to <= ?", fin_year_from, fin_year_to)}
 
   def claimed_medical_bill
     medical_bills.inject(0){|sum, bill| sum+bill.amount.to_i}

@@ -62,14 +62,23 @@ module SalaryTaxComponents
     end
   end
 
+  def existed_payslips
+    employee_master.payslips.generated_between(financial_year_from, financial_year_to)
+  end
+
   def financial_year_payslips
     payslips = []
-    existed_payslips = employee_master.payslips.generated_between(financial_year_from, financial_year_from)
+    existed_payslips = existed_payslips
     moving_month = financial_year_from
-    while(not (moving_month.strftime("%m") == financial_year_to.strftime("%m") and moving_month.strftime("%y") == financial_year_to.strftime("%y")))
-      payslip = existed_payslips.select{|payslip| payslip.generated_date.strftime("%m") == moving_month.strftime("%m") and payslip.generated_date.strftime("%y") == moving_month.strftime("%y")}.first
-      if payslip.present?
-        payslips << payslip
+    next_fin_year_start_month = financial_year_to.next_month
+    while(not (moving_month.strftime("%m") == next_fin_year_start_month.strftime("%m") and moving_month.strftime("%y") == next_fin_year_start_month.strftime("%y")))
+      if existed_payslips.present? and not existed_payslips.empty?
+        payslip = existed_payslips.select{|payslip| payslip.generated_date.strftime("%m") == moving_month.strftime("%m") and payslip.generated_date.strftime("%y") == moving_month.strftime("%y")}.first
+        if payslip.present?
+          payslips << payslip
+        else
+          payslips << EmployeeNewPayslip.new(employee_master, moving_month).payslip(false)
+        end
       else
         payslips << EmployeeNewPayslip.new(employee_master, moving_month).payslip(false)
       end

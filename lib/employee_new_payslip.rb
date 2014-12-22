@@ -24,7 +24,10 @@ class EmployeeNewPayslip
         payslip.send("#{attribute}=", self.send(attribute).try(:round)) 
       end
     end
-    inject_monthly_input_components_from_prvious_month(payslip) if inject_defaults
+     if inject_defaults
+       inject_monthly_input_components_from_prvious_month(payslip)
+       set_tds(payslip)
+     end
     payslip
   end
 
@@ -86,6 +89,7 @@ class EmployeeNewPayslip
     else
       inject_monthly_input_components_from_defaults(payslip)
     end
+    
   end
 
   def inject_monthly_input_components_from_defaults(payslip)
@@ -96,6 +100,21 @@ class EmployeeNewPayslip
           payslip.send("#{key}=", dafault_values.send(key))
         end
       end
+    end
+  end
+
+  def set_tds(payslip)
+    financial_year = FinancialYearCalculator.new(@generation_date)
+    salary_tax_for_current_year = @employee.salary_taxes.in_the_financial_year(financial_year.financial_year_from, financial_year.financial_year_to).first
+    if salary_tax_for_current_year.present?
+      balance_tax = salary_tax_for_current_year.balance_tax
+      tax_paid_months = salary_tax_for_current_year.existed_payslips.count
+      unless tax_paid_months >= 12
+        remaining_tax_per_month = (balance_tax.to_f/(12 - tax_paid_months))
+      else
+        remaining_tax_per_month = 0
+      end
+      payslip.tds_pm = remaining_tax_per_month.round
     end
   end
 end

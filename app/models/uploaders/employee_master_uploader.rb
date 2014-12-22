@@ -36,7 +36,7 @@ class EmployeeMasterUploader
   end
 
   def key_to_show(key)
-    if ["p_f_no", "pan", "ctc"].include? key
+    if ["pan", "ctc"].include? key
       key.titleize.upcase 
     else
       key.titleize

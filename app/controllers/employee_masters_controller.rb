@@ -5,7 +5,7 @@ class EmployeeMastersController < ApplicationController
   
   def autocomplete_employee
     term = params[:term]
-    employees = EmployeeMaster.managed_by(current_user).where('lower(code) ILIKE ? OR lower(name) LIKE ?', "%#{term}%", "%#{term}%").order(:name).all
+    employees = EmployeeMaster.managed_by(current_user).where('lower(code) ILIKE ? OR lower(name) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%").order(:name).all
     render :json => employees.map { |employee| {:id => employee.id, :label => "#{employee.code} #{employee.name}", :value => employee.name} }
   end
 

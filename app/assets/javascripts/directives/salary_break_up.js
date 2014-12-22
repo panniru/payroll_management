@@ -5,10 +5,11 @@
             restrict: 'E',
             scope: {
                 ctc: '=',
-                basic: '='
+                basic: '=',
+                probationDate: '='
             },
             controller: ["$scope", "payRollService", function($scope, payRollService){
-                payRollService.salaryBreakUps($scope.ctc, $scope.basic)
+                payRollService.salaryBreakUps($scope.ctc, $scope.basic, $scope.probationDate)
                     .then(function(response){
                         $scope.earningPerMonth = 0;
                         $scope.deductionPerMonth = 0;

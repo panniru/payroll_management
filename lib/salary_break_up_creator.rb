@@ -1,11 +1,11 @@
 class SalaryBreakUpCreator
   include SalaryBreakUpInitializer 
   basic_on_ctc :basic
-  attr_on_basic :hra, :city_compensatory_allowance, :employer_pf_contribution, :bonus_payment, :loyalty_allowance
+  attr_on_basic :hra, :city_compensatory_allowance, :employer_pf_contribution, :bonus_payment #, :loyalty_allowance
   attr_fixed_per_year :conveyance_allowance, :medical_allowance
   #private_class_method :new
 
-  EARNINGS = ["basic", "hra", "conveyance_allowance", "city_compensatory_allowance", "medical_allowance", "special_allowance"] #, "loyalty_allowance" 
+  EARNINGS = ["basic", "hra", "conveyance_allowance", "city_compensatory_allowance", "medical_allowance", "special_allowance", "loyalty_allowance" ] #, 
   DEDUCTIONS = ["employer_pf_contribution", "bonus_payment"]
   BREAK_UPS = EARNINGS + DEDUCTIONS + ["grade_allowance", "incentive_payment"]
   BREAK_UP_FORUMULA_DESC = {
@@ -17,14 +17,27 @@ class SalaryBreakUpCreator
     :special_allowance => "Balancing Amount", 
     :employer_pf_contribution => "% of Basic", 
     :bonus_payment => "% of Basic",
-    :loyalty_allowance => "% of Basic pay after the complation of 3 years of continuous service from probation"
+    :loyalty_allowance => "% of Basic pay after the complation of 3 years of continuous service from probation",
+    :epf_ee_share => "% of Basic", 
+    :eps_share => "% of Basic", 
+    :eps_upper_limit => "per Year"
   }
 
-  def initialize(ctc, basic = nil)
+  def initialize(ctc, basic = nil, probation_date = nil, generated_date =nil)
     @ctc = ctc
     @basic = basic
+    @probation_date = probation_date
+    @generated_date = generated_date
   end
 
+
+  def loyalty_allowance
+    if eligible_for_loyality?(@probation_date, @generated_date)
+      ((component_criterias[:loyalty_allowance]/100)*basic) #* eligibility_fraction)
+    else
+      0
+    end
+  end
 
   # def self.get_instance(ctc)
   #   new(ctc)
@@ -48,8 +61,15 @@ class SalaryBreakUpCreator
     }
   end
 
+  def eligible_for_loyality?(probation_date, generated_date)
+    return false unless probation_date.present?
+    date_before_3_years = Date.new(generated_date.year-3, generated_date.month, generated_date.day)
+    probation_date <= date_before_3_years
+  end
   private
 
+  
+  
   # def initialize(ctc)
   #   @ctc = ctc
   # end
