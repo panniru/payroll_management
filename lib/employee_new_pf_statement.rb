@@ -31,7 +31,7 @@ class EmployeeNewPfStatement
   end
 
   def epf_ee_share_original
-    (self.class.pf_break_up[:epf_ee_share].to_f/100)*epf_wages
+    ((self.class.pf_break_up[:epf_ee_share].to_f/100)*epf_wages).round
   end
   
   def epf_ee_remitted
@@ -39,7 +39,7 @@ class EmployeeNewPfStatement
   end
 
   def eps_due
-    (self.class.pf_break_up[:eps_share].to_f/100)*eps_wages
+    ((self.class.pf_break_up[:eps_share].to_f/100)*eps_wages).round
   end
   
   def eps_remitted
