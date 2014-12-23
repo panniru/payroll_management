@@ -49,7 +49,8 @@ module SalaryTaxDecorators
 
   def tax_paid
     existed_payslips.inject(0){|sum, payslip| sum + payslip.tds_pm}.round
-
+  end
+  
   def total_income
     total_earnings
   end

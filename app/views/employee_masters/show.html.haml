@@ -41,6 +41,10 @@
     %br
     %label Department:
     %label= @employee_master.department_master.name
+    %br
+    %label Status:
+    %label= @employee_master.status
+
 .col-md-12
   %hr
 .col-md-12
@@ -87,7 +91,7 @@
         %td= @employee_master.basic
 
   .pull-right{:ng_controller => "SalaryBreakUpInitializeController"}
-    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc}, '#{@employee_master.basic}', '#{@employee_master.probation_date}')", :ng_disabled => "isClicked"
+    = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(#{@employee_master.ctc}, '#{@employee_master.basic}', '#{@employee_master.probation_date}', '\"#{@employee_master.designation_master.name}\"')", :ng_disabled => "isClicked"
 .col-md-12
   #salaryBreakUpShowDiv
   -#%salary_break_up{:ctc => @employee_master.ctc} 

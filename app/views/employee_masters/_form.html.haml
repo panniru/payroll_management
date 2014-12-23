@@ -32,7 +32,7 @@
           = f.label :email, :class => 'col-md-3 control-label'
           .col-md-9
             = f.text_field :email, :class => "form-control"
-        .form-group
+        .form-group{:ng_init => "designation = '#{f.object.designation_name}'"}
 
           = f.label :designation_id, :class => 'col-md-3 control-label'
           .col-md-9
@@ -42,8 +42,8 @@
             :id_element => "#designation_id",
             :placeholder => "New designation/write to select existing",
             :class => "form-control",
-            :id => "designation_name"
-
+            :id => "designation_name",
+            :ng_blur => "designation"
             = f.hidden_field :designation_master_id, :class => "form-control", :id => "designation_id"
         .form-group
           = f.label :department_id, :class => 'col-md-3 control-label'
@@ -91,10 +91,10 @@
           = f.label :p_f_no, :class => 'col-md-3 control-label'
           .col-md-9
             = f.text_field :p_f_no, :class => "form-control"
-        -# .form-group
-        -#   = f.label "unusual_pf?", :class => 'col-md-3 control-label'
-        -#   .col-md-9
-        -#     = f.select :unusual_pf, options_for_select([['No', false], ['Yes', true]], f.object.unusual_pf), {}, {:class => "form-control"}
+        .form-group
+          = f.label "status", :class => 'col-md-3 control-label'
+          .col-md-9
+            = f.select :status, options_for_select([['Regular', 'regular'], ['Foreign', 'foreign']], f.object.status), {}, {:class => "form-control"}
         .form-group
           = f.label :bank_name, :class => 'col-md-3 control-label'
           .col-md-9

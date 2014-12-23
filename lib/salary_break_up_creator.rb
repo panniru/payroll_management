@@ -23,11 +23,12 @@ class SalaryBreakUpCreator
     :eps_upper_limit => "per Year"
   }
 
-  def initialize(ctc, basic = nil, probation_date = nil, generated_date =nil)
+  def initialize(ctc, basic = nil, probation_date = nil, generated_date =nil, designation = nil)
     @ctc = ctc
     @basic = basic
     @probation_date = probation_date
     @generated_date = generated_date
+    @designation = designation
   end
 
 
@@ -37,6 +38,18 @@ class SalaryBreakUpCreator
     else
       0
     end
+  end
+
+  def bonus_payment
+    if @designation.present? and @designation =~ /trainee/i
+      if @probation_date.present? and @generated_date.present? and @generated_date >= @probation_date
+        ((component_criterias[:bonus_payment]/100)*basic)
+      else
+        0
+      end
+    else
+      ((component_criterias[:bonus_payment]/100)*basic)
+    end 
   end
 
   # def self.get_instance(ctc)
@@ -54,7 +67,7 @@ class SalaryBreakUpCreator
 
   def salary_break_up_entity(component)
     {
-      component: component.titleize,
+      component: component.titleize.gsub("Hra", "HRA").gsub("Pf", "PF"),
       criteria: "#{component_criterias[component.to_sym]} #{BREAK_UP_FORUMULA_DESC[component.to_sym]}",
       amount_per_month: (send(component.to_sym)).round,
       amount_per_year: (send(component.to_sym)*12).round

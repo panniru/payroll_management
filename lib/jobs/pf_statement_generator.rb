@@ -11,15 +11,16 @@ class PfStatementGenerator
   def perform
     ActiveRecord::Base.transaction do
       begin
-        Payslip.in_the_month(@month).in_the_year(@year).each do |payslip|
+        status = Payslip.in_the_month(@month).in_the_year(@year).map do |payslip|
           pf_statement = EmployeeNewPfStatement.new(payslip).pf_statement
           pf_statement.job_run_id = @job_run_id
           pf_statement.payslip_id = payslip.id
           pf_statement.save
         end
-      rescue Exception => e
-        raise ActiveRecord::Rollback
-        return false
+        unless status.all?
+          raise ActiveRecord::Rollback
+          return false
+        end
       end
     end
     return true

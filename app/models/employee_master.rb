@@ -1,5 +1,6 @@
 WillPaginate.per_page = 30
 class EmployeeMaster < ActiveRecord::Base
+
   validates :name, :presence => true
   validates :gender, :presence => true
   validates :code, :uniqueness => true, :presence => true 
@@ -39,10 +40,12 @@ class EmployeeMaster < ActiveRecord::Base
       begin
         self.department_master = department_from_params
         self.designation_master = designation_from_params
-        self.save
-      rescue Exception => e
-        raise ActiveRecord::Rollback
-        return false
+        if self.save
+          return true
+        else
+          raise ActiveRecord::Rollback
+          return false
+        end
       end
     end
   end
@@ -119,8 +122,8 @@ class EmployeeMaster < ActiveRecord::Base
     @rule_engine ||= RuleEngine.new
   end
 
-  grant(:find) { |user, model, action| model.readable_by_user? user }
-  grant(:create, :update, :destroy) { |user, model, action| model.editable_by_user? user }
+  # grant(:find) { |user, model, action| model.readable_by_user? user }
+  # grant(:create, :update, :destroy) { |user, model, action| model.editable_by_user? user }
 
   def readable_by_user? user
     if user.manager? or user.director?

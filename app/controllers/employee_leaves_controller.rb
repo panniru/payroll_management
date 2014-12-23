@@ -18,8 +18,6 @@ class EmployeeLeavesController < ApplicationController
 
   def upload
     @employee_leave_uploader = EmployeeLeaveUploader.new(params[:employee_leave_uploader])
-    p "333333333333333"
-    p params[:employee_leave_uploader]
     if @employee_leave_uploader.save
       flash[:success] = "Employees Successfully uploaded"
       redirect_to employee_leaves_path

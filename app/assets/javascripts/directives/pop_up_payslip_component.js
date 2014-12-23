@@ -5,7 +5,6 @@
             
             element.on("click", function(event){
                 event.preventDefault();
-
                 if(attrs.popOverAttached){
                     element.popover("toggle")
                 }else{

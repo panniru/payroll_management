@@ -47,7 +47,7 @@ class PayslipsController < ApplicationController
     respond_to do |format|
       format.json do
         page = params[:page].present? ? params[:page] : 1
-        employees = EmployeeMaster.having_designation(params[:designation_id]).not_resigned_on_or_before_month_begin(session[:transaction_date]).paginate(:page => page).has_no_pay_slips_in_the_month(session[:transaction_date])
+        employees = EmployeeMaster.managed_by(current_user).having_designation(params[:designation_id]).not_resigned_on_or_before_month_begin(session[:transaction_date]).paginate(:page => page).has_no_pay_slips_in_the_month(session[:transaction_date])
         render :json => JsonPagination.pagination_entries(employees).merge!(payslips: PayslipCreationService.new_payslip_attributes_for_employees(employees, session[:transaction_date]))
       end
       format.html{}
@@ -70,7 +70,7 @@ class PayslipsController < ApplicationController
     @employee_master = EmployeeMaster.find(params[:employee_master_id]) if params[:origin].present? and params[:origin] == 'employee' and params[:employee_master_id].present?
     respond_to do |format|
       page = params[:page].present? ? params[:page] : 1
-      @payslips = Payslip.payslips_on_params(params)
+      @payslips = Payslip.payslips_on_params(params, current_user)
       @payslips= @payslips.paginate(:page => page)
       format.html{}
       format.json do
@@ -136,7 +136,7 @@ class PayslipsController < ApplicationController
     @month = params[:month]
     @year = params[:year]
     respond_to do |format|
-      @payslips = Payslip.payslips_on_params(params)
+      @payslips = Payslip.payslips_on_params(params, current_user)
       format.pdf do
         render :pdf => "salary_payment_#{@month}_#{@year}",
         :formats => [:pdf],
@@ -150,6 +150,9 @@ class PayslipsController < ApplicationController
   
   def load_employee_master
     @employee_master = EmployeeMaster.find(params[:employee_master_id])
+    unless @employee_master.readable_by_user? current_user
+      raise CanCan::AccessDenied
+    end
   end
 
   def payslip_params

@@ -2,6 +2,12 @@
     "use strict";
 
     app.controller("PayslipsIndexController", ["$scope", "payslipService", function($scope, payslipService) {
+        $scope.getLatestPayslips = function(month, year){
+            $scope.month = month
+            $scope.year = year
+            $scope.getPayslips(1)
+        }
+
         $scope.getPayslips = function(page){
             payslipService.Payslip.payslips({employee_master_id: $("#employee_master_id").val(), month: $scope.month, year: $scope.year, page: page, status: $scope.status}, function(data){
                 $scope.payslips = []
@@ -41,6 +47,7 @@
 
     app.controller("PayslipsController", ["$scope", "payslipService", function($scope, payslipService) {
         $scope.isEarningsEdit = true
+        $scope.no_data = true
         $scope.newPayslips = function(page){
             payslipService.Payslip.newPayslips({designation_id: $scope.designationId, page: page}, function(data){
                 $scope.isEarningsEdit = true
@@ -51,6 +58,7 @@
                 $scope.to_index = data.to_index 
                 $scope.from_index = data.from_index
                 initializeHeaders()
+                $scope.no_data = $scope.total_entries > 0
             })
         }
 

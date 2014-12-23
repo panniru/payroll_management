@@ -23,9 +23,12 @@
 
     app.controller("SalaryBreakUpInitializeController",["$scope", "$compile", "$element", function($scope, $compile, $element) {
         $scope.isClicked = false
-        $scope.generate_salary_break_up = function(ctc, basic, probation_date){
+        $scope.generate_salary_break_up = function(ctc, basic, probation_date, designation){
             $scope.isClicked = true
-            var directive_to_add = $compile("<salary-break-up ctc='"+ctc+"', basic='"+basic+"', probation_date= '\""+probation_date+"\"'></salary-break-up>")($scope);
+            if(typeof designation == 'undefined'){
+                designation = "\""+$("#designation_name").val()+"\""
+            }
+            var directive_to_add = $compile("<salary-break-up ctc='"+ctc+"', basic='"+basic+"', probation_date= '\""+probation_date+"\"', designation= '"+designation+"'></salary-break-up>")($scope);
             angular.element(document.getElementById('salaryBreakUpShowDiv')).html(directive_to_add);
         }
 

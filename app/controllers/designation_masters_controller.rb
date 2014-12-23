@@ -1,6 +1,7 @@
 class DesignationMastersController < ApplicationController
   authorize_resource
-  
+  before_filter :check_authentication, :only => [:index, :map, :save_designation]
+
   def map
     page = params[:page].present? ? params[:page] : 1
     @designations = DesignationMaster.updated_at.all.paginate(:page => page, :per_page => 30)
@@ -42,5 +43,12 @@ class DesignationMastersController < ApplicationController
     params.permit(:name , :managed_by)
   end
   
+  private
+  
+  def check_authentication
+    if current_user.accountant?
+      raise CanCan::AccessDenied
+    end
+  end
   
 end

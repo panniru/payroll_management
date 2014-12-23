@@ -1,7 +1,6 @@
 - unless (defined? editable)
   - editable = false
-
-.row{:ng_show => "payslips"}
+.row{:ng_show => "payslips.length"}
   .pull-right
     %my-pagination{:from => "from_index", :to => "to_index", :current_page => "current_page", :total=> "total_entries", :action => "getPayslips(page)"}
     - if editable
@@ -38,3 +37,6 @@
         - if editable
           %td.width-10 
             %input{:type => "checkbox", :ng_model => "payslip.isChecked", :class=> "form-control", :ng_show => "payslip.status == 'pending'"}
+.row{:ng_hide => "payslips.length"}
+  .col-md-offset-4
+    %h3 No Data Available

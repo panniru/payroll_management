@@ -4,9 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_filter :set_current_user
-  rescue_from Grant::Error, with: :deny_access 
-  
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:user_id, :email) }
     devise_parameter_sanitizer.for(:account_update) { |u| 
@@ -18,19 +16,18 @@ class ApplicationController < ActionController::Base
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    
+    flash[:alert] = exception.message
+    redirect_to root_url
+  end
   
   protected
   def verified_request?
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end
 
-  def deny_access
-    flash[:alert] = "You are not authorized to access"
-    redirect_to root_path
-  end
 
-  private
-  def set_current_user
-    Grant::User.current_user = current_user
-  end
+
 end

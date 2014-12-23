@@ -91,7 +91,7 @@ class SalaryBreakUpsController < ApplicationController
     respond_to do |format|
       format.json do
         @probation_date = Date.strptime(params[:probation_date], "%d-%m-%Y") if params[:probation_date].present?
-        render :json => SalaryBreakUpCreator.new(params[:ctc].to_f, params[:basic].try(:to_f), @probation_date, session[:transaction_date]).to_h
+        render :json => SalaryBreakUpCreator.new(params[:ctc].to_f, params[:basic].try(:to_f), @probation_date, session[:transaction_date], params[:designation]).to_h
       end
     end
   end

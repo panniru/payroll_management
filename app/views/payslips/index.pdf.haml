@@ -16,10 +16,10 @@
     %th Dept
     %th DOJ
     - Payslip::EARNINGS.each do |earning|
-      %th= earning.to_s.titleize.split(" ").length > 1 ? earning.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : earning.to_s.titleize
+      %th= earning.to_s.titleize.split(" ").length > 1 ? earning.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : earning.to_s.titleize.gsub("Hra", "HRA").gsub("Pf", "PF")
     %th Total
     - Payslip::DEDUCTIONS.each do |deduction|
-      %th= deduction.to_s.titleize.split(" ").length > 1 ? deduction.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : deduction.to_s.titleize
+      %th= deduction.to_s.titleize.split(" ").length > 1 ? deduction.to_s.titleize.split(" ").inject(""){|sum, v| sum+v[0]} : deduction.to_s.titleize.gsub("Hra", "HRA").gsub("Pf", "PF")
     %th Total
     %th Net Pay
     %th Status

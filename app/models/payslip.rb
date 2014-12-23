@@ -25,13 +25,14 @@ class Payslip < ActiveRecord::Base
   scope :regulars_manageable_by_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.regular_employees.managed_by(current_user))}
   scope :foreigners_manageable_by_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.foreign_employees.managed_by(current_user))}
 
-  def self.payslips_on_params(params)
+  def self.payslips_on_params(params, current_user =nil)
     payslips = Payslip.all
     if params[:employee_master_id].present? or params[:month].present? or params[:year].present? or params[:status].present?
       payslips = payslips.belongs_to_employee(params[:employee_master_id]) if params[:employee_master_id].present?
       payslips = payslips.in_the_month(params[:month]) if params[:month].present?
       payslips = payslips.in_the_year(params[:year]) if params[:year].present?
       payslips = payslips.having_status(params[:status]) if params[:status].present?
+      payslips = payslips.manageable_by_user(current_user)
     end
     payslips.includes(:employee_master).order("employee_masters.code")
   end

@@ -86,6 +86,9 @@ class SalaryTaxesController < ApplicationController
   
   def load_employee_master
     @employee_master = EmployeeMaster.find(params[:employee_master_id])
+    unless @employee_master.readable_by_user? current_user
+      raise CanCan::AccessDenied
+    end
   end
 
 

@@ -1,5 +1,5 @@
 = title("#{@employee_master.present? ? @employee_master.name : ""} Payslips")
-.row{:ng_controller => "PayslipsIndexController"}
+.row{:ng_controller => "PayslipsIndexController", :ng_init => "getLatestPayslips('#{session[:transaction_date].strftime("%B")}', #{session[:transaction_date].strftime("%Y")})"}
   = render "search_payslips"
   .row
     = render :partial => "payslips_layout", :locals => {:editable => true}

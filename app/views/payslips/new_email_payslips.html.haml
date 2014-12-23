@@ -1,4 +1,4 @@
-.row{:ng_controller => "PayslipsIndexController"}
+.row{:ng_controller => "PayslipsIndexController", :ng_init => "getLatestPayslips('#{session[:transaction_date].strftime("%B")}', #{session[:transaction_date].strftime("%Y")})"}
   = form_tag payslips_email_payslips_path, :method => 'get' , :class => "form-inline", :id => "payslipsIndexForm" do
     .form-group
       = select_tag "month", options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control", :placeholder => "Month", :ng_model => "month"

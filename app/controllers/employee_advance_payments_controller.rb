@@ -59,6 +59,9 @@ class EmployeeAdvancePaymentsController < ApplicationController
 
   def load_employee_master
     @employee_master = EmployeeMaster.find(params[:employee_master_id])
+    unless @employee_master.readable_by_user? current_user
+      raise CanCan::AccessDenied
+    end
   end
   
   def employee_advance_payment_params

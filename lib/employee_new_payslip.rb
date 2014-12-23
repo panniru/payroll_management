@@ -51,6 +51,19 @@ class EmployeeNewPayslip
       ((component_criterias[:loyalty_allowance]/100)*basic) #* eligibility_fraction)
     end
   end
+
+  def bonus_payment
+    if @employee.designation_master.present? and @employee.designation_master.name =~ /trainee/i
+      if @employee.probation_date.present? and @generation_date.present? and @generation_date >= @employee.probation_date
+        ((component_criterias[:bonus_payment]/100)*basic)
+      else
+        0
+      end
+    else
+      ((component_criterias[:bonus_payment]/100)*basic)
+    end 
+  end
+
   
   # menthod_name should be same as payslip attribute annual_bonus
   def annual_bonus
