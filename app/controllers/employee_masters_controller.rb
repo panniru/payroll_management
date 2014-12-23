@@ -27,7 +27,6 @@ class EmployeeMastersController < ApplicationController
   end
   
   def reports
-    p "11111111111"
     if  params[:status] == "Attrition"
       @employee_masters = EmployeeMaster.resignation_between( params[:from_date] , params[:to_date])
     else
@@ -38,7 +37,11 @@ class EmployeeMastersController < ApplicationController
  
   def get_reports
     respond_to do |format|
-      @employee_masters = EmployeeMaster.joined_between( params[:from_date] , params[:to_date])
+      if  params[:status] == "Attrition"
+        @employee_masters = EmployeeMaster.resignation_between( params[:from_date] , params[:to_date])
+      else
+        @employee_masters = EmployeeMaster.joined_between( params[:from_date] , params[:to_date])
+      end
       format.json do
         leaves= @employee_masters.map do |field|
           {id: id, code: field.code, name: field.name, designation_master_id: field.designation_master_id, department_master_id: field.department_master_id}

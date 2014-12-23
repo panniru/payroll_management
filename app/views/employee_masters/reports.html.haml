@@ -1,15 +1,15 @@
 .row
-  = form_tag reports_employee_masters_path, :method => "GET",:class=>"form-horizontal" do
+  = form_tag reports_employee_masters_path, :method => "GET",:class=>"form-horizontal", :id => "employeeReportForm" do
     .col-sm-2
       = text_field_tag  :from_date, params[:from_date], :class => "form-control datepicker"
     .col-sm-2
       = text_field_tag :to_date, params[:to_date] ,:class => "form-control datepicker"
       %br
     .col-sm-2
-      = select_tag :status, options_for_select([['Joining'],['Attrition']]), :class => 'form-control'
+      = select_tag :status,  options_for_select([['Joining'],['Attrition']]  , params[:status]), :class => 'form-control'
     .col-sm-2
       %button{:type=>"submit", :class=> "btn btn-primary"}= "Go"
-     
+      = link_to "Print", "#", :target => "blank", :class => "btn btn-primary", :rel => "print-employee-report"
 .row
   .col-md-10
     %table.table.table-condensed
@@ -27,5 +27,5 @@
             %td= employee_master.name
             %td= employee_master.designation_master.name
             %td= employee_master.department_master.name
-  .col-md-2
-    //= link_to "Print", "/employee_masters/get_reports.pdf", :target => "blank", :class => "btn btn-primary"
+ 
+    
