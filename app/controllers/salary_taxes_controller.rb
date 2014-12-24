@@ -3,6 +3,18 @@ class SalaryTaxesController < ApplicationController
   load_resource :only => [:show, :update, :edit]
   authorize_resource
 
+  def show
+    respond_to do |format|
+      format.html{}
+      format.pdf do
+        render :pdf => "#{@employee_master.name}_salary_tax_in_#{session[:financial_year]}",
+        :formats => [:pdf],
+        :page_size => 'A4',
+        :margin => {:left => 5}
+      end
+    end
+  end
+
   def index
     @salary_taxes = @employee_master.salary_taxes
   end

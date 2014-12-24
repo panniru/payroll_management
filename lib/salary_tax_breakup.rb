@@ -3,21 +3,29 @@ class SalaryTaxBreakup
 
   def self.income_tax_on_amount(amount)
     tax  = 0
+    bucket_wise_tax = {}
     SalaryTax.tax_limits[:income_tax].each do |key, val|
       break if amount <= 0
       if val["to"].present?
         range = val["to"] - val["from"]
         if amount >= range
-          tax = (tax + range*(val["tax"].to_f/100))
+          bucket_tax = (range*(val["tax"].to_f/100))
+          bucket_wise_tax[key] = bucket_tax
+          tax = (tax + bucket_tax)
         else
-          tax = (tax + amount*(val["tax"].to_f/100))
+          bucket_tax = (amount*(val["tax"].to_f/100))
+          bucket_wise_tax[key] = bucket_tax
+          tax = (tax + backet_tax)
         end
         amount = amount - range
       else
-        tax = (tax + amount*(val["tax"].to_f/100))
+        bucket_tax = (amount*(val["tax"].to_f/100))
+        bucket_wise_tax[key] = bucket_tax
+        tax = (tax + bucket_tax)
         amount = amount - val["from"]
       end
     end
+    yield bucket_wise_tax if block_given?
     tax.round
   end
 

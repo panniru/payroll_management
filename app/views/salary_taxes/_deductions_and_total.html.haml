@@ -1,0 +1,61 @@
+%table.table.table-bordered
+  %tr
+    %td
+      %label Rent Paid(-):
+      = render :partial => "rent_paid_in_detail", :formats => [:html, :haml]
+    %th= @salary_tax.rent_paid
+  %tr
+    %td
+      %label Conveyance Allowance(-)
+    %td
+      %label= @salary_tax.conveyance_allowance
+  %tr
+    %th Medical Allowance(-)
+    %th= @salary_tax.claimed_medical_bill
+  %tr
+    %th Standurd Deduction(-)
+    %th= @salary_tax.standard_deduction
+  %tr
+    %th Professional Tax(-)
+    %th= @salary_tax.professional_tax
+  %tr
+    %th
+      %label Mediclaim U/s80D(-)
+      = "Employee limit #{@salary_tax.tax_limits[:mediclaim_employee_limit]}"
+      %br
+      = "Parent limit #{@salary_tax.tax_limits[:mediclaim_parent_limit]}"
+      %br
+      = "Parent senior citizen limit #{@salary_tax.tax_limits[:mediclaim_parent_senior_citizen_limit]}"
+    %th= @salary_tax.medical_insurances_total
+  %tr
+    %th Savings upto 1.50 lakh(-)
+    %th= @salary_tax.savings_total
+  %tr
+    %th Home Loan Amount(-)
+    %th= @salary_tax.home_loan_amount
+  %tr
+    %th 80G(-)
+    %th= @salary_tax.atg
+  %tr
+    %th Total Amount For Tax
+    %th= @salary_tax.total_amount_to_tax
+  %tr
+    %td
+      %label Tax Projected:
+      = render :partial => "tax_calculation_details", :formats => [:html, :haml], :locals => {:tax_limits => @salary_tax.tax_limits[:income_tax], :bucket_wise_tax => @salary_tax.bucket_wise_tax}
+    %th= @salary_tax.tax_projected
+  %tr
+    %th Surcharge(10%)(+)
+    %th= @salary_tax.surcharge
+  %tr
+    %th Educational Cess 3%(+)
+    %th= @salary_tax.educational_cess
+  %tr
+    %th Total Tax
+    %th= @salary_tax.net_tax
+  %tr
+    %th Total Deducted
+    %th= @salary_tax.tax_paid
+  %tr
+    %th Balance Tax
+    %th= @salary_tax.balance_tax

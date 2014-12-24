@@ -8,18 +8,30 @@ module SalaryTaxDecorators
     0
   end
 
+  def bucket_wise_tax
+    if @bucket_wise_tax.nil?
+      tax_projected
+    end
+    @bucket_wise_tax
+  end
+  
   def tax_projected
-    SalaryTaxBreakup.income_tax_on_amount(total_amount_to_tax)
+    SalaryTaxBreakup.income_tax_on_amount(total_amount_to_tax) do |b_w_tax|
+      @bucket_wise_tax= b_w_tax
+    end
   end
 
   def rent_per_year
     rent_per_month.to_i * 12
   end
   
+  def rent_paid_in_excess_of_salary
+    (rent_per_year - (basic * 0.1)).abs
+  end
+
   def rent_paid
     return 0 if rent_per_year <= 0
-    rent_excess_salary = (rent_per_year - (basic * 0.1)).abs
-    [rent_excess_salary, hra].min
+    [rent_paid_in_excess_of_salary, hra].min
   end
 
   def rent_recieved_per_year
@@ -54,8 +66,6 @@ module SalaryTaxDecorators
   def total_income
     total_earnings
   end
-
-  private
 
   def tax_limits
     @tax_limits ||= SalaryTax.tax_limits
