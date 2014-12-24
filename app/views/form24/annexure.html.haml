@@ -1,5 +1,8 @@
 .col-md-2
-  = select_tag(:year, options_for_select(((session[:transaction_date].year-1..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control")
+  //= select_tag(:year, options_for_select(((session[:transaction_date].year-1..session[:transaction_date].year).to_a << "").reverse, params[:year]), :class => "form-control")
+  = form_tag annexure_form24_index_path, :method => "GET",:class=>"form-horizontal", :id => "employeeReportForm" do
+    = select_tag "year", options_for_select(Form24::get_date)
+    %button{:type=>"submit", :class=> "btn btn-primary"}= "Go"
 .row
   %table.table.table-condensed{:style => "width:100%;"}
     %thead
@@ -35,7 +38,7 @@
       %th (336)
       %th (337)
       %th (338)
-      %th (339)+
+      %th (339)
       %th (340)
       %th (341)
       %th (342)
@@ -55,11 +58,11 @@
             - elsif(x.employee_master.gender == 'M')
               = 'G'
           %td= ''
-          -# %td= x.total_earnings
-          -# %td= 0
-          -# %td= x.total_earnings
-          -# %td= x.rent_recieved_per_year
-          -# %td= x.form16.gross_total_income(x.total_earnings,x.rent_recieved_per_year)
+          %td= x.total_earnings
+          %td= 0
+          %td= x.total_earnings
+          %td= x.rent_recieved_per_year
+          %td= x.form16.gross_total_income(x.total_earnings,x.rent_recieved_per_year)
           -# %td= x.form16.total_deductions_under_VI_A
           -# %td= x.form16.deductible_amount_under_VI_A
           -# %td= x.total_deductions_under_VI_A + x.deductible_amount_under_VI_A

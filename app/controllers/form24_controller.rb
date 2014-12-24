@@ -1,7 +1,7 @@
 class Form24Controller < ApplicationController
   
   def get_tds
-    forms = Form24.get_tds_pm(current_user, Date.today.beginning_of_quarter)
+    forms = Form24.get_tds_pm(current_user, Date.today.beginning_of_quarter-1)
     respond_to do |format|
       format.json do
         render :json => forms
@@ -52,7 +52,12 @@ class Form24Controller < ApplicationController
   end
   
   def annexure
-    @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year(session[:financial_year_from], session[:financial_year_to]).all
+    p "11111111111111111111111111"
+    p params[:year]
+    p finanancial_year_from = FinancialYearCalculator.new(session[:transaction_date])
+    p session[:financial_year_from]
+    p session[:financial_year_to]
+    @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year('2014-04-01', '2015-04-01').all
   end
   
   def show

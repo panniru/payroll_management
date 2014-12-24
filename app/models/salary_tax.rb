@@ -8,8 +8,8 @@ class SalaryTax < ActiveRecord::Base
   
   #attr_accessor :basic, :hra, :conveyance_allowance, :city_compensatory_allowance, :special_allowance, :loyalty_allowance, :leave_settlement, :medical_allowance, :other_payment, :pf, :tds_pm, :total_Earnings, :professional_tax
   
-
-  scope :in_the_financial_year, lambda{|fin_year_from, fin_year_to| where("financial_year_from >= ? and financial_year_to <= ?", fin_year_from, fin_year_to)}
+  
+  
   scope :in_the_financial_year, lambda{|fin_year_from, fin_year_to| where(:financial_year_from => fin_year_from, :financial_year_to => fin_year_to)}
   scope :manageable_by_current_user, lambda{|current_user| where(:employee_master_id => EmployeeMaster.managed_by(current_user))}
   

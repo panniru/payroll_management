@@ -23,6 +23,7 @@
 
           %li{:class => "#{controller_name == 'employee_leaves' ? 'active': ''}"} 
             = link_to "Leaves" , employee_leaves_path
+          
           %li.dropdown{:class => "#{controller_name == 'salary_break_ups' ? 'active': ''}"} 
             = link_to raw("Breakups <b class='caret'></b>"), "#", "data-toggle" => "dropdown", :class => 'dropdown-toggle'
             %ul.dropdown-menu.dropdown-menu-right
@@ -30,13 +31,14 @@
                 = link_to "Salary BreakUps" , salary_break_ups_path(:type => :salary)
               %li.divider
               %li
-                = link_to "Emloyer PF Contibution" , salary_break_ups_path(:type => :pf)
+                = link_to "Employer PF Contibution" , salary_break_ups_path(:type => :pf)
           - if current_user.manager?
             %li{:class => "#{controller_name == 'designation_masters' ? 'active': ''}"} 
               = link_to "Mapping" , designation_masters_path
             %li{:class => "#{controller_name == 'pf_statements' ? 'active': ''}"} 
               = link_to "PF Statements" , pf_statements_list_jobs_path
-            
+          %li{:class => "#{controller_name == 'form24' ? 'active': ''}"} 
+            = link_to "Form24" , form24_index_path  
         .pull-right
           %ul.nav.navbar-nav
             %li

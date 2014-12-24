@@ -1,7 +1,11 @@
 class Form24 < ActiveRecord::Base
   scope :in_the_quarter, lambda{|quarter| where(:quarter => quarter)}
   scope :in_the_financial_year, lambda{|year| where(:financial_year => year)}
- 
+  
+  def self.get_date
+    a =  (Date.today.year-1..Date.today.year).map{|year| "#{year} - #{year+1}"}
+  end
+  
 
   def self.get_tds_pm(current_user, date)
     data = []
