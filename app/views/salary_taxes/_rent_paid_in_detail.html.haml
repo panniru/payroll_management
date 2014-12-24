@@ -1,0 +1,18 @@
+%table
+  %tr
+    %td HRA Exception
+    %td= @salary_tax.total_earnings
+  %tr
+    %td Rent Paid
+    %td= "#{@salary_tax.rent_per_month}/Month #{@salary_tax.rent_per_year}/Year"
+  %tr
+    %td HRA Received
+    %td= @salary_tax.total_earnings
+  %tr
+    %td Rent paid in excess of 10% of salary
+    %td= @salary_tax.rent_paid_in_excess_of_salary
+  %tr 
+    %td MIN(HRA, Rent paid in excess of 10% of salary)
+    %td= @salary_tax.rent_paid_in_excess_of_salary
+
+    

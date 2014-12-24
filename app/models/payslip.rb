@@ -96,7 +96,16 @@ class Payslip < ActiveRecord::Base
   def approved?
     self.status == "approved"
   end
+
+  def generated_month
+    generated_date.strftime("%b")
+  end
   
+  def generated_year
+    generated_date.strftime("%Y")
+  end
+  
+
   private
 
   def make_binus_payment_entry

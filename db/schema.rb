@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215162542) do
+ActiveRecord::Schema.define(version: 20141222102641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20141215162542) do
     t.datetime "updated_at"
     t.string   "code"
     t.date     "entered_date"
+    t.integer  "year"
   end
 
   create_table "employee_masters", force: true do |t|
@@ -129,6 +130,27 @@ ActiveRecord::Schema.define(version: 20141215162542) do
     t.integer "pf"
     t.integer "bonus_payment"
     t.date    "generated_date"
+  end
+
+  create_table "form24s", force: true do |t|
+    t.integer  "quarter"
+    t.integer  "financial_year"
+    t.string   "cheque_no"
+    t.string   "edu_cess"
+    t.string   "tds"
+    t.date     "created_date"
+    t.string   "emp_status"
+    t.integer  "month"
+    t.integer  "year"
+    t.date     "deposited_date"
+    t.float    "total_tax_deposited"
+    t.string   "challan_serial_no"
+    t.string   "bsr_code"
+    t.string   "payment_type"
+    t.integer  "surcharge"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "payslips_id"
   end
 
   create_table "job_runs", force: true do |t|
@@ -272,7 +294,6 @@ ActiveRecord::Schema.define(version: 20141215162542) do
     t.string   "home_loan_document"
     t.integer  "rent_received_per_month"
     t.integer  "other_tax"
-    t.integer  "tax_paid"
     t.integer  "atg"
     t.datetime "created_at"
     t.datetime "updated_at"
