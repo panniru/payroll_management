@@ -1,36 +1,14 @@
 = title("Payroll- Leaves")
+
 .page-header
   %h1
-    
     = link_to "Leaves" , employee_leaves_path
     = link_to_upload(upload_employee_leaves_path)
-    
-%table.table.table-condensed
-  %thead
-    %th Code
-    %th Name
-    %th Month
-    %th Year
-    %th Days Worked
-    %th Working Days
-    %th SL
-    %th PL
-    %th CL
-    %th LOP
-    %th
-  %tbody
+.col-md-3
+  %h3
     - @employee_leaves.each do |employee|
-      %tr
-        %td= employee.code
-        %td= employee.employee_master.name
-        %td= employee.month
-        %td= employee.year
-        %td= employee.days_worked
-        %td= employee.working_days
-        %td= employee.sl
-        %td= employee.pl
-        %td= employee.cl
-        %td= employee.lop
-        %td
-          = edit_button(edit_employee_leafe_path(employee))
-= will_paginate @employee_leaves, param_name: 'page', previous_label: h("<"), next_label: h(">")
+      = link_to employee.month , corresponding_month_employee_leaves_path(:month => employee.month , :year => employee.year)
+      = employee.year
+      %br
+      %br
+

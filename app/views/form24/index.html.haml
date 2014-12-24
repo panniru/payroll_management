@@ -2,7 +2,7 @@
   = link_to "Form24Q"
 .pull-right
   //- if Date.today == Date.today.beginning_of_quarter()
-  = link_to "Generate24Q" , new_form24_path(:date => Date.today.beginning_of_quarter() ) , :class => 'btn btn-primary'
+  = link_to "Generate24Q" , new_form24_path(:date => Date.today ) , :class => 'btn btn-primary'
 
  
 

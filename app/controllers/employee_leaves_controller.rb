@@ -1,8 +1,7 @@
 class EmployeeLeavesController < ApplicationController
 
   def index
-    page = params[:page].present? ? params[:page] : 1
-    @employee_leaves = EmployeeLeave.all.order("code").paginate(:page => page)
+    @employee_leaves = EmployeeLeave.select('DISTINCT year,month')
   end
 
   def create
@@ -82,6 +81,14 @@ class EmployeeLeavesController < ApplicationController
     @employee_leave = EmployeeLeave.find(params[:id])
   end
 
+  def corresponding_month
+    page = params[:page].present? ? params[:page] : 1
+    @employee_leaves = EmployeeLeave.month(params[:month]).year(params[:year]).all.order("code").paginate(:page => page)
+  end
+    
+
+  
+
   def update
     @employee_leave = EmployeeLeave.find(params[:id])
     if @employee_leave.update(employee_leave_params)
@@ -97,6 +104,6 @@ class EmployeeLeavesController < ApplicationController
  
   private
   def employee_leave_params
-    params.require(:employee_leave).permit(:employee_master_id , :lop , :month ,:year, :days_worked, :working_days , :code , :sl , :pl , :cl)
+    params.require(:employee_leave).permit(:employee_master_id , :lop , :month ,:year,:entered_date , :days_worked, :working_days , :code , :sl , :pl , :cl)
   end
 end

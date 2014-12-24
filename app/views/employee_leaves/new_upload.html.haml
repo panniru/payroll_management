@@ -10,11 +10,13 @@
   .form-group
     .row
       .col-md-2
-        = select_month(Date.today, field_name: 'month')
-        //= f.select(:month, options_for_select(Date::MONTHNAMES, params[:month]), :class => "form-control")
+        
+        = f.select(:month, options_for_select(Date::MONTHNAMES, session[:transaction_date].strftime("%B")), :class => "form-control")
+        //= select_month(Date.today, field_name: 'month' :class => "form-control"  )
       .col-md-2
-        = select_year(Date.today, field_name: 'year' , start_year: 2014, end_year: 2015)
-        //= f.select(:year, options_for_select(((session[:transaction_date].year..session[:transaction_date].year+1).to_a << "").reverse, params[:year]), :class => "form-control")
+        
+        = f.select(:year, options_for_select(((session[:transaction_date].year..session[:transaction_date].year+1).to_a << "").reverse, session[:transaction_date].strftime("%Y")), :class => "form-control")
+        //= select_year(Date.today, field_name: 'year' , start_year: 2014, end_year: 2015, :class => "form-control" , params[:year])
       .col-md-3
         = f.file_field :file
       .col-md-2

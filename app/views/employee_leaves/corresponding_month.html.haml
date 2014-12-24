@@ -1,0 +1,34 @@
+.col-md-12
+  .col-md-12
+    .pull-right
+      = will_paginate @employee_leaves, param_name: 'page', previous_label: h("<"), next_label: h(">")
+    .pull-left
+      %h1
+        = link_to "Leaves" , employee_leaves_path
+        %br
+.row
+  %table.table.table-condensed
+    %thead
+      %th Code
+      %th Name
+      %th Days Worked
+      %th Working Days
+      %th SL
+      %th PL
+      %th CL
+      %th LOP
+      %th
+    %tbody
+      - @employee_leaves.each do |employee|
+        %tr
+          %td= employee.code
+          %td= employee.employee_master.name
+          %td= employee.days_worked
+          %td= employee.working_days
+          %td= employee.sl
+          %td= employee.pl
+          %td= employee.cl
+          %td= employee.lop
+          %td
+            = edit_button(edit_employee_leafe_path(employee))
+  = will_paginate @employee_leaves, param_name: 'page', previous_label: h("<"), next_label: h(">")

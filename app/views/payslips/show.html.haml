@@ -12,11 +12,15 @@
       %h4 EARNINGS (in Rupees)
     .col-md-12
       = render :partial => "earnings", :locals => {:payslip => @payslip}
+     
+            
   .col-md-6
     .col-md-offset-4
       %h4 DEDUCTIONS (in Rupees)
     .col-md-12
       = render :partial => "deductions", :locals => {:payslip => @payslip}
+      
+            
 .col-md-12
   %hr
   .col-md-4

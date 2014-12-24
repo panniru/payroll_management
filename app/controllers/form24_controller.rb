@@ -1,7 +1,7 @@
 class Form24Controller < ApplicationController
   
   def get_tds
-    forms = Form24.get_tds_pm(current_user, params[:date])
+    forms = Form24.get_tds_pm(current_user, Date.today.beginning_of_quarter)
     respond_to do |format|
       format.json do
         render :json => forms

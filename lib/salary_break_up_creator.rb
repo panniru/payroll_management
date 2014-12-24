@@ -17,7 +17,7 @@ class SalaryBreakUpCreator
     :special_allowance => "Balancing Amount", 
     :employer_pf_contribution => "% of Basic", 
     :bonus_payment => "% of Basic",
-    :loyalty_allowance => "% of Basic pay after the complation of 3 years of continuous service from probation",
+    :loyalty_allowance => "% of Basic pay after the completion of 3 years of continuous service from probation",
     :epf_ee_share => "% of Basic", 
     :eps_share => "% of Basic", 
     :eps_upper_limit => "per Year"

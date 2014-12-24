@@ -39,8 +39,8 @@ en:
       already_finished: "%{job} has already been run. You can view the job details %{job_link}."
   employee_leave:
     create:
-      success: "Employee leave has been created"
-      fail: "Employees not been saved"
+      success: "Leaves has been created"
+      fail: "Leaves not been saved"
     update:
-      success: "Employee leave has been updated"
-      fail: "Employee leave not been updated"
+      success: "Leaves has been updated"
+      fail: "Leaves not been updated"

@@ -79,7 +79,7 @@ PayrollManagement::Application.routes.draw do
     collection do
       post "upload"
       get "new_upload"
-      get "mapping"
+      get "corresponding_month"
       get "get_leaves"
       get "export"
     end

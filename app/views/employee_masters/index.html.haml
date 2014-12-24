@@ -1,9 +1,16 @@
 = title("Payroll- Employees")
-.page-header
-  %h1 
-    = link_to "Employees", employee_masters_path
+%br
 .col-md-12
-  .pull-right
-    = render "search_employee"
+  .col-md-12
+    .pull-right
+      = will_paginate @employee, param_name: 'page', previous_label: h("<"), next_label: h(">")
+    .pull-left
+      %h1
+        = link_to "Employees", employee_masters_path
+
+.row
+  .col-md-12
+    .pull-right
+      = render "search_employee"
 %br
 = render :partial => "employees", :locals => {:employees => @employee_masters}

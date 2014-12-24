@@ -63,10 +63,15 @@ def seed_salary_break_ups
   SalaryBreakUp.where(:component_code => "eps_share").first_or_create(:component_code => "eps_share", :component => "eps_share".titleize, :criteria => 8.33, :break_up_type => "pf")
 end
 
+def seed_remainders
+  Reminder.create(:description => "Employee Leaves" , :created_date => "2014-02-12" , :occurrence => "monthly")
+end
+
 def seed_all
   seed_roles
   seed_user  
   seed_salary_break_ups
+  seed_remainders
 end
 
 seed_all

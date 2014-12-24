@@ -17,6 +17,7 @@ class EmployeeMastersController < ApplicationController
   end
 
   def search
+    @employee = EmployeeMaster.all
     @employee_master = EmployeeMaster.where(:id => params[:search]).first
     if @employee_master.present?
       render "show"

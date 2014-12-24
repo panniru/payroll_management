@@ -30,7 +30,7 @@ class EmployeeLeaveUploader
         employee_leave.employee_master_id = employee_master.id
         employee_leave.month = @month
         employee_leave.year = @year
-        #employee_leave.entered_date = @entered_date.to_s
+        employee_leave.entered_date = Date.today.at_beginning_of_month
         employee_leave
       elsif params[:sheet_name] == "Encahment Leaves"
         encashment = LeaveEncashment.new
@@ -38,7 +38,7 @@ class EmployeeLeaveUploader
         encashment.attributes = map_row_data_of_sheet2(row_hash)
         employee_master = EmployeeMaster.find_by(:code => encashment.attributes['code'])
         encashment.employee_master_id = employee_master.id
-        #encashment.date = @entered_date.to_s
+        encashment.date = Date.today.at_beginning_of_month
         encashment.month = @month
         encashment.year = @year
         encashment
