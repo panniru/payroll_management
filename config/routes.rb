@@ -99,6 +99,8 @@ PayrollManagement::Application.routes.draw do
   get "/pf_statements/schedule"
   get "/pf_statements/list_jobs"
   
+  
+  resources :certificates
 
   devise_for :users, :controllers => {:registrations => 'registrations' , :sessions => 'sessions'}
   root to: "home#index"
