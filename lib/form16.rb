@@ -88,9 +88,7 @@ class Form16
   def tax_on_total_income
     SalaryTaxBreakup.income_tax_on_amount(total_income)
   end
-  def gross_total_income(x,y) 
-    x - y
-  end
+
   def educational_cess
     (tax_on_total_income * 0.03)
   end

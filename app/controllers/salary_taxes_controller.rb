@@ -9,8 +9,7 @@ class SalaryTaxesController < ApplicationController
       format.pdf do
         render :pdf => "#{@employee_master.name}_salary_tax_in_#{session[:financial_year]}",
         :formats => [:pdf],
-        :page_size => 'A4',
-        :margin => {:left => 5}
+        :page_size => 'A4'
       end
     end
   end

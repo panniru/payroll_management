@@ -1,23 +1,5 @@
 %table.table.table-bordered
-  %tr
-    %td
-      %label Rent Paid(-):
-      = render :partial => "rent_paid_in_detail", :formats => [:html, :haml]
-    %th= @salary_tax.rent_paid
-  %tr
-    %td
-      %label Conveyance Allowance(-)
-    %td
-      %label= @salary_tax.conveyance_allowance
-  %tr
-    %th Medical Allowance(-)
-    %th= @salary_tax.claimed_medical_bill
-  %tr
-    %th Standurd Deduction(-)
-    %th= @salary_tax.standard_deduction
-  %tr
-    %th Professional Tax(-)
-    %th= @salary_tax.professional_tax
+
   %tr
     %th
       %label Mediclaim U/s80D(-)

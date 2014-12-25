@@ -36,3 +36,4 @@
 .row
   .col-md-offset-6
     = edit_button(edit_employee_master_salary_tax_path(@employee_master, @salary_tax))
+    = print_button(employee_master_salary_tax_path(@employee_master, @salary_tax, :format => :pdf))

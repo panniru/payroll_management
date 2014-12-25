@@ -3,14 +3,18 @@
   .pull-right
     = wicked_pdf_image_tag "logo.jpg",width: "100", height: "40"
 .row
-  -#= render :partial => "employee_header", :locals => {:employee => @employee_master}
+  = render :partial => "employee_header", :locals => {:employee => @employee_master}, :formats => [:pdf, :haml]
+
 .row
-  .col-xs-12
-    = render :partial => "earning_details", :formats => [:html, :haml]
-.row
-  .col-xs-12
-    = render :partial => "salary_tax_details", :formats => [:pdf, :haml]
+  .col-xs-6
+    = render :partial => "earning_summary", :formats => [:pdf, :haml]
+  .col-xs-6
+    = render :partial => "deductions_and_total", :formats => [:pdf, :haml]
 .page-break
+.row
+  .col-xs-12
+    = render :partial => "earning_details", :formats => [:pdf, :haml]    
+
 .row
   .col-xs-6
     %label Medical Bills:
