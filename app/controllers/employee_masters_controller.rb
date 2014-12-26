@@ -1,5 +1,5 @@
 class EmployeeMastersController < ApplicationController
-  before_action :set_employee_master, only: [:show, :edit, :update, :destroy, :form16]
+  before_action :set_employee_master, only: [:show, :edit, :update, :destroy]
   autocomplete :department_master, :name
   autocomplete :designation_master, :name
   

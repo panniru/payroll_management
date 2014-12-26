@@ -1,4 +1,8 @@
 .row
+  %h3
+    = raw "#{link_to @employee_master.name, @employee_master} #{link_to  'Salary Taxes', employee_master_salary_taxes_path(@employee_master)}"
+  %hr
+.row
   = render :partial => "employee_header", :locals => {:employee => @employee_master}
 .row
   %hr
@@ -37,3 +41,4 @@
   .col-md-offset-6
     = edit_button(edit_employee_master_salary_tax_path(@employee_master, @salary_tax))
     = print_button(employee_master_salary_tax_path(@employee_master, @salary_tax, :format => :pdf))
+    = link_to raw("<i class='fa fa-file-o fa-lg'></i> Form16"), "/employee_masters/#{@employee_master.id}/salary_taxes/#{@salary_tax.id}/form16", :class => "btn btn-primary"

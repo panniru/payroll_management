@@ -10,6 +10,7 @@
     %th Tax Projected
     %th Tax Paid
     %th Balance Tax
+    %th Form16
   %tbody
     - @salary_taxes.each do |salary_tax|
       %tr
@@ -17,4 +18,5 @@
         %td= salary_tax.net_tax
         %td= salary_tax.tax_paid
         %td= salary_tax.balance_tax
-        
+        %td= link_to raw("<i class='fa fa-file-o fa-lg'></i> Form16"), "/employee_masters/#{@employee_master.id}/salary_taxes/#{salary_tax.id}/form16"
+

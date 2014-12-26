@@ -1,6 +1,6 @@
 class SalaryTaxesController < ApplicationController
   before_action :load_employee_master, :except => [:tax_limits]
-  load_resource :only => [:show, :update, :edit]
+  load_resource :only => [:show, :update, :edit, :form16]
   authorize_resource
 
   def show
@@ -13,6 +13,20 @@ class SalaryTaxesController < ApplicationController
       end
     end
   end
+
+  def form16
+    #@salary_tax = @employee_master.salary_taxes.in_the_financial_year(session[:financial_year_from], session[:financial_year_to]).first
+    @form16 = Form16.new(@employee_master, @salary_tax)
+    respond_to do |format|
+      format.html{}
+      format.pdf do
+        render :pdf => "#{@employee_master.name}_form_16.pdf",
+        :formats => [:pdf],
+        :page_size => 'A4'
+      end
+    end
+  end
+
 
   def index
     @salary_taxes = @employee_master.salary_taxes

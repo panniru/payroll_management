@@ -1,4 +1,7 @@
 .col-md-12
+  .pull-right
+    = back_button(employee_master_salary_tax_path(@employee_master, @salary_tax), {"label" => "Back"})
+    = print_button("/employee_masters/#{@employee_master.id}/salary_taxes/#{@salary_tax.id}/form16.pdf")
   %table.table-with-no-padding.table-bordered{:style => "width:100%"}
     %tr
       %td{:colspan => "6",:style => "width:100%"}
