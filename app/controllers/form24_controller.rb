@@ -1,14 +1,14 @@
 class Form24Controller < ApplicationController
   
   def get_tds
-    forms = Form24.get_tds_pm(current_user, Date.today.beginning_of_quarter-1)
+    forms = Form24.get_tds_pm(current_user, session[:transaction_date].beginning_of_quarter-1)
     respond_to do |format|
       format.json do
         render :json => forms
       end
     end
   end
-
+  
   def index
     @forms = Form24.select('DISTINCT financial_year,quarter')
   end
@@ -51,14 +51,56 @@ class Form24Controller < ApplicationController
     end
   end
   
-  def annexure
-    p "11111111111111111111111111"
-    p params[:year]
-    p finanancial_year_from = FinancialYearCalculator.new(session[:transaction_date])
-    p session[:financial_year_from]
-    p session[:financial_year_to]
-    @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year('2014-04-01', '2015-04-01').all
+  def get_annexure_report
+    respond_to do |format|
+      if params[:year].present?
+        year_from = params[:year].split('-')[0].to_i
+        year_to = params[:year].split('-')[1].to_i
+        from_date = Date.new(year_from , 04, 1)
+        to_date = Date.new(year_to , 03, 31)
+        @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year(from_date , to_date).all
+      else
+        @forms = SalaryTax.manageable_by_current_user(current_user).all
+      end
+      format.pdf do
+        render :json => @forms
+      end
+      format.pdf do
+        render :pdf => "Annexure",
+        :formats => [:pdf, :haml],
+        :page_size => 'A4',
+        :margin => {:top => '8mm',
+          :bottom => '8mm',
+          :left => '10mm',
+          :right => '10mm'}
+      end
+    end 
   end
+  def annexure
+    if params[:year].present?
+      year_from = params[:year].split('-')[0].to_i
+      year_to = params[:year].split('-')[1].to_i
+      from_date = Date.new(year_from , 04, 1)
+      to_date = Date.new(year_to , 03, 31)
+      @forms = SalaryTax.manageable_by_current_user(current_user).in_the_financial_year(from_date , to_date).all
+    else
+      @forms = SalaryTax.manageable_by_current_user(current_user).all
+    end
+    respond_to do |format|
+      format.html{}
+      format.pdf do
+        render :pdf => "Annexure",
+        :formats => [:pdf],
+        :page_size => 'A4',
+        :orientation => 'Landscape',
+        :margin => {:top => '8mm',
+          :bottom => '8mm',
+          :left => '10mm',
+          :right => '10mm'}
+      end
+    end
+  end
+ 
   
   def show
     @forms = Payslip.where(:generated_date => params[:generated_date])
@@ -70,18 +112,10 @@ class Form24Controller < ApplicationController
   end
   
   def quarter_details
-    # @months = ('2014/12/12'..'2014/01/01').map{|m| m.beginning_of_month}.uniq.map{|m| Date::ABBR_MONTHNAMES[m.month]}
-    # p @months
     @forms = Form24.in_the_quarter(params[:quarter]).in_the_financial_year(params[:financial_year])
   end
   
-  def quarter_dates(x)
-    date = Date.today << (x * 3)
-    [date.beginning_of_quarter, date.end_of_quarter]
-  end
-  
-  
-  
+   
   def edit
   end
   
@@ -89,6 +123,12 @@ class Form24Controller < ApplicationController
   end
   
   def new
+    last_quarter_date = session[:transaction_date].beginning_of_quarter-1
+    current_quarter = FinancialYearCalculator.new(last_quarter_date).current_quarter_num
+    if Form24.in_the_quarter(current_quarter).in_the_financial_year(last_quarter_date.year).count >  0
+      flash[:alert] = "Form24 has already been generated for the querter"
+      redirect_to form24_index_path
+    end
   end
   
 end

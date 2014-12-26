@@ -27,6 +27,8 @@ class EmployeeLeaveUploader
         row_hash = row.to_hash.slice(*headers_to_show_sheet1)
         employee_leave.attributes = map_row_data_of_sheet1(row_hash)
         employee_master = EmployeeMaster.find_by(:code => employee_leave.attributes['code'])
+        p "111111111"
+        p employee_leave.attributes['code']
         employee_leave.employee_master_id = employee_master.id
         employee_leave.month = @month
         employee_leave.year = @year

@@ -6,6 +6,7 @@ PayrollManagement::Application.routes.draw do
       get 'quarter_details'
       post 'save_form'
       get 'annexure'
+      get 'get_annexure_report'
     end
     member do
       get 'payslips'

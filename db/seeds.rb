@@ -19,7 +19,7 @@ def seed_roles
   end
 
   unless @director.present?
-    Role.create(:role => "director", :code => "director", :description => "director")
+    Role.create(:role => "director", :code => "director", :description => "Director")
   end
   
   unless @accountant.present?

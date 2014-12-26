@@ -1,8 +1,4 @@
-.col-md-4
-  = form_tag annexure_form24_index_path, :method => "GET",:class=>"form-horizontal", :id => "annexureForm" do
-    = select_tag "year", options_for_select(Form24::get_date)
-    %button{:type=>"submit", :class=> "btn btn-primary"}= "Go"
-    = link_to "Print", "#", :target => "blank", :class => "btn btn-primary", :rel => "print-annexure" ,:format => 'pdf'
+= wicked_pdf_stylesheet_link_tag 'bootstrap'
 .row
   %table.table.table-condensed{:style => "width:100%;"}
     %thead
@@ -58,12 +54,12 @@
             - elsif(x.employee_master.gender == 'M')
               = 'G'
           %td= ''
-          %td= x.total_earnings
-          %td= 0
-          %td= x.total_earnings
-          %td= x.rent_recieved_per_year
-          %td= x.form16.gross_total_income(x.total_earnings,x.rent_recieved_per_year)
-          -# %td= x.form16.total_deductions_under_VI_A
+          -# %td= x.total_earnings
+          -# %td= 0
+          -# %td= x.total_earnings
+          -# %td= x.rent_recieved_per_year
+          -# %td= x.form16.gross_total_income(x.total_earnings,x.rent_recieved_per_year)
+          -# -# %td= x.form16.total_deductions_under_VI_A
           -# %td= x.form16.deductible_amount_under_VI_A
           -# %td= x.total_deductions_under_VI_A + x.deductible_amount_under_VI_A
           -# %td= x.total_deductions_under_VI_A - x.deductible_amount_under_VI_A

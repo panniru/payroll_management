@@ -18,8 +18,12 @@ $(function() {
             return false;
         }
     })
-        $("a[rel='print-employee-report']").on("click", function(){
-	    $("form#employeeReportForm").attr('action', "get_reports.pdf")
-	    $("form#employeeReportForm").submit();
-	})
+    $("a[rel='print-employee-report']").on("click", function(){
+	$("form#employeeReportForm").attr('action', "get_reports.pdf")
+	$("form#employeeReportForm").submit();
+    })
+    $("a[rel='print-annexure']").on("click", function(){
+	$("form#annexureForm").attr('action', "/form24/annexure.pdf")
+	$("form#annexureForm").submit();
+    })
 });

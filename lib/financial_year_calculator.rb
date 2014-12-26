@@ -40,6 +40,9 @@ class FinancialYearCalculator
     (quarter_4.beginning_of_quarter..quarter_4.end_of_quarter)
   end
 
+  def current_quarter_num
+  end
+  
 
   private
   
