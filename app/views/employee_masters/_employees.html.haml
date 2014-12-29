@@ -15,6 +15,4 @@
         %td= employee_master.name
         %td= employee_master.designation_master.name
         %td= employee_master.department_master.name
-
-
 = will_paginate employees, param_name: 'page', previous_label: h("<"), next_label: h(">")

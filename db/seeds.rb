@@ -67,11 +67,16 @@ def seed_remainders
   Reminder.create(:description => "Employee Leaves" , :created_date => "2014-02-12" , :occurrence => "monthly")
 end
 
+def seed_day_end
+  DayEnd.first_or_create(:transaction_date => Date.today, :scrolled_by => User.first)
+end
+
 def seed_all
   seed_roles
   seed_user  
   seed_salary_break_ups
   seed_remainders
+  seed_day_end
 end
 
 seed_all

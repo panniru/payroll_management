@@ -2,7 +2,7 @@ class SessionsController  < Devise::SessionsController
 
   def create
     super
-    session[:transaction_date] = Date.today
+    session[:transaction_date] =  DayEnd.current_date #Date.today
     finanancial_year_from = FinancialYearCalculator.new(session[:transaction_date])
     session[:financial_year_from] = finanancial_year_from.financial_year_from
     session[:financial_year_to] = finanancial_year_from.financial_year_to
