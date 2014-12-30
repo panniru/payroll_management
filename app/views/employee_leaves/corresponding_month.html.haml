@@ -21,7 +21,7 @@
     %tbody
       - @employee_leaves.each do |employee|
         %tr
-          %td= employee.code
+          %td= employee.employee_master.code
           %td= employee.employee_master.name
           %td= employee.days_worked
           %td= employee.working_days

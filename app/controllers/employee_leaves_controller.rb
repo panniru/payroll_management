@@ -83,7 +83,7 @@ class EmployeeLeavesController < ApplicationController
 
   def corresponding_month
     page = params[:page].present? ? params[:page] : 1
-    @employee_leaves = EmployeeLeave.month(params[:month]).year(params[:year]).all.order("code").paginate(:page => page)
+    @employee_leaves = EmployeeLeave.includes(:employee_master).month(params[:month]).year(params[:year]).all.order("employee_masters.code").paginate(:page => page)
   end
     
 
