@@ -9,9 +9,9 @@ class PayslipPdf  #< Prawn::Document
 
   def payslip
     heading = "<font size = '15'> <b>PAYSLIP FOR THE MONTH OF #{@date.strftime('%b').upcase} #{@date.strftime('%Y')}</b></font>"
-    body_rows = [[logo],[payslip_header], [part_1], [{:content => heading, :padding_left => 130}], [part_2], [part_2_totals], [part_3]] #
+    body_rows = [[logo],[payslip_header], [part_1], [{:content => heading, :padding_left => 130}], [part_2], [part_2_totals], [part_3]] 
     table(body_rows, :cell_style => { :inline_format => true })
-    #encrypt_document(:user_password => 'welcome', :owner_password => 'welcome')
+    encrypt_document(:user_password => @payslip.payslip_pdf_password, :owner_password => 'WELCOME-HOCHTIEF')
   end
   
   private

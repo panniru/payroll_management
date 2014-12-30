@@ -104,6 +104,10 @@ class Payslip < ActiveRecord::Base
   def generated_year
     generated_date.strftime("%Y")
   end
+
+  def payslip_pdf_password
+    "#{employee_master.pan} #{employee_master.date_of_birth}"
+  end
   
 
   private
