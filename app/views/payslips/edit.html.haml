@@ -7,4 +7,4 @@
 .col-md-12
   = render "payslip_header_2"
 .col-md-12
-  = render :partial => "form", :locals => {:url => employee_master_payslips_path(@employee_master)}
+  = render :partial => "form", :locals => {:url => employee_master_payslip_path(@employee_master, @payslip)}

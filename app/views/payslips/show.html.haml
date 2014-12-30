@@ -36,5 +36,7 @@
     %br
     %br
     %br
+    - unless @payslip.approved?
+      = edit_button(edit_employee_master_payslip_path(@employee_master, @payslip))
     = print_button(employee_master_payslip_path(@employee_master, @payslip, {:format => :pdf}))
     = email_button(mail_employee_master_payslip_path(@employee_master, @payslip))

@@ -1,6 +1,7 @@
 payslip:
   leave_settlement_month: 1
   bonus_payment_month: 10
+  labour_welfare_fund_month: 12 
 salary_tax:
   mediclaim_employee_limit: 150000
   mediclaim_parent_limit: 150000

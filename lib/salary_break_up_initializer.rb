@@ -56,7 +56,7 @@ module SalaryBreakUpInitializer
   end
 
   def eligibility_fraction
-    if @total_days.present? and @worked_days.present? and @total_days > 0 and @worked_days > 0
+    if @total_days.present? and @worked_days.present? and @total_days >= 0 and @worked_days >= 0
       (@worked_days.to_f/@total_days.to_f)
     else
       1

@@ -40,6 +40,12 @@
         %label Voluntary PF Contribution
       %td
         %label= payslip.voluntary_pf_contribution
+  - if  payslip.labour_welfare_fund.present?
+    %tr
+      %td
+        %label Labour Welfare Fund
+      %td
+        %label= payslip.labour_welfare_fund
   - if  payslip.additional_deduction_1.present?
     %tr
       %td

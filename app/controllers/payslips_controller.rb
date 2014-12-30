@@ -43,6 +43,19 @@ class PayslipsController < ApplicationController
     end
   end
 
+  def update
+    @payslip.assign_attributes(payslip_params)
+    @payslip.mark_as_pending
+    #@payslip.generated_date = session[:transaction_date]
+    respond_to do |format|
+      if @payslip.save_payslip
+        format.html { redirect_to employee_master_payslip_path(@employee_master, @payslip), notice: 'Payslip Succesfulyy generated' }
+      else
+        format.html { render action: 'new' }
+      end
+    end
+  end
+
   def new_payslips
     respond_to do |format|
       format.json do

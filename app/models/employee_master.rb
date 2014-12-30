@@ -3,6 +3,8 @@ class EmployeeMaster < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :gender, :presence => true
+  validates :designation_master_id, :presence => true
+  validates :department_master_id, :presence => true
   validates :code, :uniqueness => true, :presence => true 
   validates :pan, :uniqueness => true, allow_blank: true
   validates :ctc, :presence => true , numericality: { only_integer: true }
@@ -18,6 +20,9 @@ class EmployeeMaster < ActiveRecord::Base
   has_many :payslips
   has_many :salary_taxes
   has_many :form24s
+  
+  before_save :set_special_allowance
+
   scope :in_the_current_month, lambda{|date| in_the_month(date.strftime("%F"))}
   scope :resignation_between, lambda{|from_date, to_date| where(:resignation_date => (from_date..to_date))}
   scope :joined_between, lambda{|from_date, to_date| where(:date_of_joining => (from_date..to_date))}
@@ -118,6 +123,10 @@ class EmployeeMaster < ActiveRecord::Base
     date.month == rule_engine.value(:payslip, :bonus_payment_month)
   end
 
+  def eligible_for_labour_welfare_fund?(date)
+    date.month == rule_engine.value(:payslip, :labour_welfare_fund_month)
+  end
+
   def rule_engine
     @rule_engine ||= RuleEngine.new
   end
@@ -143,6 +152,14 @@ class EmployeeMaster < ActiveRecord::Base
 
   def eligible_for_payslip?(date)
     (resignation_date.present? and resignation_date < date.at_beginning_of_month) ? false : true
+  end
+
+  private
+
+  def set_special_allowance
+    if self.changed_attributes.include? "ctc" or self.changed_attributes.include? "basic"
+      self.special_allowance = SalaryBreakUpCreator.new(ctc, basic, probation_date, Date.today, designation_master.try(:name)).special_allowance.round
+    end 
   end
 
 end

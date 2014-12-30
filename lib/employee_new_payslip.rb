@@ -53,7 +53,7 @@ class EmployeeNewPayslip
   end
 
   def bonus_payment
-    if @employee.designation_master.present? and @employee.designation_master.name =~ /trainee/i
+    if @employee.designation_master.present? and @employee.designation_master.name.downcase =~ /trainee/i
       if @employee.probation_date.present? and @generation_date.present? and @generation_date >= @employee.probation_date
         ((component_criterias[:bonus_payment]/100)*basic)
       else
@@ -74,6 +74,16 @@ class EmployeeNewPayslip
       end
       EmployerContributions.belongs_to_employee(@employee).generated_after(last_annual_bonus_paid_on).inject(0){|sum, contrib| sum+contrib.bonus_payment}
     end
+  end
+
+  def labour_welfare_fund
+    if @employee.eligible_for_labour_welfare_fund?(@generation_date)
+      component_criterias[:employee_labour_welfare_fund]
+    end
+  end
+
+  def special_allowance
+    (@employee.special_allowance * eligibility_fraction).round
   end
 
   private

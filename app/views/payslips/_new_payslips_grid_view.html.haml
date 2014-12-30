@@ -104,6 +104,7 @@
         %td{:ng_hide => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.voluntary_pf_contribution", :name => "voluntary_pf_contribution{{$index}}"}
           %span.error{:ng_show => "payslipsForm.voluntary_pf_contribution{{$index}}.$error.number"} Invalid
+
         %td{:ng_hide => "isEarningsEdit"} 
           %input{:type => "number", :class => "form-control", :ng_model => "payslip.additional_deduction_1", :name => "additional_deduction_1{{$index}}"}
           %span.error{:ng_show => "payslipsForm.additional_deduction_1{{$index}}.$error.number"} Invalid

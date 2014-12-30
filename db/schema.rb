@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222102641) do
+ActiveRecord::Schema.define(version: 20141230134336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "day_ends", force: true do |t|
+    t.date     "transaction_date"
+    t.integer  "scrolled_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "default_allowance_deductions", force: true do |t|
     t.integer  "employee_master_id"
@@ -81,7 +88,7 @@ ActiveRecord::Schema.define(version: 20141222102641) do
     t.integer  "employee_master_id"
     t.string   "month"
     t.integer  "lop"
-    t.integer  "days_worked"
+    t.float    "days_worked"
     t.integer  "working_days"
     t.integer  "sl"
     t.integer  "pl"
@@ -119,6 +126,7 @@ ActiveRecord::Schema.define(version: 20141222102641) do
     t.string   "reason_for_resignation"
     t.integer  "basic"
     t.string   "status"
+    t.integer  "special_allowance"
   end
 
   add_index "employee_masters", ["code"], name: "index_employee_masters_on_code", using: :btree
@@ -235,6 +243,7 @@ ActiveRecord::Schema.define(version: 20141222102641) do
     t.datetime "updated_at"
     t.integer  "notice_period_amount"
     t.integer  "voluntary_pf_contribution"
+    t.integer  "labour_welfare_fund"
   end
 
   create_table "pf_statements", force: true do |t|

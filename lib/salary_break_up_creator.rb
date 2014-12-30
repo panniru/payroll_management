@@ -41,8 +41,8 @@ class SalaryBreakUpCreator
   end
 
   def bonus_payment
-    if @designation.present? and @designation =~ /trainee/i
-      if @probation_date.present? and @generated_date.present? and @generated_date >= @probation_date
+    if @designation.present? and @designation.downcase =~ /trainee/i
+      if @probation_date.present?  #and @generated_date.present? and @generated_date >= @probation_date
         ((component_criterias[:bonus_payment]/100)*basic)
       else
         0
