@@ -18,6 +18,7 @@ class Payslip < ActiveRecord::Base
   scope :in_the_mon, lambda{|month| where("EXTRACT(month from generated_date) = ?" , month)}
   scope :belongs_to_employee, lambda{|employee_id| where(:employee_master_id =>  employee_id)}
   scope :having_status, lambda{|status| where(:status =>  status)}
+  scope :approved, lambda{where(:status => "approved")}
   scope :having_loyality_allowance, lambda{ where("loyalty_allowance IS NOT NULL")}
   scope :having_annual_bonus, lambda{ where("annual_bonus IS NOT NULL")}
   scope :generated_between, lambda{|from_date, to_date| where(:generated_date => (from_date..to_date))}

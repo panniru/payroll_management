@@ -9,7 +9,7 @@ class PayslipMailingJob
   end
 
   def perform
-    Payslip.in_the_month(@month).in_the_year(@year).each do |payslip|
+    Payslip.approved.in_the_month(@month).in_the_year(@year).each do |payslip|
       PayslipMailer.payslip(payslip).deliver if payslip.employee_master.email.present?
     end
   end

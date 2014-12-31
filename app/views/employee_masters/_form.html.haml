@@ -88,7 +88,7 @@
             = f.text_field :reason_for_resignation, :class => "form-control"
 
         .form-group
-          = f.label :p_f_no, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label P F No
           .col-md-9
             = f.text_field :p_f_no, :class => "form-control"
         .form-group
@@ -104,11 +104,11 @@
           .col-md-9
             = f.text_field :account_number, :class => "form-control"
         .form-group
-          = f.label :pan, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label PAN
           .col-md-9
             = f.text_field :pan, :class => "form-control"
         .form-group{:ng_init => "ctc = '#{f.object.ctc}'"}
-          = f.label "ctc /Month", :class => 'col-md-3 control-label'
+          = f.label "CTC /Month", :class => 'col-md-3 control-label'
           .col-md-9
             = f.text_field :ctc, :class => "form-control", :ng_model => "ctc"
         .form-group{:ng_init => "basic = '#{f.object.basic}'"}
