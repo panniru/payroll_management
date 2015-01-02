@@ -87,7 +87,7 @@ class Payslip < ActiveRecord::Base
   end
 
   def post_payslip_creation_actions
-    make_binus_payment_entry
+    make_bonus_payment_entry
     make_additional_fields_label_entry
   end
 
@@ -108,13 +108,13 @@ class Payslip < ActiveRecord::Base
   end
 
   def payslip_pdf_password
-    "#{employee_master.pan} #{employee_master.date_of_birth}"
+    "#{employee_master.code}-#{employee_master.date_of_birth}"
   end
   
 
   private
 
-  def make_binus_payment_entry
+  def make_bonus_payment_entry
     bonus = EmployeeNewPayslip.new(self.employee_master, self.generated_date).bonus_payment.round
     EmployerContribution.create!({:payslip_id => self.id, :pf => self.pf, :bonus_payment => bonus, :generated_date => self.generated_date, :employee_master_id => self.employee_master.id})
   end
