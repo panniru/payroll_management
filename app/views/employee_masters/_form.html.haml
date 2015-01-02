@@ -17,11 +17,11 @@
           .col-md-9
             = f.select :gender, options_for_select([["", ""], ['Male', 'M'], ['Female', 'F']], f.object.gender), {}, {:class => "form-control"}
         .form-group
-          = f.label :date_of_birth, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Date of Birth
           .col-md-9
             = f.text_field :date_of_birth, :class => "form-control datepicker"
         .form-group
-          = f.label "Father/Husaband name", :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Father/Husaband name
           .col-md-9
             = f.text_field :father_or_husband_name, :class => "form-control"
         .form-group
@@ -67,28 +67,28 @@
             = f.text_field :qualification, :class => "form-control"
       .col-md-6
         .form-group
-          = f.label :date_of_joining, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Date of Joining
           .col-md-9
             = f.text_field :date_of_joining, :class => "form-control datepicker"
         .form-group
-          = f.label :probation_date, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Probation Date
           .col-md-9{:ng_init => "probation_date = '#{f.object.probation_date}'"}
             = f.text_field :probation_date, :class => "form-control", :ng_model => "probation_date", :my_datepicker => true
         .form-group
-          = f.label :confirmation_date, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Confirmation Date
           .col-md-9
             = f.text_field :confirmation_date, :class => "form-control datepicker"
         .form-group
-          = f.label :resignation_date, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Resignation Date
           .col-md-9
             = f.text_field :resignation_date, :class => "form-control datepicker"
         .form-group
-          = f.label :reason_for_resignation, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Reason for Resignation
           .col-md-9
             = f.text_field :reason_for_resignation, :class => "form-control"
 
         .form-group
-          %label.col-md-3.control-label P F No
+          %label.col-md-3.control-label PF No
           .col-md-9
             = f.text_field :p_f_no, :class => "form-control"
         .form-group
@@ -96,11 +96,11 @@
           .col-md-9
             = f.select :status, options_for_select([['Regular', 'regular'], ['Foreign', 'foreign']], f.object.status), {}, {:class => "form-control"}
         .form-group
-          = f.label :bank_name, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Bank Name
           .col-md-9
             = f.text_field :bank_name, :class => "form-control"
         .form-group
-          = f.label :account_number, :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Account Number
           .col-md-9
             = f.text_field :account_number, :class => "form-control"
         .form-group
@@ -108,11 +108,11 @@
           .col-md-9
             = f.text_field :pan, :class => "form-control"
         .form-group{:ng_init => "ctc = '#{f.object.ctc}'"}
-          = f.label "CTC /Month", :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label CTC/Month
           .col-md-9
             = f.text_field :ctc, :class => "form-control", :ng_model => "ctc"
         .form-group{:ng_init => "basic = '#{f.object.basic}'"}
-          = f.label "Basic /Month", :class => 'col-md-3 control-label'
+          %label.col-md-3.control-label Basic/Month
           .col-md-9
             = f.text_field :basic, :class => "form-control", :ng_model => "basic"
       .form-group

@@ -41,6 +41,15 @@ class FinancialYearCalculator
   end
 
   def current_quarter_num
+    if @date.month = [4, 5,6]
+      1
+    elsif @date.month = [7,8,9]
+      2
+    elsif @date.month = [10,11,12]
+      3
+    elsif @date.month = [1,2,3]
+      4
+    end
   end
   
 
@@ -55,4 +64,3 @@ class FinancialYearCalculator
   end
   
 end
-
