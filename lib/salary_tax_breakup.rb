@@ -15,7 +15,7 @@ class SalaryTaxBreakup
         else
           bucket_tax = (amount*(val["tax"].to_f/100))
           bucket_wise_tax[key] = bucket_tax.round
-          tax = (tax + backet_tax)
+          tax = (tax + bucket_tax)
         end
         amount = amount - range
       else
