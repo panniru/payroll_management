@@ -73,6 +73,7 @@ class EmployeeMastersController < ApplicationController
 
   # GET /employee_masters/1/edit
   def edit
+    
     @employee_master.designation_name = @employee_master.designation_master.name
     @employee_master.department_name = @employee_master.department_master.name
   end

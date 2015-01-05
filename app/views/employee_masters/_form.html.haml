@@ -70,22 +70,23 @@
           %label.col-md-3.control-label Date of Joining
           .col-md-9
             = f.text_field :date_of_joining, :class => "form-control datepicker"
-        .form-group
-          %label.col-md-3.control-label Probation Date
-          .col-md-9{:ng_init => "probation_date = '#{f.object.probation_date}'"}
-            = f.text_field :probation_date, :class => "form-control", :ng_model => "probation_date", :my_datepicker => true
-        .form-group
-          %label.col-md-3.control-label Confirmation Date
-          .col-md-9
-            = f.text_field :confirmation_date, :class => "form-control datepicker"
-        .form-group
-          %label.col-md-3.control-label Resignation Date
-          .col-md-9
-            = f.text_field :resignation_date, :class => "form-control datepicker"
-        .form-group
-          %label.col-md-3.control-label Reason for Resignation
-          .col-md-9
-            = f.text_field :reason_for_resignation, :class => "form-control"
+        - if @employee_master.id.present?
+          .form-group
+            %label.col-md-3.control-label Probation Date
+            .col-md-9{:ng_init => "probation_date = '#{f.object.probation_date}'"}
+              = f.text_field :probation_date, :class => "form-control", :ng_model => "probation_date", :my_datepicker => true
+          .form-group
+            %label.col-md-3.control-label Confirmation Date
+            .col-md-9
+              = f.text_field :confirmation_date, :class => "form-control datepicker"
+          .form-group
+            %label.col-md-3.control-label Resignation Date
+            .col-md-9
+              = f.text_field :resignation_date, :class => "form-control datepicker"
+          .form-group
+            %label.col-md-3.control-label Reason for Resignation
+            .col-md-9
+              = f.text_field :reason_for_resignation, :class => "form-control"
 
         .form-group
           %label.col-md-3.control-label PF No
@@ -117,7 +118,8 @@
             = f.text_field :basic, :class => "form-control", :ng_model => "basic"
       .form-group
         .col-md-offset-5
-          = submit_link
+          .pull-right
+            = submit_link
           = link_to "Salary BreakUp >>", "#", :ng_click => "generate_salary_break_up(ctc, basic, probation_date)", :ng_disabled => "isClicked", :ng_show => "ctc"
   .col-md-12
     #salaryBreakUpShowDiv

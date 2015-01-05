@@ -16,8 +16,10 @@
           %tr
             %td
               %h3
+                - p "11111111111111111"
+                - p x.quarter
                 - if (x.quarter == 1)
-                  = link_to "01-Apr-"+  + x.financial_year.to_s +  "\s" + " \t To \t 30-Jun-" + x.financial_year.to_s , quarter_details_form24_index_path(:quarter => x.quarter , :financial_year => x.financial_year)
+                  = link_to "01-Apr-"+ x.financial_year.to_s +  "\s" + " \t To \t 30-Jun-" + x.financial_year.to_s , quarter_details_form24_index_path(:quarter => x.quarter , :financial_year => x.financial_year)
                   %br
                 - elsif (x.quarter == 2)
                   = link_to '01-July-' + x.financial_year.to_s +  "\s" + 'To 30-Sep-' + x.financial_year.to_s , quarter_details_form24_index_path(:quarter => x.quarter , :financial_year => x.financial_year)

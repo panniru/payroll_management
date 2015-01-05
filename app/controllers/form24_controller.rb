@@ -30,20 +30,25 @@ class Form24Controller < ApplicationController
           @temp.tds = i['tds']
           @temp.total_tax_deposited = i['total_tax_deposited']
           @temp.cheque_no = i['cheque_no']
+         
           if @temp.month > 3 
             @temp.financial_year = @temp.year
           else
             @temp.financial_year = @temp.year - 1
           end
-          if @temp.month = [4, 5,6]
+          p "sfdhgrdthyfjugh"
+          p @temp.month
+          if @temp.month =  4 or 5 or 6
             @temp.quarter = 1
-          elsif @temp.month = [7,8,9]
+          elsif @temp.month =   7 or 8 or 9
             @temp.quarter = 2
-          elsif @temp.month = [10,11,12]
+          elsif @temp.month = 10 or 11 or 12
             @temp.quarter = 3
-          elsif @temp.month = [1,2,3]
+          elsif @temp.month = 1 or 2  or 3
             @temp.quarter = 4
           end
+          p "222222222222223333333"
+          p @temp.quarter
           @temp.save
         end
         redirect_to form24_index_path
@@ -126,7 +131,7 @@ class Form24Controller < ApplicationController
     last_quarter_date = session[:transaction_date].beginning_of_quarter-1
     current_quarter = FinancialYearCalculator.new(last_quarter_date).current_quarter_num
     if Form24.in_the_quarter(current_quarter).in_the_financial_year(last_quarter_date.year).count >  0
-      flash[:alert] = "Form24 has already been generated for the querter"
+      flash[:alert] = "Form24 has already been generated for the quarter"
       redirect_to form24_index_path
     end
   end
