@@ -34,11 +34,12 @@ class PfStatementsController < ApplicationController
   end
   
   def schedule
-    @month = session[:transaction_date].strftime("%b")
-    @year = session[:transaction_date].strftime("%Y")
+    pf_statement_date = PfStatement.pf_statement_applicable_date(session[:transaction_date])
+    @month = pf_statement_date.strftime("%b")
+    @year = pf_statement_date.strftime("%Y")
     job_run = JobRun.matching_code(JobRun::PF_STATEMENT).in_the_month(@month).in_the_year(@year).first
     unless job_run.present? and (job_run.scheduled? or job_run.finished?)
-      pf_job = PfStatementGenerator.new(current_user, session[:transaction_date])
+      pf_job = PfStatementGenerator.new(current_user, pf_statement_date)
       Delayed::Job.enqueue pf_job
       result_link = "<a href=\"/job_runs/#{pf_job.job_run_id}/pf_statements\">here</a>"
       flash[:success] = I18n.t :success, :scope => [:job, :schedule], job: JobRun::PF_STATEMENT.titleize, job_link: result_link

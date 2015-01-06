@@ -50,7 +50,7 @@ class PayslipPdf  #< Prawn::Document
     Payslip::EARNINGS.map do |component|
       label = component.to_s.titleize
       if @payslip.send(component).present? and @payslip.send(component) > 0
-        if label == "hra"
+        if label == "hra" or label == "Hra"
           label = "HRA"
         elsif component =~ /additional_allowance_\d/
           label = @payslip.send("#{component}_label".to_sym)
