@@ -10,6 +10,9 @@ class EmployeeMaster < ActiveRecord::Base
   validates :ctc, :presence => true , numericality: { only_integer: true }
   validates :basic, :presence => true , numericality: { only_integer: true }
   
+  validate :date_of_birth_cannot_be_in_past, :date_of_joining_cannot_be_in_past, :date_of_resignation_cannot_be_less_than_joining,
+  :date_of_probation_cannot_be_less_than_joining 
+
   attr_accessor :department_name
   attr_accessor :designation_name
   
@@ -160,6 +163,22 @@ class EmployeeMaster < ActiveRecord::Base
     if self.changed_attributes.include? "ctc" or self.changed_attributes.include? "basic"
       self.special_allowance = SalaryBreakUpCreator.new(ctc, basic, probation_date, Date.today, designation_master.try(:name)).special_allowance.round
     end 
+  end
+
+  def date_of_birth_cannot_be_in_past
+    errors.add(:date_of_birth, "can't be in the future") if date_of_birth.present? and date_of_birth > Date.today
+  end
+
+  def date_of_joining_cannot_be_in_past
+    errors.add(:date_of_joining, "can't be in the future") if date_of_joining.present? and date_of_joining > Date.today
+  end
+
+  def date_of_resignation_cannot_be_less_than_joining
+    errors.add(:resignation_date, "can't be less than joining date") if resignation_date.present? and date_of_joining.present? and resignation_date < date_of_joining
+  end
+
+  def date_of_probation_cannot_be_less_than_joining 
+    errors.add(:probation_date, "can't be less than joining date") if probation_date.present? and date_of_joining.present? and probation_date < date_of_joining
   end
 
 end

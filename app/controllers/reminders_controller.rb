@@ -1,5 +1,5 @@
 class RemindersController < ApplicationController
-  before_action :set_reminder, only: [:show, :edit, :update, :destroy]
+  before_action :set_reminder, only: [:show, :edit, :update, :destroy, :mark_as_done]
 
   # GET /reminders
   # GET /reminders.json
@@ -59,6 +59,11 @@ class RemindersController < ApplicationController
       format.html { redirect_to reminders_url }
       format.json { head :no_content }
     end
+  end
+
+  def mark_as_done
+    @reminder.mark_as_done(session[:transaction_date])
+    redirect_to root_path
   end
 
   private

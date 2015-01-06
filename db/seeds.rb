@@ -67,7 +67,9 @@ def seed_salary_break_ups
 end
 
 def seed_remainders
-  Reminder.create(:description => "Employee Leaves" , :created_date => "2014-02-12" , :occurrence => "monthly")
+  Reminder.where(:description => "Employee Leaves").first_or_create(:description => "Employee Leaves", :created_date => Date.today.prev_month.end_of_month, :occurrence => "monthly")
+  Reminder.where(:description => "PF Generation").first_or_create(:description => "PF Generation", :created_date => Date.new(Date.today.prev_month.year, Date.today.prev_month.month, 15), :occurrence => "monthly")
+  Reminder.where(:description => "Leave Encashment").first_or_create(:description => "Leave Encashment", :created_date => Date.new(Date.today.year-1, 12, 31), :occurrence => "yearly")
 end
 
 def seed_day_end

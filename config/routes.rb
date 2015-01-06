@@ -13,7 +13,11 @@ PayrollManagement::Application.routes.draw do
     end
   end
 
-  resources :reminders
+  resources :reminders, :except => [:index, :show, :update, :delete, :edit, :new, :destroy]do
+    member do
+      put "mark_as_done"
+    end
+  end
 
   resources :designation_masters do
     collection do
