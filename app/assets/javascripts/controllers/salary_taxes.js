@@ -30,8 +30,12 @@
 
         $scope.broadCastRent = function(){
             $scope.salaryTax.rent_per_year = $scope.salaryTax.rent_per_month * 12
-            var rent_excess_salary = $window.Math.abs($scope.salaryTax.rent_per_year - ($scope.salaryTax.basic * 0.1))
-            $scope.salaryTax.rent_paid = $window.Math.min(rent_excess_salary, $scope.salaryTax.hra)
+            if($scope.salaryTax.rent_per_year > 0){
+                var rent_excess_salary = $window.Math.abs($scope.salaryTax.rent_per_year - ($scope.salaryTax.basic * 0.1))
+                $scope.salaryTax.rent_paid = $window.Math.min(rent_excess_salary, $scope.salaryTax.hra)
+            }else{
+                $scope.salaryTax.rent_paid = 0
+            }
             $scope.calculateTax()
         }
         
@@ -46,20 +50,23 @@
         
         $scope.broadcastInsuranceAmount = function(){
             var total = 0
+
             angular.forEach($scope.salaryTax.medical_insurances, function(val, index){
                 var estimatedAmount = $scope.taxLimits.mediclaim_employee_limit
-                if(val.parent_included){
-                    estimatedAmount += $scope.taxLimits.mediclaim_parent_limit
-                    if(val.parent_senior_citizen){
-                        estimatedAmount += $scope.taxLimits.mediclaim_parent_senior_citizen_limit
+                if(val.amount != null){
+                    if(val.parent_included){
+                        estimatedAmount += $scope.taxLimits.mediclaim_parent_limit
+                        if(val.parent_senior_citizen){
+                            estimatedAmount += $scope.taxLimits.mediclaim_parent_senior_citizen_limit
+                        }
                     }
-                }
-                if(parseInt(val.amount) <= estimatedAmount && (total + parseInt(val.amount)) <= estimatedAmount){
-                    total += parseInt(val.amount)
-                    
-                }else{
-                    alert("Insurance amount has been exceeded the limit "+ estimatedAmount)
-                    val.amount = 0
+                    if(parseInt(val.amount) <= estimatedAmount && (total + parseInt(val.amount)) <= estimatedAmount){
+                        total += parseInt(val.amount)
+                        
+                    }else{
+                        alert("Insurance amount has been exceeded the limit "+ estimatedAmount)
+                        val.amount = 0
+                    }
                 }
             })
             $scope.salaryTax.medical_insurances_total = total
@@ -78,7 +85,9 @@
         $scope.broadcastMedicalBillAmount = function(){
             var total = 0
             angular.forEach($scope.salaryTax.medical_bills, function(val, index){
-                total += parseInt(val.amount)
+                if(val.amount != null){
+                    total += parseInt(val.amount)
+                }
             })
             if(total <= $scope.salaryTax.medical_allowance){
                 $scope.salaryTax.claimed_medical_bill = total
@@ -94,7 +103,7 @@
             var lastSaving = $scope.salaryTax.savings[0]
             var newSaving = {}
             angular.forEach(lastSaving, function(val, key){
-                newSaving[key] = ""
+                newSaving[key] = null
             })
             $scope.salaryTax.savings.push(newSaving)
         }
@@ -103,12 +112,13 @@
             var total = 0
             angular.forEach($scope.salaryTax.savings, function(val, index){
                 var estimatedAmount = $scope.taxLimits.savings_up_to
-                if(parseInt(val.amount) <= estimatedAmount && (total + parseInt(val.amount)) <= estimatedAmount){
-                    total += parseInt(val.amount)
-                    
-                }else{
-                    alert("Savings amount has been exceeded the limit "+ estimatedAmount)
-                    val.amount = 0
+                if(val.amount != null){
+                    if(parseInt(val.amount) <= estimatedAmount && (total + parseInt(val.amount)) <= estimatedAmount){
+                        total += parseInt(val.amount)
+                    }else{
+                        alert("Savings amount has been exceeded the limit "+ estimatedAmount)
+                        val.amount = 0
+                    }
                 }
             })
             $scope.salaryTax.savings_total = total

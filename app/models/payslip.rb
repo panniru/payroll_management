@@ -108,7 +108,7 @@ class Payslip < ActiveRecord::Base
   end
 
   def payslip_pdf_password
-    "#{employee_master.code}-#{employee_master.date_of_birth}"
+    "#{employee_master.code}-#{employee_master.date_of_birth.present? ? employee_master.date_of_birth.strftime('%d-%m-%Y') : ''}"
   end
   
 
