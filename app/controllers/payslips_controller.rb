@@ -148,6 +148,7 @@ class PayslipsController < ApplicationController
   def bank_advice
     @month = params[:month]
     @year = params[:year]
+    params[:status] = 'approved'
     respond_to do |format|
       @payslips = Payslip.payslips_on_params(params, current_user)
       format.pdf do
