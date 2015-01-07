@@ -1,0 +1,23 @@
+.row
+  .col-xs-6
+    .col-xs-4
+      %label Name:
+    .col-xs-8
+      %label= link_to employee.name, employee
+  .col-xs-6
+    .col-xs-4
+      %label Code:
+    .col-xs-8
+      %label= employee.code
+.row
+  .col-xs-6
+    .col-xs-4
+      %label Designation:
+    .col-xs-8
+      %label= employee.designation_master.name 
+  .col-xs-6
+    .col-xs-4
+      %label Department:
+    .col-xs-8
+      %label= employee.department_master.name
+
